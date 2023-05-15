@@ -1,0 +1,9 @@
+project:
+  type: website
+  output-dir: docs
+  title: "CER-BEANS: Community Engaged Research Balanced Evaluation and Assessments with Nuanced Scores"
+
+format:
+  html:
+    theme: zephyr
+    

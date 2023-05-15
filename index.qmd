@@ -1,0 +1,717 @@
+---
+title: "CER-BEANS: Community Engaged Research Balanced Evaluation and Assessments with Nuanced Scores"
+subtitle: "A Framwork for Constructing Quantitative Metrics for Community Engaged Research Projects"
+author:
+  - name: Jeremy F Price 
+    url: https://www.jeremyfprice.info/
+    affiliation: IU School of Education-Indianapolis
+    affiliation_url: https://education.iupui.edu/
+    orcid: 0000-0002-6506-3526
+license: "CC BY-SA"
+mainfont: domine
+monofont: "JetBrains Mono"
+highlight-style: a11y
+theme: zephyr
+code-overflow: wrap
+citation:
+  type: document
+  issued: 2023
+  url: https://github.com/jeremyfprice/cer-beans
+google-scholar: true
+---
+
+```{r load-libraries, message = FALSE, warning=FALSE, echo = FALSE}
+library(scales)
+library(gt)
+library(dplyr)
+library(ggplot2)
+library(ggpubr)
+library(ggthemes)
+library(glue)
+library(showtext)
+library(ggrepel)
+library(ggtext)
+```
+
+```{r load-fonts, echo = FALSE, include=FALSE}
+font_add_google("Rubik", "rubik", regular.wt = 700)
+font_add_google("JetBrains Mono", "jetbrains", regular.wt = 700)
+font_add_google("Domine", "domine", regular.wt = 700)
+```
+
+## Introduction
+
+> "Every little bean must be heard as well as seen!"
+>
+> --- Erich Maria Remarque
+
+![A hill of important beans just waiting to be counted as imagined by Adobe Firefly](assets/hillofbeans2.jpg)
+
+Community Engaged Research Broad Evaluation and Assessments with Nuanced Scores (CER-BEANS),
+pronounced "Sir Beans."
+
+## Identifying the Metrics
+
+> "You never cook onions with your beans. That's a recipe for tear gas."
+>
+> --- Justin Swapp, <cite>The Shadow's Servant</cite>
+
+![An image of a medieval academic counting beans as imagined by Adobe Firefly](assets/beancounters3.jpg)
+
+When evaluating community-engaged programs, it's important to consider various metrics that assess different aspects of the program's effectiveness and impact.
+
+## Participants
+
+```{r participants-frame, echo = FALSE}
+participants_frame <- data.frame(
+  marginalized_proportions = c(
+    "No Marginalized Participants",
+    "A Few Marginalized Participants",
+    "Some Marginalized Participants",
+    "Just Under Half Marginalized Participants",
+    "About Half Marginalized Participants",
+    "Just Over Half Marginalized Participants",
+    "Mostly Marginalized Participants",
+    "Predominantly Marginalized Participants",
+    "Nearly All Marginalized Participants",
+    "All Marginalized Participants"
+  ),
+  intersectionally_marginalized = c(
+    "No Intersectionally Marginalized Participants",
+    "A Few Intersectionally Marginalized Participants",
+    "Some Intersectionally Marginalized Participants",
+    "Just Under Half Intersectionally Marginalized Participants",
+    "About Half Intersectionally Marginalized Participants",
+    "Just Over Half Intersectionally Marginalized Participants",
+    "Mostly Marginalized Intersectionally Participants",
+    "Predominantly Intersectionally Marginalized Participants",
+    "Nearly All Intersectionally Marginalized Participants",
+    "All Marginalized Intersectionally Participants"
+  ),
+  participants_value = c(
+    0.1,
+    0.25,
+    0.33,
+    0.4,
+    0.5,
+    0.75,
+    0.85,
+    0.9,
+    0.95,
+    1
+  ))
+gt(participants_frame)
+```
+
+### Number of Participants
+
+```{r}
+number_of_participants <- 6
+```
+
+### Marginalized Proportions Score
+
+```{r}
+marginalized_proportions_value <- 1
+marginalized_proportions_coefficient <- 1
+```
+
+### Intersectionally Marginalized Score
+
+```{r}
+intersectionally_marginalized_value <- .95
+intersectionally_marginalized_coefficient <- 1
+# 0.85 indicates one degree away, e.g., students of teachers, while 1 indicates
+# direct engagement
+```
+
+### Calculate Participation Score
+
+<div style="text-align: center;">$p_s = p_n \times \frac{(\beta_m \times p_m) + (\beta_i \times p_i)}{2}$</div>
+
+```{r calculate-participant-score, echo = FALSE}
+participant_average <- (((marginalized_proportions_value *
+                           marginalized_proportions_coefficient) +
+                          (intersectionally_marginalized_value *
+                             intersectionally_marginalized_coefficient))
+                        / 2)
+participant_average <- round(participant_average, 2)
+marginalized_proportions <- (marginalized_proportions_value *
+                                marginalized_proportions_coefficient)
+intersectionally_marginalized <- (intersectionally_marginalized_value *
+                                     intersectionally_marginalized_coefficient)
+participant_amplifier <- (1 + participant_average)
+participant_score <- (number_of_participants * participant_amplifier)
+
+participant_score_frame <- data.frame(
+  number_of_participants = number_of_participants,
+  marginalized_proportions = marginalized_proportions,
+  intersectionally_marginalized = intersectionally_marginalized,
+  participant_average = participant_average,
+  participant_amplifier = participant_amplifier,
+  participant_score = participant_score
+)
+
+gt(participant_score_frame)
+```
+
+## Engagement
+
+```{r engagement-frame, echo=FALSE}
+engagement_frame <- data.frame(
+  frequency = c(
+    "Once",
+    "Once Per Year",
+    "Several Times Per Year",
+    "Every Other Month",
+    "Once Per Month",
+    "Every Other Week",
+    "Once Per Week",
+    "2-4 Times Per Week",
+    "5 Times Per Week",
+    "Daily"
+  ),
+    duration = c(
+    "One Day",
+    "Less Than A Week",
+    "One Week",
+    "2-3 Weeks",
+    "One Month",
+    "One Semester",
+    "One Year",
+    "2-3 Years",
+    "3-10 Years",
+    "10+ Years"
+  ),
+  value = c(
+    0.1,
+    0.25,
+    0.33,
+    0.4,
+    0.5,
+    0.75,
+    0.85,
+    0.9,
+    0.95,
+    1
+  ))
+
+engagement_frame |>
+  gt()
+```
+
+### Engagement Hours
+
+```{r}
+engagement_hours <- 16
+```
+
+### Frequency
+
+```{r frequency-score}
+frequency_score <- 0.85
+```
+  
+### Duration
+
+```{r duration-score}
+duration_score <- 0.75
+```
+
+### Calculate Engagement Score
+
+<div style="text-align: center;">$e_s = e_h \times \frac{\sum{e_d, e_f}}{2}$</div>
+
+```{r calculate-engagement-score}
+engagement_average <- round(((duration_score + frequency_score) / 2), 2)
+engagement_amplifier <- (1 + engagement_average)
+engagement_score <- (engagement_hours * engagement_amplifier)
+
+engagement_score_frame <- data.frame(
+  engagement_hours = engagement_hours,
+  duration_score = duration_score,
+  frequency_score = frequency_score,
+  engagement_average = engagement_average,
+  engagement_amplifier = engagement_amplifier,
+  engagement_score = engagement_score
+)
+engagement_score_frame |>
+  gt()
+```
+
+## Infrastructure Score
+
+```{r infrastructure-frame, echo=FALSE}
+infrastructure_frame <- data.frame(
+  purpose = c(
+    "Promoting Efficiency Only",
+    "Promoting Predominantly Efficiency And Recognizing Plurality and Multivocality",
+    "Promoting Mostly Efficiency And Recognizing Plurality and Multivocality",
+    "Promoting Mostly Efficiency And Recognizing Plurality, Multivocality, and Honor",
+    "Promoting Efficiency, Plurality, Multivocality, and Honor Equitably"
+  ),
+    co_construction = c(
+    "Initiation and Construction From One Party",
+    "Initiation and Construction From One Party With Feedback By Another",
+    "Initiation From One Party and Construction By Another",
+    "Initiated and Constructed Mostly Equitably",
+    "Initiated and Constructed Equitably"
+  ),
+  value = c(
+    0.1,
+    0.5,
+    0.9,
+    0.95,
+    1
+  ))
+
+infrastructure_frame |>
+  gt()
+```
+
+### Number of Intrastructure/Intermediate Products
+
+```{r}
+number_of_infrastructure_products <- 8
+```
+
+### Infrastructure Purpose
+```{r}
+infrastructure_purpose <- 0.9
+```
+
+### Infrastructure Co-Construction
+```{r}
+infrastructure_co_construction <- 0.1
+```
+### Calculate Infrastructure Score
+
+<div style="text-align: center;">$i_s = i_p \times \frac{i_u + i_c}{2}$</div>
+
+```{r calculate-infrastructure-score}
+infrastructure_average <- round(((infrastructure_purpose + infrastructure_co_construction) / 2), 2)
+infrastructure_amplifier <- (1 + infrastructure_average)
+infrastructure_score <- (number_of_infrastructure_products * infrastructure_amplifier)
+
+infrastructures_score_frame <- data.frame(
+  number_of_infrastructure_products = number_of_infrastructure_products,
+  infrastructure_purpose = infrastructure_purpose,
+  infrastructure_co_construction = infrastructure_co_construction,
+  infrastructure_average = infrastructure_average,
+  infrastructure_amplifier = infrastructure_amplifier,
+  infrastructure_score = infrastructure_score
+)
+infrastructures_score_frame |>
+  gt()
+```
+
+## Outputs Score
+
+```{r outputs-frame, echo=FALSE}
+outputs_frame <- data.frame(
+  venues = c(
+    "Only One Type of Venue",
+    "Predominantly One Type of Venue",
+    "Mostly One Type of Venue",
+    "Almost Even Mix of Venues",
+    "Even Mix of Venues"
+  ),
+    inclusion = c(
+    "No Inclusion",
+    "Member Check Opportunities",
+    "Inclusion in Writing",
+    "Inclusion in Data Curation, Analysis, and Writing",
+    "Full Partnership"
+  ),
+  value = c(
+    0.1,
+    0.5,
+    0.9,
+    0.95,
+    1
+  ))
+
+outputs_frame |>
+  gt()
+```
+
+### Number of Outputs Products
+
+```{r}
+number_of_outputs <- 1
+```
+
+### Distribution of Venues
+
+```{r}
+distribution_of_venues <- 0.1
+```
+
+### Inclusion of Participants and Partners
+
+```{r}
+inclusion_of_participants <- 0.9
+```
+
+### Calculate Outputs Score
+
+```{r calculate-outputs-score}
+outputs_average <- round(((distribution_of_venues + inclusion_of_participants) / 2), 2)
+outputs_amplifier <- (1 + outputs_average)
+outputs_score <- (number_of_outputs * outputs_amplifier)
+
+outputs_score_frame <- data.frame(
+  number_of_outputs = number_of_outputs,
+  distribution_of_venues = distribution_of_venues,
+  inclusion_of_participants = inclusion_of_participants,
+  outputs_average = outputs_average,
+  outputs_amplifier = outputs_amplifier,
+  outputs_score = outputs_score
+)
+outputs_score_frame |>
+  gt()
+```
+
+## Sustainability
+
+```{r sustainability-frame, echo=FALSE}
+sustainability_frame <- data.frame(
+  responsibility = c(
+    "Responsibility Distributed to One Partner",
+    "Responsibility Predominantly Distributed to One Partner",
+    "Responsibility Mostly Distributed to One or More Partners",
+    "Almost Equitable Distribution of Responsibility Across Partners",
+    "Equitable Distribution of Responsibility Across Partners"
+  ),
+    material = c(
+    "No Material Support",
+    "Material Support Predominantly Through One Partner",
+    "Material Support Mostly Through One or More Partners",
+    "Material Support Almost Equitably Distributed Across Partners",
+    "Equitable Material Support Across Partners"
+  ),
+  value = c(
+    0.1,
+    0.5,
+    0.9,
+    0.95,
+    1
+  ))
+
+sustainability_frame |>
+  gt()
+```
+
+### Number of Institutional Partners
+
+```{r}
+number_of_partners <- 2
+```
+
+### Distribution of Responsibility
+
+```{r}
+distribution_of_responsibility <- 0.5
+```
+
+### Distribution of Material Support
+
+```{r}
+distribution_of_material_support <- 0.1
+```
+
+### Calculate Sustainability Score
+
+```{r calculate-sustainability-score}
+sustainability_average <- round(((distribution_of_responsibility + distribution_of_material_support) / 2), 2)
+sustainability_amplifier <- (1 + sustainability_average)
+sustainability_score <- (number_of_partners * sustainability_amplifier)
+
+sustainability_score_frame <- data.frame(
+  number_of_partners = number_of_partners,
+  distribution_of_responsibility = distribution_of_responsibility,
+  distribution_of_material_support = distribution_of_material_support,
+  sustainability_average = sustainability_average,
+  sustainability_amplifier = sustainability_amplifier,
+  sustainability_score = sustainability_score
+)
+sustainability_score_frame |>
+  gt()
+```
+
+## Overall Representation
+
+```{r represent, fig.showtext=TRUE, warning=FALSE, message=FALSE, echo=FALSE}
+iu_palette = c(
+  "#99000088",
+  "#FFAA0088",
+  "#00629888",
+  "#59264D88",
+  "#056E4188"
+  )
+
+category_names <- c(
+  "Sustainability",
+  "Outputs",
+  "Infrastructure",
+  "Engagement",
+  "Participation"
+)
+
+category_levels <- c(
+  "Participation",
+  "Engagement",
+  "Infrastructure",
+  "Outputs",
+  "Sustainability"
+)
+
+overall_frame <- data.frame(
+  names = c(
+    "Participation",
+    "Engagement",
+    "Sustainability",
+    "Infrastructure",
+    "Outputs"
+  ),
+  label = c(
+    glue("Participation\n{participant_average}"),
+    glue("Engagement\n{engagement_average}"),
+    glue("Sustainability\n{sustainability_average}"),
+    glue("Infrastructure\n{infrastructure_average}"),
+    glue("Outputs\n{outputs_average}")
+  ),
+  score = c(
+    participant_average,
+    engagement_average,
+    sustainability_average,
+    infrastructure_average,
+    outputs_average
+    )
+  )
+
+overall_frame$names <- factor(
+  overall_frame$names,
+  levels = category_levels
+)
+
+overall_score <-
+  participant_score +
+  engagement_score +
+  infrastructure_score +
+  outputs_score +
+  sustainability_score
+
+overall_score <- round(overall_score, 0)
+
+bean_donut <- ggdonutchart(
+  overall_frame, "score",
+  fill = "names", color = "#EDEBEB",
+  palette = iu_palette,
+  lab.font = "#191919",
+  font.family = "rubik"
+  ) +
+  annotate(
+    geom = "text",
+    x = 0.5,
+    y = 0,
+    label = overall_score,
+    size = 18,
+    family = "jetbrains"
+    ) +
+  theme(
+    legend.position = "none",
+    panel.background = element_rect(fill='transparent'),
+    plot.background = element_rect(fill='transparent', color=NA)
+    )
+
+simple_frame <- overall_frame |>
+  select(-label)
+
+simple_donut <- ggdonutchart(
+  simple_frame, "score",
+  fill = "names", color = "#EDEBEB",
+  palette = iu_palette,
+  label = "names",
+  lab.pos = "in"
+  ) +
+  annotate(
+    geom = "text",
+    x = 0.5,
+    y = 0,
+    label = overall_score,
+    size = 18,
+    family = "jetbrains"
+    ) +
+  theme(
+    legend.position = "none",
+    panel.background = element_rect(fill='transparent'),
+    plot.background = element_rect(fill='transparent', color=NA)
+    )
+
+raw_frame <- data.frame(
+  names = c(
+    "Participation",
+    "Engagement",
+    "Infrastructure",
+    "Outputs",
+    "Sustainability"
+  ),
+  label = c(
+    glue("{number_of_participants} Participants"),
+    glue("{engagement_hours} Hours"),
+    glue("{number_of_infrastructure_products} Infrastructures"),
+    glue("{number_of_outputs} Outputs"),
+    glue("{number_of_partners} Partners")
+  ),
+  values = c(
+    number_of_participants,
+    engagement_hours,
+    number_of_infrastructure_products,
+    number_of_outputs,
+    number_of_partners
+  ),
+  bean = c(
+    "BEAN",
+    "BEAN",
+    "BEAN",
+    "BEAN",
+    "BEAN"
+  )
+)
+
+raw_frame$names <- factor(
+  raw_frame$names,
+  levels = rev(category_levels)
+)
+
+raw_frame$values_adjusted <- rescale(raw_frame$values, to = c(3,100))
+
+raw_bar <- ggplot(raw_frame, aes(x = bean, y = values_adjusted, fill = names)) +
+  geom_bar(
+    stat = "identity",
+    width = 1,
+    color = "#EDEBEB"
+    ) +
+  coord_flip() +
+  scale_fill_manual(values = rev(iu_palette)) +
+  theme_light() +
+  theme(legend.position = "none",
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        panel.border = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+    panel.background = element_rect(fill='transparent'),
+    plot.background = element_rect(fill='transparent', color=NA)
+    )
+
+label_frame <- data.frame(
+  x = 1,
+  y = 2,
+  label = glue(
+    "<span style='color:#99000088;'>█</span> <span style='color:#990000;'><b>{number_of_participants}</b></span> Participants <span style='color:#FFAA0088;'>█</span> <span style='color:#FFAA00;'><b>{engagement_hours}</b></span> Engagement Hours <span style='color:#00629888;'>█</span> <span style='color:#006298;'><b>{number_of_infrastructure_products}</b></span> Infrastructure Products <span style='color:#59264D88;'>█</span> <span style='color:#59264D;'><b>{number_of_outputs}</b></span> Outputs <span style='color:#056E4188;'>█</span> <span style='color:#056E41;'><b>{number_of_partners}</b></span> Partners"
+    )
+  )
+
+label_line <- ggplot(
+  label_frame,
+  aes(
+    x = x,
+    y = y,
+    label = label
+    )
+  ) +
+  geom_richtext(
+    fill = NA,
+    label.color = NA,
+    color = "#191919",
+    size = 3.5
+  ) +
+  theme_light() +
+  theme(
+    legend.position = "none",
+    axis.title = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    panel.border = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.background = element_rect(fill='transparent'),
+    plot.background = element_rect(fill='transparent', color=NA)
+    )
+
+credit_frame <- data.frame(
+  x = 1,
+  y = 1,
+  label = glue("Community Engaged Research Balanced Evaluation and Assessments with Nuanced Scores -- Generated {Sys.Date()} -- CC BY-NC-SA 4.0")
+)
+credit_line <- ggplot(
+  credit_frame,
+  aes(
+    x = x,
+    y = y,
+    label = label
+    )
+  ) +
+  geom_richtext(
+    fill = NA,
+    label.color = NA,
+    color = "#191919",
+    size = 2.5
+  ) +
+  theme_light() +
+  theme(
+    legend.position = "none",
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.border = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+    panel.background = element_rect(fill='transparent'),
+    plot.background = element_rect(fill='transparent', color=NA)
+    )
+
+detailed_badge <- ggarrange(
+  bean_donut,
+  raw_bar,
+  label_line,
+  credit_line,
+  ncol = 1,
+  nrow = 4,
+  heights = c(8, 1, 1, 1)
+  )
+ggsave(
+  detailed_badge,
+  filename = "assets/detailed_badge.png",
+  dpi = 320,
+  width = 8,
+  height = 8,
+  units = "in"
+  )
+
+simple_badge <- ggarrange(
+  simple_donut,
+  credit_line,
+  ncol = 1,
+  nrow = 2,
+  heights = c(8,1)
+)
+ggsave(
+  simple_badge,
+  filename = "assets/simple_badge.png",
+  dpi = 320,
+  width = 8,
+  height = 8,
+  units = "in"
+  )
+```
+
+### Simple Badge
+
+![An example of a simple badge that simply presents the proportionality of the project with the total score.](assets/simple_badge.png)
+
+### Detailed Badge
+
+![An example of a detailed badge. This badge contains multiple levels of information including the total score, individual scores, and raw scores.](assets/detailed_badge.png)
