@@ -13,6 +13,7 @@ monofont: "JetBrains Mono"
 highlight-style: a11y
 theme: zephyr
 code-overflow: wrap
+reference-location: margin
 citation:
   type: document
   issued: 2023
