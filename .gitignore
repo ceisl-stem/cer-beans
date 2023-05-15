@@ -50,3 +50,4 @@ rsconnect/
 /_site/
 
 .DS_Store
+*.Rproj
