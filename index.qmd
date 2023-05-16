@@ -22,7 +22,6 @@ citation:
   issued: 2023
   url: https://github.com/jeremyfprice/cer-beans
 google-scholar: true
-csl: assets/apa.csl
 ---
 
 ```{r load-libraries, message = FALSE, warning=FALSE, echo = FALSE}
