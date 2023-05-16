@@ -13,12 +13,16 @@ monofont: "JetBrains Mono"
 highlight-style: a11y
 code-overflow: wrap
 reference-location: margin
+cap-location: margin
+link-external-icon: false
+link-external-newwindow: true
 repo-url: https://github.com/jeremyfprice/cer-beans
 citation:
   type: document
   issued: 2023
   url: https://github.com/jeremyfprice/cer-beans
 google-scholar: true
+csl: assets/apa.csl
 ---
 
 ```{r load-libraries, message = FALSE, warning=FALSE, echo = FALSE}
@@ -49,7 +53,7 @@ font_add_google("Domine", "domine", regular.wt = 700)
 ![A hill of important beans just waiting to be counted as imagined by Adobe Firefly](assets/hillofbeans2.jpg)
 
 Quantitative measures capture only a small piece of the (bean) pie, but people
-in academia ❤️ **love** ❤️ putting numbers on things and counting them (beans).
+in academia ❤️&nbsp**love**&nbsp;❤️ putting numbers on things and counting them (beans).
 
 Rather than sitting back and stewing like a pot of vegetarian chili while fretting
 about whether or not faculty committees and administrators will count the kinds of
@@ -90,25 +94,9 @@ like to make it official. Contributions are welcomed, please read the
 >
 > --- Justin Swapp, <cite>The Shadow's Servant</cite>
 
-![An image of a medieval academic counting beans as imagined by Adobe Firefly](assets/beancounters3.jpg)
+![An image of medieval academics counting beans as imagined by Adobe Firefly](assets/beancounters3.jpg)
 
-When evaluating community-engaged programs, it's important to consider various metrics that assess different aspects of the program's effectiveness and impact. CER-BEANS focuses on
-*five areas,* or shall we say, *hills*, that are each comprised of *three components*.
-Each of the components contribute to the individual area scores, each of which
-contribute to the *overall* CER-BEANS score.
-
-These areas that contribute to the overall CER-BEANS score are:
-
-1. Participants
-2. Engagement
-3. Infrastructures
-4. Outputs
-5. Sustainability
-
-Each of these areas and their components are described in some detail below. The
-idea, the math, the concepts, are all licensed under a [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license[The code itself is licensed under an even more permissible MIT License]{.aside}, so you are welcome
-to take these ideas and adapt them to your particular needs and preferences (as
-long as you give credit where credit is due and share your adapted work alike).
+When evaluating community-engaged programs, it's important to consider various metrics that assess different aspects of the program's effectiveness and impact.
 
 :::{.callout-warning}
 
@@ -122,23 +110,51 @@ easily recognizable and considered a valid form of evidence.
 These numbers are a guidepost for your readers--or more likely--your evaluators.
 :::
 
-[I make bean stalks, I'm<br />A builder, like yourself.<br /><br />-- Edna St. Vincent Millay, [The Bean-Stalk](https://americanliterature.com/author/edna-st-vincent-millay/poem/the-bean-stalk)]{.aside}
+Now that I've provided the warning, remember that academics are first and foremost
+makers of bean stalks[I make bean stalks, I'm<br />A builder, like yourself.<br />-- Edna St. Vincent Millay, [The Bean-Stalk](https://americanliterature.com/author/edna-st-vincent-millay/poem/the-bean-stalk)]{.aside}: we are trained to make cases and construct narratives.
+Here are some tips for you to consider about what CER-BEANS *does* provide for
+you as you construct a narrative around your work:
 
-:::{.callout-tip}
+::: {.panel-tabset}
 
-## For Makers of Bean Stalks
+## 🪞 Reflection
+It provides an overall reflection on your work and where you have focused your energies. CER-BEANS gives you an indication of the impact your work has had, allowing you to discuss your successes.
 
-Now that I've provided the warning, here are some tips for you to consider about
-what CER-BEANS *does* provide for you as you construct a narrative around your work:
+## 📸 Snapshot
+It provides a snapshot of where you are in a longer process, what has worked well so far, and where you will be focusing your efforts in the near future.
 
-* It provides an overall *reflection* on your work and where you have focused your energies.
-CER-BEANS gives you an indication of the impact your work has had, allowing you to
-discuss your successes.
-* It provides a *snapshot* of where you are in a longer process, what has
-worked well so far, and where you will be focusing your efforts in the near future.
-* It provides a rough *map* of where your and your collaborators, partners, and participants
-can take the work moving forward.
+## 🗺️ Map
+It provides a rough map of where your and your collaborators, partners, and participants can take the work moving forward.
+
 :::
+
+CER-BEANS focuses on *five areas,* or shall we say, *hills*, and they each
+result in an **area score**. Each of the area scores contribute to the overall
+CER-BEANS score. These are the five areas:
+
+1. Participants
+2. Engagement
+3. Infrastructures
+4. Outputs
+5. Sustainability
+
+Each of the **area scores** ($S_a$) follow a predictable pattern, that includes some
+**impact number** ($I_a$) that is amplified by a set of **area component ratings** ($R_a$,
+individual ratings represented by $r_1 \ldots r_a$). Here is the general formula for an area score:
+
+$$
+S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
+$$
+
+
+contribute to the individual area scores, each of which
+contribute to the *overall* CER-BEANS score.
+
+Each of these areas and their components are described in some detail below. The
+idea, the math, the concepts, are all licensed under a [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license[The code itself is licensed similarly under an [MIT License](https://github.com/jeremyfprice/cer-beans/blob/main/LICENSE).]{.aside}, so you are welcome
+
+to take these ideas and adapt them to your particular needs and preferences (as
+long as you give credit where credit is due and share your adapted work alike).
 
 ## Participants
 
