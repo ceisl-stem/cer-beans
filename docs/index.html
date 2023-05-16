@@ -192,7 +192,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p></p><figcaption class="figure-caption margin-caption">A hill of important beans just waiting to be counted as imagined by Adobe Firefly</figcaption><p></p>
 </figure>
 </div>
-<p>Quantitative measures capture only a small piece of the (bean) pie, but people in academia ❤️&amp;nbsp<strong>love</strong>&nbsp;❤️ putting numbers on things and counting them (beans).</p>
+<p>Quantitative measures capture only a small piece of the (bean) pie, but people in academia ❤️&nbsp;<strong>love</strong>&nbsp;❤️ putting numbers on things and counting them (beans).</p>
 <p>Rather than sitting back and stewing like a pot of vegetarian chili while fretting about whether or not faculty committees and administrators will count the kinds of beans I hope they would count, I decided to create my own set of beans for them to count. Therefore:</p>
 <div class="page-columns page-full"><p><strong>Community Engaged Research Broad Evaluation and Assessments with Nuanced Scores (CER-BEANS)</strong></p><div class="no-row-height column-margin column-container"><span class="">CER-BEANS is pronounced “Sir&nbsp;Beans.”</span></div></div>
 <p>I was inspired by the <a href="https://www.altmetric.com/">Altmetric badge</a>, so I want to make sure to create a system of beans that is:</p>
@@ -247,21 +247,24 @@ If You Had a Roomful of Awards that Didn’t Mean Beans…
 </div>
 </div>
 <div class="page-columns page-full"><p>Now that I’ve provided the warning, remember that academics are first and foremost makers of bean stalks: we are trained to make cases and construct narratives. Here are some tips for you to consider about what CER-BEANS <em>does</em> provide for you as you construct a narrative around your work:</p><div class="no-row-height column-margin column-container"><span class="">I make bean stalks, I’m<br>A builder, like yourself.<br>– Edna St.&nbsp;Vincent Millay, <a href="https://americanliterature.com/author/edna-st-vincent-millay/poem/the-bean-stalk">The Bean-Stalk</a></span></div></div>
-<div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">🪞 Reflection</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">📸 Snapshot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">🗺️ Map</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>It provides an overall reflection on your work and where you have focused your energies. CER-BEANS gives you an indication of the impact your work has had, allowing you to discuss your successes.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>It provides a snapshot of where you are in a longer process, what has worked well so far, and where you will be focusing your efforts in the near future.</p>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<p>It provides a rough map of where your and your collaborators, partners, and participants can take the work moving forward.</p>
+<div class="callout-caption-container flex-fill">
+Ways to Build Bean Stalks
 </div>
 </div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>🪞 <strong>Reflection:</strong> It provides an overall reflection on your work and where you have focused your energies. CER-BEANS gives you an indication of the impact your work has had, allowing you to discuss your successes.</p></li>
+<li><p>📸 <strong>Snapshot:</strong> It provides a snapshot of where you are in a longer process, what has worked well so far, and where you will be focusing your efforts in the near future.</p></li>
+<li><p>🗺️ <strong>Map:</strong> It provides a rough map of where you and your collaborators, partners, and participants can take the work moving forward.</p></li>
+</ul>
 </div>
-<p>CER-BEANS focuses on <em>five areas,</em> or shall we say, <em>hills</em>, and they each result in an <strong>area score</strong>. Each of the area scores contribute to the overall CER-BEANS score. These are the five areas:</p>
+</div>
+<p>CER-BEANS focuses on <em>five categories</em> and they each result in an <code>category score</code>. Each of the category scores contribute to the <code>overall score</code>. These are the five categories:</p>
 <ol type="1">
 <li>Participants</li>
 <li>Engagement</li>
@@ -269,36 +272,41 @@ If You Had a Roomful of Awards that Didn’t Mean Beans…
 <li>Outputs</li>
 <li>Sustainability</li>
 </ol>
-<p>Each of the <strong>area scores</strong> (<span class="math inline">\(S_a\)</span>) follow a predictable pattern, that includes some <strong>impact number</strong> (<span class="math inline">\(I_a\)</span>) that is amplified by a set of <strong>area component ratings</strong> (<span class="math inline">\(R_a\)</span>, individual ratings represented by <span class="math inline">\(r_1 \ldots r_a\)</span>). Here is the general formula for an area score:</p>
+<p>Each of the <code>category scores</code> (<span class="math inline">\(S_C\)</span>) follow a predictable pattern, that includes an <code>impact number</code> (<span class="math inline">\(I_C\)</span>) that is amplified by a set of <strong>category component ratings</strong> (<span class="math inline">\(R_C\)</span>, individual ratings represented by <span class="math inline">\(r_{C1} \ldots r_C\)</span>). This is the general formula for a <code>category score</code>:</p>
 <p><span class="math display">\[
-S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
+S_C = I_C \cdot \left(1 + \frac{\sum r_{C_1} \ldots r_{C_n}}{|R_C|}\right)
 \]</span></p>
-<p>contribute to the individual area scores, each of which contribute to the <em>overall</em> CER-BEANS score.</p>
-<div class="page-columns page-full"><p>Each of these areas and their components are described in some detail below. The idea, the math, the concepts, are all licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> license, so you are welcome</p><div class="no-row-height column-margin column-container"><span class="">The code itself is licensed similarly under an <a href="https://github.com/jeremyfprice/cer-beans/blob/main/LICENSE">MIT License</a>.</span></div></div>
-<p>to take these ideas and adapt them to your particular needs and preferences (as long as you give credit where credit is due and share your adapted work alike).</p>
+<p>The process for computing each of the category scores is essentially calculating the average for the ratings in the category and then adding 1 to this average since the ratings are between 0 and 1 and only numbers greater than 1 will amplify things. The <code>amplifier score</code> is then multiplied by the <code>impact number</code>, which can be the number of participants, contact hours, institutional partners, etc.</p>
+<p>The categories contribute to the <code>overall score</code> (<span class="math inline">\(S_O\)</span>) as a straight-forward summation of all the category scores:</p>
+<p><span class="math display">\[
+S_O = \sum_{x=1}^n s_x
+\]</span></p>
+<p>This <code>overall score</code> is similar to the <a href="https://www.altmetric.com/about-us/our-data/donut-and-altmetric-attention-score/#:~:text=The%20Altmetric%20Attention%20Score%20is%20an%20automatically%20calculated,3%20main%20factors:">Altmetric Attention Score</a> in that it is a <em>weighted count</em>. The <code>overall score</code> increases</p>
+<div class="page-columns page-full"><p>Each of these categories and their components are described in some detail below. The idea, the math, the concepts, are all licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> license, so you are welcome to take these ideas and adapt them to your particular needs and preferences (as long as you give credit where credit is due and share your adapted work alike).</p><div class="no-row-height column-margin column-container"><span class="">The code itself is licensed similarly under an <a href="https://github.com/jeremyfprice/cer-beans/blob/main/LICENSE">MIT License</a>.</span></div></div>
 </section>
 <section id="participants" class="level2">
 <h2 class="anchored" data-anchor-id="participants">Participants</h2>
+<p>People Involved</p>
 <div class="cell">
 <div class="cell-output-display">
 
-<div id="lymdltxxgm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lymdltxxgm table {
+<div id="anvrbxnvnk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#anvrbxnvnk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lymdltxxgm thead, #lymdltxxgm tbody, #lymdltxxgm tfoot, #lymdltxxgm tr, #lymdltxxgm td, #lymdltxxgm th {
+#anvrbxnvnk thead, #anvrbxnvnk tbody, #anvrbxnvnk tfoot, #anvrbxnvnk tr, #anvrbxnvnk td, #anvrbxnvnk th {
   border-style: none;
 }
 
-#lymdltxxgm p {
+#anvrbxnvnk p {
   margin: 0;
   padding: 0;
 }
 
-#lymdltxxgm .gt_table {
+#anvrbxnvnk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -324,12 +332,12 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-left-color: #D3D3D3;
 }
 
-#lymdltxxgm .gt_caption {
+#anvrbxnvnk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lymdltxxgm .gt_title {
+#anvrbxnvnk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -341,7 +349,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-width: 0;
 }
 
-#lymdltxxgm .gt_subtitle {
+#anvrbxnvnk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -353,7 +361,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-width: 0;
 }
 
-#lymdltxxgm .gt_heading {
+#anvrbxnvnk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -365,13 +373,13 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#lymdltxxgm .gt_bottom_border {
+#anvrbxnvnk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lymdltxxgm .gt_col_headings {
+#anvrbxnvnk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -386,7 +394,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#lymdltxxgm .gt_col_heading {
+#anvrbxnvnk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -406,7 +414,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#lymdltxxgm .gt_column_spanner_outer {
+#anvrbxnvnk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -418,15 +426,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 4px;
 }
 
-#lymdltxxgm .gt_column_spanner_outer:first-child {
+#anvrbxnvnk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lymdltxxgm .gt_column_spanner_outer:last-child {
+#anvrbxnvnk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lymdltxxgm .gt_column_spanner {
+#anvrbxnvnk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -438,11 +446,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   width: 100%;
 }
 
-#lymdltxxgm .gt_spanner_row {
+#anvrbxnvnk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lymdltxxgm .gt_group_heading {
+#anvrbxnvnk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -468,7 +476,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   text-align: left;
 }
 
-#lymdltxxgm .gt_empty_group_heading {
+#anvrbxnvnk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -483,15 +491,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: middle;
 }
 
-#lymdltxxgm .gt_from_md > :first-child {
+#anvrbxnvnk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lymdltxxgm .gt_from_md > :last-child {
+#anvrbxnvnk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lymdltxxgm .gt_row {
+#anvrbxnvnk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -510,7 +518,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#lymdltxxgm .gt_stub {
+#anvrbxnvnk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -523,7 +531,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#lymdltxxgm .gt_stub_row_group {
+#anvrbxnvnk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -537,15 +545,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: top;
 }
 
-#lymdltxxgm .gt_row_group_first td {
+#anvrbxnvnk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lymdltxxgm .gt_row_group_first th {
+#anvrbxnvnk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lymdltxxgm .gt_summary_row {
+#anvrbxnvnk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -555,16 +563,16 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#lymdltxxgm .gt_first_summary_row {
+#anvrbxnvnk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lymdltxxgm .gt_first_summary_row.thick {
+#anvrbxnvnk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lymdltxxgm .gt_last_summary_row {
+#anvrbxnvnk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -574,7 +582,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#lymdltxxgm .gt_grand_summary_row {
+#anvrbxnvnk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -584,7 +592,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#lymdltxxgm .gt_first_grand_summary_row {
+#anvrbxnvnk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -594,7 +602,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-color: #D3D3D3;
 }
 
-#lymdltxxgm .gt_last_grand_summary_row_top {
+#anvrbxnvnk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -604,11 +612,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#lymdltxxgm .gt_striped {
+#anvrbxnvnk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lymdltxxgm .gt_table_body {
+#anvrbxnvnk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -617,7 +625,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#lymdltxxgm .gt_footnotes {
+#anvrbxnvnk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -631,7 +639,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#lymdltxxgm .gt_footnote {
+#anvrbxnvnk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -640,7 +648,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#lymdltxxgm .gt_sourcenotes {
+#anvrbxnvnk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -654,7 +662,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#lymdltxxgm .gt_sourcenote {
+#anvrbxnvnk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -662,63 +670,63 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#lymdltxxgm .gt_left {
+#anvrbxnvnk .gt_left {
   text-align: left;
 }
 
-#lymdltxxgm .gt_center {
+#anvrbxnvnk .gt_center {
   text-align: center;
 }
 
-#lymdltxxgm .gt_right {
+#anvrbxnvnk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lymdltxxgm .gt_font_normal {
+#anvrbxnvnk .gt_font_normal {
   font-weight: normal;
 }
 
-#lymdltxxgm .gt_font_bold {
+#anvrbxnvnk .gt_font_bold {
   font-weight: bold;
 }
 
-#lymdltxxgm .gt_font_italic {
+#anvrbxnvnk .gt_font_italic {
   font-style: italic;
 }
 
-#lymdltxxgm .gt_super {
+#anvrbxnvnk .gt_super {
   font-size: 65%;
 }
 
-#lymdltxxgm .gt_footnote_marks {
+#anvrbxnvnk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lymdltxxgm .gt_asterisk {
+#anvrbxnvnk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lymdltxxgm .gt_indent_1 {
+#anvrbxnvnk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lymdltxxgm .gt_indent_2 {
+#anvrbxnvnk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lymdltxxgm .gt_indent_3 {
+#anvrbxnvnk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lymdltxxgm .gt_indent_4 {
+#anvrbxnvnk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lymdltxxgm .gt_indent_5 {
+#anvrbxnvnk .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -780,7 +788,6 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
 <h3 class="anchored" data-anchor-id="marginalized-proportions-score">Marginalized Proportions Score</h3>
 <p>How many of the participants represent and come from marginalized identities and communities? This is <span class="math inline">\(p_m\)</span>.</p>
 <p>Also, are you working directly with these marginalized participants, or are you working with others (such as teachers or health care workers) who are working with these identities and communities?</p>
-<p>It is up to your</p>
 <div class="cell">
 
 </div>
@@ -796,29 +803,29 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
 </section>
 <section id="calculate-participation-score" class="level3">
 <h3 class="anchored" data-anchor-id="calculate-participation-score">Calculate Participation Score</h3>
-<div style="text-align: center;">
-<span class="math inline">\(p_s = p_n \times \frac{(\beta_m \times p_m) + (\beta_i \times p_i)}{2}\)</span>
-</div>
+<p><span class="math display">\[
+p_s = p_n \cdot \left( 1 + \frac{(\beta_m \cdot p_m + \beta_i \cdot p_i)}{2} \right)
+\]</span></p>
 <div class="cell">
 <div class="cell-output-display">
 
-<div id="kqoodajkld" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kqoodajkld table {
+<div id="grwubcqewr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#grwubcqewr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kqoodajkld thead, #kqoodajkld tbody, #kqoodajkld tfoot, #kqoodajkld tr, #kqoodajkld td, #kqoodajkld th {
+#grwubcqewr thead, #grwubcqewr tbody, #grwubcqewr tfoot, #grwubcqewr tr, #grwubcqewr td, #grwubcqewr th {
   border-style: none;
 }
 
-#kqoodajkld p {
+#grwubcqewr p {
   margin: 0;
   padding: 0;
 }
 
-#kqoodajkld .gt_table {
+#grwubcqewr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -844,12 +851,12 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-left-color: #D3D3D3;
 }
 
-#kqoodajkld .gt_caption {
+#grwubcqewr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kqoodajkld .gt_title {
+#grwubcqewr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -861,7 +868,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-width: 0;
 }
 
-#kqoodajkld .gt_subtitle {
+#grwubcqewr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -873,7 +880,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-width: 0;
 }
 
-#kqoodajkld .gt_heading {
+#grwubcqewr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -885,13 +892,13 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#kqoodajkld .gt_bottom_border {
+#grwubcqewr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kqoodajkld .gt_col_headings {
+#grwubcqewr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -906,7 +913,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#kqoodajkld .gt_col_heading {
+#grwubcqewr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -926,7 +933,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#kqoodajkld .gt_column_spanner_outer {
+#grwubcqewr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -938,15 +945,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 4px;
 }
 
-#kqoodajkld .gt_column_spanner_outer:first-child {
+#grwubcqewr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kqoodajkld .gt_column_spanner_outer:last-child {
+#grwubcqewr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kqoodajkld .gt_column_spanner {
+#grwubcqewr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -958,11 +965,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   width: 100%;
 }
 
-#kqoodajkld .gt_spanner_row {
+#grwubcqewr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kqoodajkld .gt_group_heading {
+#grwubcqewr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -988,7 +995,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   text-align: left;
 }
 
-#kqoodajkld .gt_empty_group_heading {
+#grwubcqewr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1003,15 +1010,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: middle;
 }
 
-#kqoodajkld .gt_from_md > :first-child {
+#grwubcqewr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kqoodajkld .gt_from_md > :last-child {
+#grwubcqewr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kqoodajkld .gt_row {
+#grwubcqewr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1030,7 +1037,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#kqoodajkld .gt_stub {
+#grwubcqewr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1043,7 +1050,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#kqoodajkld .gt_stub_row_group {
+#grwubcqewr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1057,15 +1064,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: top;
 }
 
-#kqoodajkld .gt_row_group_first td {
+#grwubcqewr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kqoodajkld .gt_row_group_first th {
+#grwubcqewr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kqoodajkld .gt_summary_row {
+#grwubcqewr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1075,16 +1082,16 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#kqoodajkld .gt_first_summary_row {
+#grwubcqewr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kqoodajkld .gt_first_summary_row.thick {
+#grwubcqewr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kqoodajkld .gt_last_summary_row {
+#grwubcqewr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1094,7 +1101,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#kqoodajkld .gt_grand_summary_row {
+#grwubcqewr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1104,7 +1111,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#kqoodajkld .gt_first_grand_summary_row {
+#grwubcqewr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1114,7 +1121,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-color: #D3D3D3;
 }
 
-#kqoodajkld .gt_last_grand_summary_row_top {
+#grwubcqewr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1124,11 +1131,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#kqoodajkld .gt_striped {
+#grwubcqewr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kqoodajkld .gt_table_body {
+#grwubcqewr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1137,7 +1144,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#kqoodajkld .gt_footnotes {
+#grwubcqewr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1151,7 +1158,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#kqoodajkld .gt_footnote {
+#grwubcqewr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1160,7 +1167,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#kqoodajkld .gt_sourcenotes {
+#grwubcqewr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1174,7 +1181,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#kqoodajkld .gt_sourcenote {
+#grwubcqewr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1182,63 +1189,63 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#kqoodajkld .gt_left {
+#grwubcqewr .gt_left {
   text-align: left;
 }
 
-#kqoodajkld .gt_center {
+#grwubcqewr .gt_center {
   text-align: center;
 }
 
-#kqoodajkld .gt_right {
+#grwubcqewr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kqoodajkld .gt_font_normal {
+#grwubcqewr .gt_font_normal {
   font-weight: normal;
 }
 
-#kqoodajkld .gt_font_bold {
+#grwubcqewr .gt_font_bold {
   font-weight: bold;
 }
 
-#kqoodajkld .gt_font_italic {
+#grwubcqewr .gt_font_italic {
   font-style: italic;
 }
 
-#kqoodajkld .gt_super {
+#grwubcqewr .gt_super {
   font-size: 65%;
 }
 
-#kqoodajkld .gt_footnote_marks {
+#grwubcqewr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kqoodajkld .gt_asterisk {
+#grwubcqewr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kqoodajkld .gt_indent_1 {
+#grwubcqewr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kqoodajkld .gt_indent_2 {
+#grwubcqewr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kqoodajkld .gt_indent_3 {
+#grwubcqewr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kqoodajkld .gt_indent_4 {
+#grwubcqewr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kqoodajkld .gt_indent_5 {
+#grwubcqewr .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1272,26 +1279,27 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
 </section>
 <section id="engagement" class="level2">
 <h2 class="anchored" data-anchor-id="engagement">Engagement</h2>
+<p>Number of contact hours <span class="math inline">\(e_h\)</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
 
-<div id="peisjonvga" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#peisjonvga table {
+<div id="zjzejwwafu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zjzejwwafu table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#peisjonvga thead, #peisjonvga tbody, #peisjonvga tfoot, #peisjonvga tr, #peisjonvga td, #peisjonvga th {
+#zjzejwwafu thead, #zjzejwwafu tbody, #zjzejwwafu tfoot, #zjzejwwafu tr, #zjzejwwafu td, #zjzejwwafu th {
   border-style: none;
 }
 
-#peisjonvga p {
+#zjzejwwafu p {
   margin: 0;
   padding: 0;
 }
 
-#peisjonvga .gt_table {
+#zjzejwwafu .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1317,12 +1325,12 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-left-color: #D3D3D3;
 }
 
-#peisjonvga .gt_caption {
+#zjzejwwafu .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#peisjonvga .gt_title {
+#zjzejwwafu .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1334,7 +1342,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-width: 0;
 }
 
-#peisjonvga .gt_subtitle {
+#zjzejwwafu .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1346,7 +1354,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-width: 0;
 }
 
-#peisjonvga .gt_heading {
+#zjzejwwafu .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1358,13 +1366,13 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#peisjonvga .gt_bottom_border {
+#zjzejwwafu .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#peisjonvga .gt_col_headings {
+#zjzejwwafu .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1379,7 +1387,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#peisjonvga .gt_col_heading {
+#zjzejwwafu .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1399,7 +1407,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#peisjonvga .gt_column_spanner_outer {
+#zjzejwwafu .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1411,15 +1419,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 4px;
 }
 
-#peisjonvga .gt_column_spanner_outer:first-child {
+#zjzejwwafu .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#peisjonvga .gt_column_spanner_outer:last-child {
+#zjzejwwafu .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#peisjonvga .gt_column_spanner {
+#zjzejwwafu .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1431,11 +1439,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   width: 100%;
 }
 
-#peisjonvga .gt_spanner_row {
+#zjzejwwafu .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#peisjonvga .gt_group_heading {
+#zjzejwwafu .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1461,7 +1469,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   text-align: left;
 }
 
-#peisjonvga .gt_empty_group_heading {
+#zjzejwwafu .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1476,15 +1484,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: middle;
 }
 
-#peisjonvga .gt_from_md > :first-child {
+#zjzejwwafu .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#peisjonvga .gt_from_md > :last-child {
+#zjzejwwafu .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#peisjonvga .gt_row {
+#zjzejwwafu .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1503,7 +1511,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#peisjonvga .gt_stub {
+#zjzejwwafu .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1516,7 +1524,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#peisjonvga .gt_stub_row_group {
+#zjzejwwafu .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1530,15 +1538,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: top;
 }
 
-#peisjonvga .gt_row_group_first td {
+#zjzejwwafu .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#peisjonvga .gt_row_group_first th {
+#zjzejwwafu .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#peisjonvga .gt_summary_row {
+#zjzejwwafu .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1548,16 +1556,16 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#peisjonvga .gt_first_summary_row {
+#zjzejwwafu .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#peisjonvga .gt_first_summary_row.thick {
+#zjzejwwafu .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#peisjonvga .gt_last_summary_row {
+#zjzejwwafu .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1567,7 +1575,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#peisjonvga .gt_grand_summary_row {
+#zjzejwwafu .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1577,7 +1585,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#peisjonvga .gt_first_grand_summary_row {
+#zjzejwwafu .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1587,7 +1595,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-color: #D3D3D3;
 }
 
-#peisjonvga .gt_last_grand_summary_row_top {
+#zjzejwwafu .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1597,11 +1605,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#peisjonvga .gt_striped {
+#zjzejwwafu .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#peisjonvga .gt_table_body {
+#zjzejwwafu .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1610,7 +1618,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#peisjonvga .gt_footnotes {
+#zjzejwwafu .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1624,7 +1632,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#peisjonvga .gt_footnote {
+#zjzejwwafu .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1633,7 +1641,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#peisjonvga .gt_sourcenotes {
+#zjzejwwafu .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1647,7 +1655,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#peisjonvga .gt_sourcenote {
+#zjzejwwafu .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1655,63 +1663,63 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#peisjonvga .gt_left {
+#zjzejwwafu .gt_left {
   text-align: left;
 }
 
-#peisjonvga .gt_center {
+#zjzejwwafu .gt_center {
   text-align: center;
 }
 
-#peisjonvga .gt_right {
+#zjzejwwafu .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#peisjonvga .gt_font_normal {
+#zjzejwwafu .gt_font_normal {
   font-weight: normal;
 }
 
-#peisjonvga .gt_font_bold {
+#zjzejwwafu .gt_font_bold {
   font-weight: bold;
 }
 
-#peisjonvga .gt_font_italic {
+#zjzejwwafu .gt_font_italic {
   font-style: italic;
 }
 
-#peisjonvga .gt_super {
+#zjzejwwafu .gt_super {
   font-size: 65%;
 }
 
-#peisjonvga .gt_footnote_marks {
+#zjzejwwafu .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#peisjonvga .gt_asterisk {
+#zjzejwwafu .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#peisjonvga .gt_indent_1 {
+#zjzejwwafu .gt_indent_1 {
   text-indent: 5px;
 }
 
-#peisjonvga .gt_indent_2 {
+#zjzejwwafu .gt_indent_2 {
   text-indent: 10px;
 }
 
-#peisjonvga .gt_indent_3 {
+#zjzejwwafu .gt_indent_3 {
   text-indent: 15px;
 }
 
-#peisjonvga .gt_indent_4 {
+#zjzejwwafu .gt_indent_4 {
   text-indent: 20px;
 }
 
-#peisjonvga .gt_indent_5 {
+#zjzejwwafu .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1782,9 +1790,9 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
 </section>
 <section id="calculate-engagement-score" class="level3">
 <h3 class="anchored" data-anchor-id="calculate-engagement-score">Calculate Engagement Score</h3>
-<div style="text-align: center;">
-<span class="math inline">\(e_s = e_h \times \frac{\sum{e_d, e_f}}{2}\)</span>
-</div>
+<p><span class="math display">\[
+e_s = e_h \cdot \left(1 + \frac{(e_d + e_f)}{2}\right)
+\]</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>engagement_average <span class="ot">&lt;-</span> <span class="fu">round</span>(((duration_score <span class="sc">+</span> frequency_score) <span class="sc">/</span> <span class="dv">2</span>), <span class="dv">2</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>engagement_amplifier <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">+</span> engagement_average)</span>
@@ -1802,23 +1810,23 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="fkawoooyqr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#fkawoooyqr table {
+<div id="ulyxpzzjju" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ulyxpzzjju table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#fkawoooyqr thead, #fkawoooyqr tbody, #fkawoooyqr tfoot, #fkawoooyqr tr, #fkawoooyqr td, #fkawoooyqr th {
+#ulyxpzzjju thead, #ulyxpzzjju tbody, #ulyxpzzjju tfoot, #ulyxpzzjju tr, #ulyxpzzjju td, #ulyxpzzjju th {
   border-style: none;
 }
 
-#fkawoooyqr p {
+#ulyxpzzjju p {
   margin: 0;
   padding: 0;
 }
 
-#fkawoooyqr .gt_table {
+#ulyxpzzjju .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1844,12 +1852,12 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-left-color: #D3D3D3;
 }
 
-#fkawoooyqr .gt_caption {
+#ulyxpzzjju .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#fkawoooyqr .gt_title {
+#ulyxpzzjju .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1861,7 +1869,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-width: 0;
 }
 
-#fkawoooyqr .gt_subtitle {
+#ulyxpzzjju .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1873,7 +1881,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-width: 0;
 }
 
-#fkawoooyqr .gt_heading {
+#ulyxpzzjju .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1885,13 +1893,13 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#fkawoooyqr .gt_bottom_border {
+#ulyxpzzjju .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#fkawoooyqr .gt_col_headings {
+#ulyxpzzjju .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1906,7 +1914,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#fkawoooyqr .gt_col_heading {
+#ulyxpzzjju .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1926,7 +1934,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#fkawoooyqr .gt_column_spanner_outer {
+#ulyxpzzjju .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1938,15 +1946,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 4px;
 }
 
-#fkawoooyqr .gt_column_spanner_outer:first-child {
+#ulyxpzzjju .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#fkawoooyqr .gt_column_spanner_outer:last-child {
+#ulyxpzzjju .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#fkawoooyqr .gt_column_spanner {
+#ulyxpzzjju .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1958,11 +1966,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   width: 100%;
 }
 
-#fkawoooyqr .gt_spanner_row {
+#ulyxpzzjju .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#fkawoooyqr .gt_group_heading {
+#ulyxpzzjju .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1988,7 +1996,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   text-align: left;
 }
 
-#fkawoooyqr .gt_empty_group_heading {
+#ulyxpzzjju .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2003,15 +2011,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: middle;
 }
 
-#fkawoooyqr .gt_from_md > :first-child {
+#ulyxpzzjju .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#fkawoooyqr .gt_from_md > :last-child {
+#ulyxpzzjju .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#fkawoooyqr .gt_row {
+#ulyxpzzjju .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2030,7 +2038,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#fkawoooyqr .gt_stub {
+#ulyxpzzjju .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2043,7 +2051,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#fkawoooyqr .gt_stub_row_group {
+#ulyxpzzjju .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2057,15 +2065,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: top;
 }
 
-#fkawoooyqr .gt_row_group_first td {
+#ulyxpzzjju .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#fkawoooyqr .gt_row_group_first th {
+#ulyxpzzjju .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#fkawoooyqr .gt_summary_row {
+#ulyxpzzjju .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2075,16 +2083,16 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#fkawoooyqr .gt_first_summary_row {
+#ulyxpzzjju .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#fkawoooyqr .gt_first_summary_row.thick {
+#ulyxpzzjju .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#fkawoooyqr .gt_last_summary_row {
+#ulyxpzzjju .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2094,7 +2102,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#fkawoooyqr .gt_grand_summary_row {
+#ulyxpzzjju .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2104,7 +2112,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#fkawoooyqr .gt_first_grand_summary_row {
+#ulyxpzzjju .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2114,7 +2122,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-color: #D3D3D3;
 }
 
-#fkawoooyqr .gt_last_grand_summary_row_top {
+#ulyxpzzjju .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2124,11 +2132,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#fkawoooyqr .gt_striped {
+#ulyxpzzjju .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#fkawoooyqr .gt_table_body {
+#ulyxpzzjju .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2137,7 +2145,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#fkawoooyqr .gt_footnotes {
+#ulyxpzzjju .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2151,7 +2159,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#fkawoooyqr .gt_footnote {
+#ulyxpzzjju .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2160,7 +2168,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#fkawoooyqr .gt_sourcenotes {
+#ulyxpzzjju .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2174,7 +2182,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#fkawoooyqr .gt_sourcenote {
+#ulyxpzzjju .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2182,63 +2190,63 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#fkawoooyqr .gt_left {
+#ulyxpzzjju .gt_left {
   text-align: left;
 }
 
-#fkawoooyqr .gt_center {
+#ulyxpzzjju .gt_center {
   text-align: center;
 }
 
-#fkawoooyqr .gt_right {
+#ulyxpzzjju .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#fkawoooyqr .gt_font_normal {
+#ulyxpzzjju .gt_font_normal {
   font-weight: normal;
 }
 
-#fkawoooyqr .gt_font_bold {
+#ulyxpzzjju .gt_font_bold {
   font-weight: bold;
 }
 
-#fkawoooyqr .gt_font_italic {
+#ulyxpzzjju .gt_font_italic {
   font-style: italic;
 }
 
-#fkawoooyqr .gt_super {
+#ulyxpzzjju .gt_super {
   font-size: 65%;
 }
 
-#fkawoooyqr .gt_footnote_marks {
+#ulyxpzzjju .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#fkawoooyqr .gt_asterisk {
+#ulyxpzzjju .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#fkawoooyqr .gt_indent_1 {
+#ulyxpzzjju .gt_indent_1 {
   text-indent: 5px;
 }
 
-#fkawoooyqr .gt_indent_2 {
+#ulyxpzzjju .gt_indent_2 {
   text-indent: 10px;
 }
 
-#fkawoooyqr .gt_indent_3 {
+#ulyxpzzjju .gt_indent_3 {
   text-indent: 15px;
 }
 
-#fkawoooyqr .gt_indent_4 {
+#ulyxpzzjju .gt_indent_4 {
   text-indent: 20px;
 }
 
-#fkawoooyqr .gt_indent_5 {
+#ulyxpzzjju .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2275,23 +2283,23 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
 <div class="cell">
 <div class="cell-output-display">
 
-<div id="pgqerwlogt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pgqerwlogt table {
+<div id="wirhjrntmq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wirhjrntmq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#pgqerwlogt thead, #pgqerwlogt tbody, #pgqerwlogt tfoot, #pgqerwlogt tr, #pgqerwlogt td, #pgqerwlogt th {
+#wirhjrntmq thead, #wirhjrntmq tbody, #wirhjrntmq tfoot, #wirhjrntmq tr, #wirhjrntmq td, #wirhjrntmq th {
   border-style: none;
 }
 
-#pgqerwlogt p {
+#wirhjrntmq p {
   margin: 0;
   padding: 0;
 }
 
-#pgqerwlogt .gt_table {
+#wirhjrntmq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2317,12 +2325,12 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-left-color: #D3D3D3;
 }
 
-#pgqerwlogt .gt_caption {
+#wirhjrntmq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#pgqerwlogt .gt_title {
+#wirhjrntmq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2334,7 +2342,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-width: 0;
 }
 
-#pgqerwlogt .gt_subtitle {
+#wirhjrntmq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2346,7 +2354,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-width: 0;
 }
 
-#pgqerwlogt .gt_heading {
+#wirhjrntmq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2358,13 +2366,13 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#pgqerwlogt .gt_bottom_border {
+#wirhjrntmq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pgqerwlogt .gt_col_headings {
+#wirhjrntmq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2379,7 +2387,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#pgqerwlogt .gt_col_heading {
+#wirhjrntmq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2399,7 +2407,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#pgqerwlogt .gt_column_spanner_outer {
+#wirhjrntmq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2411,15 +2419,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 4px;
 }
 
-#pgqerwlogt .gt_column_spanner_outer:first-child {
+#wirhjrntmq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pgqerwlogt .gt_column_spanner_outer:last-child {
+#wirhjrntmq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pgqerwlogt .gt_column_spanner {
+#wirhjrntmq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2431,11 +2439,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   width: 100%;
 }
 
-#pgqerwlogt .gt_spanner_row {
+#wirhjrntmq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#pgqerwlogt .gt_group_heading {
+#wirhjrntmq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2461,7 +2469,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   text-align: left;
 }
 
-#pgqerwlogt .gt_empty_group_heading {
+#wirhjrntmq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2476,15 +2484,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: middle;
 }
 
-#pgqerwlogt .gt_from_md > :first-child {
+#wirhjrntmq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pgqerwlogt .gt_from_md > :last-child {
+#wirhjrntmq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pgqerwlogt .gt_row {
+#wirhjrntmq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2503,7 +2511,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#pgqerwlogt .gt_stub {
+#wirhjrntmq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2516,7 +2524,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#pgqerwlogt .gt_stub_row_group {
+#wirhjrntmq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2530,15 +2538,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: top;
 }
 
-#pgqerwlogt .gt_row_group_first td {
+#wirhjrntmq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pgqerwlogt .gt_row_group_first th {
+#wirhjrntmq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#pgqerwlogt .gt_summary_row {
+#wirhjrntmq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2548,16 +2556,16 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#pgqerwlogt .gt_first_summary_row {
+#wirhjrntmq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pgqerwlogt .gt_first_summary_row.thick {
+#wirhjrntmq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pgqerwlogt .gt_last_summary_row {
+#wirhjrntmq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2567,7 +2575,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#pgqerwlogt .gt_grand_summary_row {
+#wirhjrntmq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2577,7 +2585,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#pgqerwlogt .gt_first_grand_summary_row {
+#wirhjrntmq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2587,7 +2595,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-color: #D3D3D3;
 }
 
-#pgqerwlogt .gt_last_grand_summary_row_top {
+#wirhjrntmq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2597,11 +2605,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#pgqerwlogt .gt_striped {
+#wirhjrntmq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pgqerwlogt .gt_table_body {
+#wirhjrntmq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2610,7 +2618,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#pgqerwlogt .gt_footnotes {
+#wirhjrntmq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2624,7 +2632,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#pgqerwlogt .gt_footnote {
+#wirhjrntmq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2633,7 +2641,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#pgqerwlogt .gt_sourcenotes {
+#wirhjrntmq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2647,7 +2655,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#pgqerwlogt .gt_sourcenote {
+#wirhjrntmq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2655,63 +2663,63 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#pgqerwlogt .gt_left {
+#wirhjrntmq .gt_left {
   text-align: left;
 }
 
-#pgqerwlogt .gt_center {
+#wirhjrntmq .gt_center {
   text-align: center;
 }
 
-#pgqerwlogt .gt_right {
+#wirhjrntmq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pgqerwlogt .gt_font_normal {
+#wirhjrntmq .gt_font_normal {
   font-weight: normal;
 }
 
-#pgqerwlogt .gt_font_bold {
+#wirhjrntmq .gt_font_bold {
   font-weight: bold;
 }
 
-#pgqerwlogt .gt_font_italic {
+#wirhjrntmq .gt_font_italic {
   font-style: italic;
 }
 
-#pgqerwlogt .gt_super {
+#wirhjrntmq .gt_super {
   font-size: 65%;
 }
 
-#pgqerwlogt .gt_footnote_marks {
+#wirhjrntmq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#pgqerwlogt .gt_asterisk {
+#wirhjrntmq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pgqerwlogt .gt_indent_1 {
+#wirhjrntmq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pgqerwlogt .gt_indent_2 {
+#wirhjrntmq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pgqerwlogt .gt_indent_3 {
+#wirhjrntmq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pgqerwlogt .gt_indent_4 {
+#wirhjrntmq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pgqerwlogt .gt_indent_5 {
+#wirhjrntmq .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2767,9 +2775,9 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
 </section>
 <section id="calculate-infrastructure-score" class="level3">
 <h3 class="anchored" data-anchor-id="calculate-infrastructure-score">Calculate Infrastructure Score</h3>
-<div style="text-align: center;">
-<span class="math inline">\(i_s = i_p \times \frac{i_u + i_c}{2}\)</span>
-</div>
+<p><span class="math display">\[
+i_s = i_p \cdot \left(1 + \frac{(i_u + i_c)}{2}\right)
+\]</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>infrastructure_average <span class="ot">&lt;-</span> <span class="fu">round</span>(((infrastructure_purpose <span class="sc">+</span> infrastructure_co_construction) <span class="sc">/</span> <span class="dv">2</span>), <span class="dv">2</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>infrastructure_amplifier <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">+</span> infrastructure_average)</span>
@@ -2787,23 +2795,23 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="axnpzzadzj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#axnpzzadzj table {
+<div id="nzzymonkkc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nzzymonkkc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#axnpzzadzj thead, #axnpzzadzj tbody, #axnpzzadzj tfoot, #axnpzzadzj tr, #axnpzzadzj td, #axnpzzadzj th {
+#nzzymonkkc thead, #nzzymonkkc tbody, #nzzymonkkc tfoot, #nzzymonkkc tr, #nzzymonkkc td, #nzzymonkkc th {
   border-style: none;
 }
 
-#axnpzzadzj p {
+#nzzymonkkc p {
   margin: 0;
   padding: 0;
 }
 
-#axnpzzadzj .gt_table {
+#nzzymonkkc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2829,12 +2837,12 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-left-color: #D3D3D3;
 }
 
-#axnpzzadzj .gt_caption {
+#nzzymonkkc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#axnpzzadzj .gt_title {
+#nzzymonkkc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2846,7 +2854,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-width: 0;
 }
 
-#axnpzzadzj .gt_subtitle {
+#nzzymonkkc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2858,7 +2866,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-width: 0;
 }
 
-#axnpzzadzj .gt_heading {
+#nzzymonkkc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2870,13 +2878,13 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#axnpzzadzj .gt_bottom_border {
+#nzzymonkkc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#axnpzzadzj .gt_col_headings {
+#nzzymonkkc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2891,7 +2899,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#axnpzzadzj .gt_col_heading {
+#nzzymonkkc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2911,7 +2919,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#axnpzzadzj .gt_column_spanner_outer {
+#nzzymonkkc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2923,15 +2931,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 4px;
 }
 
-#axnpzzadzj .gt_column_spanner_outer:first-child {
+#nzzymonkkc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#axnpzzadzj .gt_column_spanner_outer:last-child {
+#nzzymonkkc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#axnpzzadzj .gt_column_spanner {
+#nzzymonkkc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2943,11 +2951,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   width: 100%;
 }
 
-#axnpzzadzj .gt_spanner_row {
+#nzzymonkkc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#axnpzzadzj .gt_group_heading {
+#nzzymonkkc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2973,7 +2981,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   text-align: left;
 }
 
-#axnpzzadzj .gt_empty_group_heading {
+#nzzymonkkc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2988,15 +2996,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: middle;
 }
 
-#axnpzzadzj .gt_from_md > :first-child {
+#nzzymonkkc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#axnpzzadzj .gt_from_md > :last-child {
+#nzzymonkkc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#axnpzzadzj .gt_row {
+#nzzymonkkc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3015,7 +3023,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#axnpzzadzj .gt_stub {
+#nzzymonkkc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3028,7 +3036,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#axnpzzadzj .gt_stub_row_group {
+#nzzymonkkc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3042,15 +3050,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: top;
 }
 
-#axnpzzadzj .gt_row_group_first td {
+#nzzymonkkc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#axnpzzadzj .gt_row_group_first th {
+#nzzymonkkc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#axnpzzadzj .gt_summary_row {
+#nzzymonkkc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3060,16 +3068,16 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#axnpzzadzj .gt_first_summary_row {
+#nzzymonkkc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#axnpzzadzj .gt_first_summary_row.thick {
+#nzzymonkkc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#axnpzzadzj .gt_last_summary_row {
+#nzzymonkkc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3079,7 +3087,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#axnpzzadzj .gt_grand_summary_row {
+#nzzymonkkc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3089,7 +3097,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#axnpzzadzj .gt_first_grand_summary_row {
+#nzzymonkkc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3099,7 +3107,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-color: #D3D3D3;
 }
 
-#axnpzzadzj .gt_last_grand_summary_row_top {
+#nzzymonkkc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3109,11 +3117,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#axnpzzadzj .gt_striped {
+#nzzymonkkc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#axnpzzadzj .gt_table_body {
+#nzzymonkkc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3122,7 +3130,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#axnpzzadzj .gt_footnotes {
+#nzzymonkkc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3136,7 +3144,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#axnpzzadzj .gt_footnote {
+#nzzymonkkc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3145,7 +3153,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#axnpzzadzj .gt_sourcenotes {
+#nzzymonkkc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3159,7 +3167,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#axnpzzadzj .gt_sourcenote {
+#nzzymonkkc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3167,63 +3175,63 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#axnpzzadzj .gt_left {
+#nzzymonkkc .gt_left {
   text-align: left;
 }
 
-#axnpzzadzj .gt_center {
+#nzzymonkkc .gt_center {
   text-align: center;
 }
 
-#axnpzzadzj .gt_right {
+#nzzymonkkc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#axnpzzadzj .gt_font_normal {
+#nzzymonkkc .gt_font_normal {
   font-weight: normal;
 }
 
-#axnpzzadzj .gt_font_bold {
+#nzzymonkkc .gt_font_bold {
   font-weight: bold;
 }
 
-#axnpzzadzj .gt_font_italic {
+#nzzymonkkc .gt_font_italic {
   font-style: italic;
 }
 
-#axnpzzadzj .gt_super {
+#nzzymonkkc .gt_super {
   font-size: 65%;
 }
 
-#axnpzzadzj .gt_footnote_marks {
+#nzzymonkkc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#axnpzzadzj .gt_asterisk {
+#nzzymonkkc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#axnpzzadzj .gt_indent_1 {
+#nzzymonkkc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#axnpzzadzj .gt_indent_2 {
+#nzzymonkkc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#axnpzzadzj .gt_indent_3 {
+#nzzymonkkc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#axnpzzadzj .gt_indent_4 {
+#nzzymonkkc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#axnpzzadzj .gt_indent_5 {
+#nzzymonkkc .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -3260,23 +3268,23 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
 <div class="cell">
 <div class="cell-output-display">
 
-<div id="iixevfskul" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#iixevfskul table {
+<div id="rivxoftamr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rivxoftamr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#iixevfskul thead, #iixevfskul tbody, #iixevfskul tfoot, #iixevfskul tr, #iixevfskul td, #iixevfskul th {
+#rivxoftamr thead, #rivxoftamr tbody, #rivxoftamr tfoot, #rivxoftamr tr, #rivxoftamr td, #rivxoftamr th {
   border-style: none;
 }
 
-#iixevfskul p {
+#rivxoftamr p {
   margin: 0;
   padding: 0;
 }
 
-#iixevfskul .gt_table {
+#rivxoftamr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3302,12 +3310,12 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-left-color: #D3D3D3;
 }
 
-#iixevfskul .gt_caption {
+#rivxoftamr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#iixevfskul .gt_title {
+#rivxoftamr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3319,7 +3327,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-width: 0;
 }
 
-#iixevfskul .gt_subtitle {
+#rivxoftamr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3331,7 +3339,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-width: 0;
 }
 
-#iixevfskul .gt_heading {
+#rivxoftamr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3343,13 +3351,13 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#iixevfskul .gt_bottom_border {
+#rivxoftamr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#iixevfskul .gt_col_headings {
+#rivxoftamr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3364,7 +3372,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#iixevfskul .gt_col_heading {
+#rivxoftamr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3384,7 +3392,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#iixevfskul .gt_column_spanner_outer {
+#rivxoftamr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3396,15 +3404,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 4px;
 }
 
-#iixevfskul .gt_column_spanner_outer:first-child {
+#rivxoftamr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#iixevfskul .gt_column_spanner_outer:last-child {
+#rivxoftamr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#iixevfskul .gt_column_spanner {
+#rivxoftamr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3416,11 +3424,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   width: 100%;
 }
 
-#iixevfskul .gt_spanner_row {
+#rivxoftamr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#iixevfskul .gt_group_heading {
+#rivxoftamr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3446,7 +3454,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   text-align: left;
 }
 
-#iixevfskul .gt_empty_group_heading {
+#rivxoftamr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3461,15 +3469,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: middle;
 }
 
-#iixevfskul .gt_from_md > :first-child {
+#rivxoftamr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#iixevfskul .gt_from_md > :last-child {
+#rivxoftamr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#iixevfskul .gt_row {
+#rivxoftamr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3488,7 +3496,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#iixevfskul .gt_stub {
+#rivxoftamr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3501,7 +3509,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#iixevfskul .gt_stub_row_group {
+#rivxoftamr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3515,15 +3523,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: top;
 }
 
-#iixevfskul .gt_row_group_first td {
+#rivxoftamr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#iixevfskul .gt_row_group_first th {
+#rivxoftamr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#iixevfskul .gt_summary_row {
+#rivxoftamr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3533,16 +3541,16 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#iixevfskul .gt_first_summary_row {
+#rivxoftamr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#iixevfskul .gt_first_summary_row.thick {
+#rivxoftamr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#iixevfskul .gt_last_summary_row {
+#rivxoftamr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3552,7 +3560,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#iixevfskul .gt_grand_summary_row {
+#rivxoftamr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3562,7 +3570,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#iixevfskul .gt_first_grand_summary_row {
+#rivxoftamr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3572,7 +3580,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-color: #D3D3D3;
 }
 
-#iixevfskul .gt_last_grand_summary_row_top {
+#rivxoftamr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3582,11 +3590,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#iixevfskul .gt_striped {
+#rivxoftamr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#iixevfskul .gt_table_body {
+#rivxoftamr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3595,7 +3603,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#iixevfskul .gt_footnotes {
+#rivxoftamr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3609,7 +3617,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#iixevfskul .gt_footnote {
+#rivxoftamr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3618,7 +3626,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#iixevfskul .gt_sourcenotes {
+#rivxoftamr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3632,7 +3640,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#iixevfskul .gt_sourcenote {
+#rivxoftamr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3640,63 +3648,63 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#iixevfskul .gt_left {
+#rivxoftamr .gt_left {
   text-align: left;
 }
 
-#iixevfskul .gt_center {
+#rivxoftamr .gt_center {
   text-align: center;
 }
 
-#iixevfskul .gt_right {
+#rivxoftamr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#iixevfskul .gt_font_normal {
+#rivxoftamr .gt_font_normal {
   font-weight: normal;
 }
 
-#iixevfskul .gt_font_bold {
+#rivxoftamr .gt_font_bold {
   font-weight: bold;
 }
 
-#iixevfskul .gt_font_italic {
+#rivxoftamr .gt_font_italic {
   font-style: italic;
 }
 
-#iixevfskul .gt_super {
+#rivxoftamr .gt_super {
   font-size: 65%;
 }
 
-#iixevfskul .gt_footnote_marks {
+#rivxoftamr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#iixevfskul .gt_asterisk {
+#rivxoftamr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#iixevfskul .gt_indent_1 {
+#rivxoftamr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#iixevfskul .gt_indent_2 {
+#rivxoftamr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#iixevfskul .gt_indent_3 {
+#rivxoftamr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#iixevfskul .gt_indent_4 {
+#rivxoftamr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#iixevfskul .gt_indent_5 {
+#rivxoftamr .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -3752,6 +3760,9 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
 </section>
 <section id="calculate-outputs-score" class="level3">
 <h3 class="anchored" data-anchor-id="calculate-outputs-score">Calculate Outputs Score</h3>
+<p><span class="math display">\[
+s_o = i_o \cdot \left(1 + \frac{(o_v + o_i)}{2}\right)
+\]</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>outputs_average <span class="ot">&lt;-</span> <span class="fu">round</span>(((distribution_of_venues <span class="sc">+</span> inclusion_of_participants) <span class="sc">/</span> <span class="dv">2</span>), <span class="dv">2</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>outputs_amplifier <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">+</span> outputs_average)</span>
@@ -3769,23 +3780,23 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="pafrczrzcn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pafrczrzcn table {
+<div id="ipliykinhf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ipliykinhf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#pafrczrzcn thead, #pafrczrzcn tbody, #pafrczrzcn tfoot, #pafrczrzcn tr, #pafrczrzcn td, #pafrczrzcn th {
+#ipliykinhf thead, #ipliykinhf tbody, #ipliykinhf tfoot, #ipliykinhf tr, #ipliykinhf td, #ipliykinhf th {
   border-style: none;
 }
 
-#pafrczrzcn p {
+#ipliykinhf p {
   margin: 0;
   padding: 0;
 }
 
-#pafrczrzcn .gt_table {
+#ipliykinhf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3811,12 +3822,12 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-left-color: #D3D3D3;
 }
 
-#pafrczrzcn .gt_caption {
+#ipliykinhf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#pafrczrzcn .gt_title {
+#ipliykinhf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3828,7 +3839,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-width: 0;
 }
 
-#pafrczrzcn .gt_subtitle {
+#ipliykinhf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3840,7 +3851,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-width: 0;
 }
 
-#pafrczrzcn .gt_heading {
+#ipliykinhf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3852,13 +3863,13 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#pafrczrzcn .gt_bottom_border {
+#ipliykinhf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pafrczrzcn .gt_col_headings {
+#ipliykinhf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3873,7 +3884,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#pafrczrzcn .gt_col_heading {
+#ipliykinhf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3893,7 +3904,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#pafrczrzcn .gt_column_spanner_outer {
+#ipliykinhf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3905,15 +3916,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 4px;
 }
 
-#pafrczrzcn .gt_column_spanner_outer:first-child {
+#ipliykinhf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pafrczrzcn .gt_column_spanner_outer:last-child {
+#ipliykinhf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pafrczrzcn .gt_column_spanner {
+#ipliykinhf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3925,11 +3936,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   width: 100%;
 }
 
-#pafrczrzcn .gt_spanner_row {
+#ipliykinhf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#pafrczrzcn .gt_group_heading {
+#ipliykinhf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3955,7 +3966,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   text-align: left;
 }
 
-#pafrczrzcn .gt_empty_group_heading {
+#ipliykinhf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3970,15 +3981,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: middle;
 }
 
-#pafrczrzcn .gt_from_md > :first-child {
+#ipliykinhf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pafrczrzcn .gt_from_md > :last-child {
+#ipliykinhf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pafrczrzcn .gt_row {
+#ipliykinhf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3997,7 +4008,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#pafrczrzcn .gt_stub {
+#ipliykinhf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4010,7 +4021,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#pafrczrzcn .gt_stub_row_group {
+#ipliykinhf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4024,15 +4035,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: top;
 }
 
-#pafrczrzcn .gt_row_group_first td {
+#ipliykinhf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pafrczrzcn .gt_row_group_first th {
+#ipliykinhf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#pafrczrzcn .gt_summary_row {
+#ipliykinhf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4042,16 +4053,16 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#pafrczrzcn .gt_first_summary_row {
+#ipliykinhf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pafrczrzcn .gt_first_summary_row.thick {
+#ipliykinhf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pafrczrzcn .gt_last_summary_row {
+#ipliykinhf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4061,7 +4072,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#pafrczrzcn .gt_grand_summary_row {
+#ipliykinhf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4071,7 +4082,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#pafrczrzcn .gt_first_grand_summary_row {
+#ipliykinhf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4081,7 +4092,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-color: #D3D3D3;
 }
 
-#pafrczrzcn .gt_last_grand_summary_row_top {
+#ipliykinhf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4091,11 +4102,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#pafrczrzcn .gt_striped {
+#ipliykinhf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pafrczrzcn .gt_table_body {
+#ipliykinhf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4104,7 +4115,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#pafrczrzcn .gt_footnotes {
+#ipliykinhf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4118,7 +4129,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#pafrczrzcn .gt_footnote {
+#ipliykinhf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4127,7 +4138,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#pafrczrzcn .gt_sourcenotes {
+#ipliykinhf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4141,7 +4152,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#pafrczrzcn .gt_sourcenote {
+#ipliykinhf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -4149,63 +4160,63 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#pafrczrzcn .gt_left {
+#ipliykinhf .gt_left {
   text-align: left;
 }
 
-#pafrczrzcn .gt_center {
+#ipliykinhf .gt_center {
   text-align: center;
 }
 
-#pafrczrzcn .gt_right {
+#ipliykinhf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pafrczrzcn .gt_font_normal {
+#ipliykinhf .gt_font_normal {
   font-weight: normal;
 }
 
-#pafrczrzcn .gt_font_bold {
+#ipliykinhf .gt_font_bold {
   font-weight: bold;
 }
 
-#pafrczrzcn .gt_font_italic {
+#ipliykinhf .gt_font_italic {
   font-style: italic;
 }
 
-#pafrczrzcn .gt_super {
+#ipliykinhf .gt_super {
   font-size: 65%;
 }
 
-#pafrczrzcn .gt_footnote_marks {
+#ipliykinhf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#pafrczrzcn .gt_asterisk {
+#ipliykinhf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pafrczrzcn .gt_indent_1 {
+#ipliykinhf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pafrczrzcn .gt_indent_2 {
+#ipliykinhf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pafrczrzcn .gt_indent_3 {
+#ipliykinhf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pafrczrzcn .gt_indent_4 {
+#ipliykinhf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pafrczrzcn .gt_indent_5 {
+#ipliykinhf .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -4242,23 +4253,23 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
 <div class="cell">
 <div class="cell-output-display">
 
-<div id="swduzfwbvq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#swduzfwbvq table {
+<div id="erhrhswooo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#erhrhswooo table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#swduzfwbvq thead, #swduzfwbvq tbody, #swduzfwbvq tfoot, #swduzfwbvq tr, #swduzfwbvq td, #swduzfwbvq th {
+#erhrhswooo thead, #erhrhswooo tbody, #erhrhswooo tfoot, #erhrhswooo tr, #erhrhswooo td, #erhrhswooo th {
   border-style: none;
 }
 
-#swduzfwbvq p {
+#erhrhswooo p {
   margin: 0;
   padding: 0;
 }
 
-#swduzfwbvq .gt_table {
+#erhrhswooo .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -4284,12 +4295,12 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-left-color: #D3D3D3;
 }
 
-#swduzfwbvq .gt_caption {
+#erhrhswooo .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#swduzfwbvq .gt_title {
+#erhrhswooo .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4301,7 +4312,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-width: 0;
 }
 
-#swduzfwbvq .gt_subtitle {
+#erhrhswooo .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4313,7 +4324,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-width: 0;
 }
 
-#swduzfwbvq .gt_heading {
+#erhrhswooo .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4325,13 +4336,13 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#swduzfwbvq .gt_bottom_border {
+#erhrhswooo .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#swduzfwbvq .gt_col_headings {
+#erhrhswooo .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4346,7 +4357,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#swduzfwbvq .gt_col_heading {
+#erhrhswooo .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4366,7 +4377,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#swduzfwbvq .gt_column_spanner_outer {
+#erhrhswooo .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4378,15 +4389,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 4px;
 }
 
-#swduzfwbvq .gt_column_spanner_outer:first-child {
+#erhrhswooo .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#swduzfwbvq .gt_column_spanner_outer:last-child {
+#erhrhswooo .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#swduzfwbvq .gt_column_spanner {
+#erhrhswooo .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4398,11 +4409,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   width: 100%;
 }
 
-#swduzfwbvq .gt_spanner_row {
+#erhrhswooo .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#swduzfwbvq .gt_group_heading {
+#erhrhswooo .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4428,7 +4439,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   text-align: left;
 }
 
-#swduzfwbvq .gt_empty_group_heading {
+#erhrhswooo .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4443,15 +4454,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: middle;
 }
 
-#swduzfwbvq .gt_from_md > :first-child {
+#erhrhswooo .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#swduzfwbvq .gt_from_md > :last-child {
+#erhrhswooo .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#swduzfwbvq .gt_row {
+#erhrhswooo .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4470,7 +4481,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#swduzfwbvq .gt_stub {
+#erhrhswooo .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4483,7 +4494,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#swduzfwbvq .gt_stub_row_group {
+#erhrhswooo .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4497,15 +4508,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: top;
 }
 
-#swduzfwbvq .gt_row_group_first td {
+#erhrhswooo .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#swduzfwbvq .gt_row_group_first th {
+#erhrhswooo .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#swduzfwbvq .gt_summary_row {
+#erhrhswooo .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4515,16 +4526,16 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#swduzfwbvq .gt_first_summary_row {
+#erhrhswooo .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#swduzfwbvq .gt_first_summary_row.thick {
+#erhrhswooo .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#swduzfwbvq .gt_last_summary_row {
+#erhrhswooo .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4534,7 +4545,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#swduzfwbvq .gt_grand_summary_row {
+#erhrhswooo .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4544,7 +4555,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#swduzfwbvq .gt_first_grand_summary_row {
+#erhrhswooo .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4554,7 +4565,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-color: #D3D3D3;
 }
 
-#swduzfwbvq .gt_last_grand_summary_row_top {
+#erhrhswooo .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4564,11 +4575,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#swduzfwbvq .gt_striped {
+#erhrhswooo .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#swduzfwbvq .gt_table_body {
+#erhrhswooo .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4577,7 +4588,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#swduzfwbvq .gt_footnotes {
+#erhrhswooo .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4591,7 +4602,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#swduzfwbvq .gt_footnote {
+#erhrhswooo .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4600,7 +4611,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#swduzfwbvq .gt_sourcenotes {
+#erhrhswooo .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4614,7 +4625,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#swduzfwbvq .gt_sourcenote {
+#erhrhswooo .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -4622,63 +4633,63 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#swduzfwbvq .gt_left {
+#erhrhswooo .gt_left {
   text-align: left;
 }
 
-#swduzfwbvq .gt_center {
+#erhrhswooo .gt_center {
   text-align: center;
 }
 
-#swduzfwbvq .gt_right {
+#erhrhswooo .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#swduzfwbvq .gt_font_normal {
+#erhrhswooo .gt_font_normal {
   font-weight: normal;
 }
 
-#swduzfwbvq .gt_font_bold {
+#erhrhswooo .gt_font_bold {
   font-weight: bold;
 }
 
-#swduzfwbvq .gt_font_italic {
+#erhrhswooo .gt_font_italic {
   font-style: italic;
 }
 
-#swduzfwbvq .gt_super {
+#erhrhswooo .gt_super {
   font-size: 65%;
 }
 
-#swduzfwbvq .gt_footnote_marks {
+#erhrhswooo .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#swduzfwbvq .gt_asterisk {
+#erhrhswooo .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#swduzfwbvq .gt_indent_1 {
+#erhrhswooo .gt_indent_1 {
   text-indent: 5px;
 }
 
-#swduzfwbvq .gt_indent_2 {
+#erhrhswooo .gt_indent_2 {
   text-indent: 10px;
 }
 
-#swduzfwbvq .gt_indent_3 {
+#erhrhswooo .gt_indent_3 {
   text-indent: 15px;
 }
 
-#swduzfwbvq .gt_indent_4 {
+#erhrhswooo .gt_indent_4 {
   text-indent: 20px;
 }
 
-#swduzfwbvq .gt_indent_5 {
+#erhrhswooo .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -4734,6 +4745,9 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
 </section>
 <section id="calculate-sustainability-score" class="level3">
 <h3 class="anchored" data-anchor-id="calculate-sustainability-score">Calculate Sustainability Score</h3>
+<p><span class="math display">\[
+s_s = i_s \cdot \left(1 + \frac{(c_{s_r} + c_{s_m})}{2}\right)
+\]</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sustainability_average <span class="ot">&lt;-</span> <span class="fu">round</span>(((distribution_of_responsibility <span class="sc">+</span> distribution_of_material_support) <span class="sc">/</span> <span class="dv">2</span>), <span class="dv">2</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sustainability_amplifier <span class="ot">&lt;-</span> (<span class="dv">1</span> <span class="sc">+</span> sustainability_average)</span>
@@ -4751,23 +4765,23 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="gfcvegbhds" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#gfcvegbhds table {
+<div id="behqcbxgxt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#behqcbxgxt table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#gfcvegbhds thead, #gfcvegbhds tbody, #gfcvegbhds tfoot, #gfcvegbhds tr, #gfcvegbhds td, #gfcvegbhds th {
+#behqcbxgxt thead, #behqcbxgxt tbody, #behqcbxgxt tfoot, #behqcbxgxt tr, #behqcbxgxt td, #behqcbxgxt th {
   border-style: none;
 }
 
-#gfcvegbhds p {
+#behqcbxgxt p {
   margin: 0;
   padding: 0;
 }
 
-#gfcvegbhds .gt_table {
+#behqcbxgxt .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -4793,12 +4807,12 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-left-color: #D3D3D3;
 }
 
-#gfcvegbhds .gt_caption {
+#behqcbxgxt .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#gfcvegbhds .gt_title {
+#behqcbxgxt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4810,7 +4824,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-width: 0;
 }
 
-#gfcvegbhds .gt_subtitle {
+#behqcbxgxt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4822,7 +4836,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-width: 0;
 }
 
-#gfcvegbhds .gt_heading {
+#behqcbxgxt .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4834,13 +4848,13 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#gfcvegbhds .gt_bottom_border {
+#behqcbxgxt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gfcvegbhds .gt_col_headings {
+#behqcbxgxt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4855,7 +4869,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#gfcvegbhds .gt_col_heading {
+#behqcbxgxt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4875,7 +4889,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#gfcvegbhds .gt_column_spanner_outer {
+#behqcbxgxt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4887,15 +4901,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 4px;
 }
 
-#gfcvegbhds .gt_column_spanner_outer:first-child {
+#behqcbxgxt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gfcvegbhds .gt_column_spanner_outer:last-child {
+#behqcbxgxt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gfcvegbhds .gt_column_spanner {
+#behqcbxgxt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4907,11 +4921,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   width: 100%;
 }
 
-#gfcvegbhds .gt_spanner_row {
+#behqcbxgxt .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#gfcvegbhds .gt_group_heading {
+#behqcbxgxt .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4937,7 +4951,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   text-align: left;
 }
 
-#gfcvegbhds .gt_empty_group_heading {
+#behqcbxgxt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4952,15 +4966,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: middle;
 }
 
-#gfcvegbhds .gt_from_md > :first-child {
+#behqcbxgxt .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gfcvegbhds .gt_from_md > :last-child {
+#behqcbxgxt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gfcvegbhds .gt_row {
+#behqcbxgxt .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4979,7 +4993,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   overflow-x: hidden;
 }
 
-#gfcvegbhds .gt_stub {
+#behqcbxgxt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4992,7 +5006,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#gfcvegbhds .gt_stub_row_group {
+#behqcbxgxt .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -5006,15 +5020,15 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   vertical-align: top;
 }
 
-#gfcvegbhds .gt_row_group_first td {
+#behqcbxgxt .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gfcvegbhds .gt_row_group_first th {
+#behqcbxgxt .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#gfcvegbhds .gt_summary_row {
+#behqcbxgxt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5024,16 +5038,16 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#gfcvegbhds .gt_first_summary_row {
+#behqcbxgxt .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gfcvegbhds .gt_first_summary_row.thick {
+#behqcbxgxt .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gfcvegbhds .gt_last_summary_row {
+#behqcbxgxt .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5043,7 +5057,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#gfcvegbhds .gt_grand_summary_row {
+#behqcbxgxt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -5053,7 +5067,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#gfcvegbhds .gt_first_grand_summary_row {
+#behqcbxgxt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5063,7 +5077,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-top-color: #D3D3D3;
 }
 
-#gfcvegbhds .gt_last_grand_summary_row_top {
+#behqcbxgxt .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -5073,11 +5087,11 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#gfcvegbhds .gt_striped {
+#behqcbxgxt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gfcvegbhds .gt_table_body {
+#behqcbxgxt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -5086,7 +5100,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-bottom-color: #D3D3D3;
 }
 
-#gfcvegbhds .gt_footnotes {
+#behqcbxgxt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5100,7 +5114,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#gfcvegbhds .gt_footnote {
+#behqcbxgxt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -5109,7 +5123,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#gfcvegbhds .gt_sourcenotes {
+#behqcbxgxt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -5123,7 +5137,7 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   border-right-color: #D3D3D3;
 }
 
-#gfcvegbhds .gt_sourcenote {
+#behqcbxgxt .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -5131,63 +5145,63 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
   padding-right: 5px;
 }
 
-#gfcvegbhds .gt_left {
+#behqcbxgxt .gt_left {
   text-align: left;
 }
 
-#gfcvegbhds .gt_center {
+#behqcbxgxt .gt_center {
   text-align: center;
 }
 
-#gfcvegbhds .gt_right {
+#behqcbxgxt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gfcvegbhds .gt_font_normal {
+#behqcbxgxt .gt_font_normal {
   font-weight: normal;
 }
 
-#gfcvegbhds .gt_font_bold {
+#behqcbxgxt .gt_font_bold {
   font-weight: bold;
 }
 
-#gfcvegbhds .gt_font_italic {
+#behqcbxgxt .gt_font_italic {
   font-style: italic;
 }
 
-#gfcvegbhds .gt_super {
+#behqcbxgxt .gt_super {
   font-size: 65%;
 }
 
-#gfcvegbhds .gt_footnote_marks {
+#behqcbxgxt .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#gfcvegbhds .gt_asterisk {
+#behqcbxgxt .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gfcvegbhds .gt_indent_1 {
+#behqcbxgxt .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gfcvegbhds .gt_indent_2 {
+#behqcbxgxt .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gfcvegbhds .gt_indent_3 {
+#behqcbxgxt .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gfcvegbhds .gt_indent_4 {
+#behqcbxgxt .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gfcvegbhds .gt_indent_5 {
+#behqcbxgxt .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -5218,6 +5232,25 @@ S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
 </div>
 </div>
 </section>
+</section>
+<section id="overall-score" class="level2">
+<h2 class="anchored" data-anchor-id="overall-score">Overall Score</h2>
+<p><span class="math display">\[
+S_O = \sum_{x=1}^n s_x
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>overall_score <span class="ot">&lt;-</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  participant_score <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  engagement_score <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  infrastructure_score <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  outputs_score <span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  sustainability_score</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>overall_score <span class="ot">&lt;-</span> <span class="fu">round</span>(overall_score, <span class="dv">0</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>overall_score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 57</code></pre>
+</div>
+</div>
 </section>
 <section id="overall-representation" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="overall-representation">Overall Representation</h2>
