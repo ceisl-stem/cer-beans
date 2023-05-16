@@ -140,7 +140,8 @@ CER-BEANS score. These are the five areas:
 
 Each of the **area scores** ($S_a$) follow a predictable pattern, that includes some
 **impact number** ($I_a$) that is amplified by a set of **area component ratings** ($R_a$,
-individual ratings represented by $r_1 \ldots r_a$). Here is the general formula for an area score:
+individual ratings represented by $r_1 \ldots r_a$). Here is the general formula
+for an area score:
 
 $$
 S_a = I_a \times (1 + \frac{\sum r_{a1} \ldots r_{an}}{|R_a|})
