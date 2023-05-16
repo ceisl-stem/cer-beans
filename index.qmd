@@ -13,6 +13,7 @@ monofont: "JetBrains Mono"
 highlight-style: a11y
 code-overflow: wrap
 reference-location: margin
+repo-url: https://github.com/jeremyfprice/cer-beans
 citation:
   type: document
   issued: 2023
@@ -535,7 +536,7 @@ sustainability_score_frame |>
 >
 > -- Louis Armstrong
 
-![Here are my beans, come count them! As imagined by Adobe Firefly.](assets/introbeans.jpg)
+!["Here are my beans, come count them!" As imagined by Adobe Firefly.](assets/introbeans.jpg)
 
 ```{r represent, fig.showtext=TRUE, warning=FALSE, message=FALSE, echo=FALSE}
 iu_palette = c(
