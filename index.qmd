@@ -1,6 +1,6 @@
 ---
-title: "CER-BEANS: Community Engaged Research Balanced Evaluation and Assessments with Nuanced Scores"
-subtitle: "A Framwork for Constructing Quantitative Metrics for Community Engaged Research Projects"
+title: "CER-BEANS: Community Engaged Research Balanced Assessments and Expressions with Nuanced Scores"
+subtitle: "A Framework for Constructing Quantitative Metrics for Community Engaged Research Projects"
 author:
   - name: Jeremy F Price 
     url: https://www.jeremyfprice.info/
@@ -11,7 +11,6 @@ license: "CC BY-SA"
 mainfont: domine
 monofont: "JetBrains Mono"
 highlight-style: a11y
-theme: zephyr
 code-overflow: wrap
 reference-location: margin
 citation:
@@ -44,12 +43,45 @@ font_add_google("Domine", "domine", regular.wt = 700)
 
 > "Every little bean must be heard as well as seen!"
 >
-> --- Erich Maria Remarque
+> --- Erich Maria Remarque, <cite>All Quiet on the Western Front</cite>
 
 ![A hill of important beans just waiting to be counted as imagined by Adobe Firefly](assets/hillofbeans2.jpg)
 
-Community Engaged Research Broad Evaluation and Assessments with Nuanced Scores (CER-BEANS),
-pronounced "Sir Beans."
+Quantitative measures capture only a small piece of the (bean) pie, but people
+in academia ❤️ **love** ❤️ putting numbers on things and counting them (beans).
+
+Rather than sitting back and stewing like a pot of vegetarian chili while fretting
+about whether or not faculty committees and administrators will count the kinds of
+beans I hope they would count, I decided to create my own set of beans for them to
+count. Therefore:
+
+**Community Engaged Research Broad Evaluation and Assessments with Nuanced Scores
+(CER-BEANS)**[CER-BEANS is pronounced "Sir&nbsp;Beans."]{.aside}
+
+I was inspired by the [Altmetric badge](https://www.altmetric.com/), so I want to
+make sure to create a system of beans that is:
+
+1. Easy to grok and nice to look at.[To [grok](https://www.britannica.com/topic/grok) something is to understand it intuitively and deeply.]{.aside}
+2. Authentic and meaningful to the work and experiences of community engaged researchers.
+3. Usable as a critical framing for the kind of work community engaged researchers
+should be focusing on.
+4. Translatable, transferable, robust, resilient, dynamic, and extensible.
+
+How 'bout *these* beans?
+
+![](assets/detailed_badge.png)
+
+Pretty [*radicle,*](https://en.wikipedia.org/wiki/Radicle) eh?
+
+:::{.callout-note}
+
+## If You Choose to Die on This Hill (of Beans)...
+
+I am open to collaboration, dialogue, and disagreement. You can even
+[open an issue](https://github.com/jeremyfprice/cer-beans/issues/new) if you'd
+like to make it official. Contributions are welcomed, please read the 
+[Code of Conduct](https://github.com/jeremyfprice/cer-beans/blob/main/CODE_OF_CONDUCT.md).
+:::
 
 ## Identifying the Metrics
 
@@ -59,7 +91,53 @@ pronounced "Sir Beans."
 
 ![An image of a medieval academic counting beans as imagined by Adobe Firefly](assets/beancounters3.jpg)
 
-When evaluating community-engaged programs, it's important to consider various metrics that assess different aspects of the program's effectiveness and impact.
+When evaluating community-engaged programs, it's important to consider various metrics that assess different aspects of the program's effectiveness and impact. CER-BEANS focuses on
+*five areas,* or shall we say, *hills*, that are each comprised of *three components*.
+Each of the components contribute to the individual area scores, each of which
+contribute to the *overall* CER-BEANS score.
+
+These areas that contribute to the overall CER-BEANS score are:
+
+1. Participants
+2. Engagement
+3. Infrastructures
+4. Outputs
+5. Sustainability
+
+Each of these areas and their components are described in some detail below. The
+idea, the math, the concepts, are all licensed under a [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license[The code itself is licensed under an even more permissible MIT License]{.aside}, so you are welcome
+to take these ideas and adapt them to your particular needs and preferences (as
+long as you give credit where credit is due and share your adapted work alike).
+
+:::{.callout-warning}
+
+## If You Had a Roomful of Awards that Didn't Mean Beans...
+
+It is important to remember a number, a score, or even a collection or bean hill
+of scores or numbers, *do not tell the whole story* of your community engaged research.
+This framework is provided to *help you tell that story* using a system that is
+easily recognizable and considered a valid form of evidence.
+
+These numbers are a guidepost for your readers--or more likely--your evaluators.
+:::
+
+[I make bean stalks, I'm<br />A builder, like yourself.<br /><br />-- Edna St. Vincent Millay, [The Bean-Stalk](https://americanliterature.com/author/edna-st-vincent-millay/poem/the-bean-stalk)]{.aside}
+
+:::{.callout-tip}
+
+## For Makers of Bean Stalks
+
+Now that I've provided the warning, here are some tips for you to consider about
+what CER-BEANS *does* provide for you as you construct a narrative around your work:
+
+* It provides an overall *reflection* on your work and where you have focused your energies.
+CER-BEANS gives you an indication of the impact your work has had, allowing you to
+discuss your successes.
+* It provides a *snapshot* of where you are in a longer process, what has
+worked well so far, and where you will be focusing your efforts in the near future.
+* It provides a rough *map* of where your and your collaborators, partners, and participants
+can take the work moving forward.
+:::
 
 ## Participants
 
@@ -106,13 +184,24 @@ gt(participants_frame)
 
 ### Number of Participants
 
-```{r}
+How many participants involved? This is $p_n$. For this example, there are **6 participants**.
+
+```{r, echo = FALSE}
 number_of_participants <- 6
 ```
 
 ### Marginalized Proportions Score
 
-```{r}
+How many of the participants represent and come from marginalized identities and
+communities? This is $p_m$.
+
+Also, are you working directly with these marginalized  participants, or are you
+working with others (such as teachers or health care workers) who are working with
+these identities and communities? 
+
+It is up to your 
+
+```{r, echo = FALSE}
 marginalized_proportions_value <- 1
 marginalized_proportions_coefficient <- 1
 ```
@@ -442,6 +531,10 @@ sustainability_score_frame |>
 
 ## Overall Representation
 
+> "Red Beans and Ricely Yours"
+>
+> -- Louis Armstrong
+
 ```{r represent, fig.showtext=TRUE, warning=FALSE, message=FALSE, echo=FALSE}
 iu_palette = c(
   "#99000088",
@@ -641,11 +734,10 @@ label_line <- ggplot(
     panel.background = element_rect(fill='transparent'),
     plot.background = element_rect(fill='transparent', color=NA)
     )
-
 credit_frame <- data.frame(
   x = 1,
   y = 1,
-  label = glue("Community Engaged Research Balanced Evaluation and Assessments with Nuanced Scores -- Generated {Sys.Date()} -- CC BY-NC-SA 4.0")
+  label = glue("Community Engaged Research Balanced Assessments and Expressions with Nuanced Scores -- Generated {Sys.Date()} -- CC BY-NC-SA 4.0")
 )
 credit_line <- ggplot(
   credit_frame,
