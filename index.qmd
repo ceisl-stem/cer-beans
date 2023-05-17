@@ -9,6 +9,7 @@ author:
     orcid: 0000-0002-6506-3526
 license: "CC BY-SA"
 mainfont: domine
+sansfont: rubik
 monofont: "JetBrains Mono"
 highlight-style: a11y
 code-overflow: wrap
@@ -28,6 +29,7 @@ google-scholar: true
 library(scales)
 library(gt)
 library(dplyr)
+library(tidyr)
 library(ggplot2)
 library(ggpubr)
 library(ggthemes)
@@ -41,6 +43,82 @@ library(showtext)
 font_add_google("Rubik", "rubik", regular.wt = 700)
 font_add_google("JetBrains Mono", "jetbrains", regular.wt = 700)
 font_add_google("Domine", "domine", regular.wt = 700)
+```
+
+```{r setup, echo=FALSE}
+category_scores_STEM <- data.frame(
+  category_name = character(),
+  category_impact_number = integer(),
+  category_index = double(),
+  category_score = integer()
+  )
+
+iu_palette = c(
+  "#99000088",
+  "#FFAA0088",
+  "#00629888",
+  "#59264D88",
+  "#056E4188"
+  )
+
+category_levels <- c(
+  "Participation",
+  "Engagement",
+  "Infrastructure",
+  "Outputs",
+  "Sustainability"
+)
+```
+
+```{r define-functions, echo=FALSE}
+add_category <- function(the_frame,
+                         category_name,
+                         impact_number,
+                         component_score_1,
+                         component_score_2) {
+  the_frame <- the_frame |>
+    add_row(
+      category_name = category_name,
+      category_impact_number = impact_number,
+      category_index = round((component_score_1 + component_score_2) / 2,
+        digits = 2
+      )
+    ) |>
+    mutate(
+      category_score = round((category_impact_number * (1 + category_index)), digits = 0)
+    )
+}
+
+create_display_table <- function(the_frame,
+                                 the_category,
+                                 component_score_1,
+                                 component_score_2,
+                                 component_title_list) {
+  the_table <- the_frame |>
+    filter(category_name == the_category) |>
+    pivot_longer(
+      cols = c(
+        "category_impact_number",
+        "category_index",
+        "category_score"
+      ),
+      names_to = "Component",
+      values_to = "Value"
+    ) |>
+    select(-category_name) |>
+    add_row(
+      Component = "Component 1",
+      Value = component_score_1,
+      .after = 1
+    ) |>
+    add_row(
+      Component = "Component 2",
+      Value = component_score_2,
+      .after = 2
+    )
+  the_table$Component <- component_title_list
+  return(the_table)
+}
 ```
 
 ## Introduction
@@ -73,7 +151,7 @@ should be focusing on.
 
 How 'bout *these* beans?
 
-![](assets/detailed_badge.png)
+![An example of a detailed badge.](assets/detailed_badge.png)
 
 Pretty [*radicle,*](https://en.wikipedia.org/wiki/Radicle) eh?
 
@@ -142,17 +220,18 @@ individual ratings represented by $r_{C1} \ldots r_C$). This is the general form
 for a `category score`:
 
 $$
-S_C = I_C \cdot \left(1 + \frac{\sum r_{C_1} \ldots r_{C_n}}{|R_C|}\right)
+S_C = I_C \left(1 + \frac{\sum r_{C_1} \ldots r_{C_n}}{|R_C|}\right)
 $$
 
-The process for computing each of the category scores is essentially calculating the
+The process for computing each of the `category scores` is essentially calculating the
 average for the ratings in the category and then adding 1 to this average since
 the ratings are between 0 and 1 and only numbers greater than 1 will amplify things.
 The `amplifier score` is then multiplied by the `impact number`, which can be the
 number of participants, contact hours, institutional partners, etc.
 
 The categories contribute to the `overall score` ($S_O$) as a straight-forward
-summation of all the category scores:
+summation of all the category scores, where $s$ represents the `category scores`,
+$x$ represents the set of categories, and $n$ is the number of categories:
 
 $$
 S_O = \sum_{x=1}^n s_x
@@ -215,7 +294,7 @@ gt(participants_frame)
 How many participants involved? This is $p_n$. For this example, there are **6 participants**.
 
 ```{r, echo = FALSE}
-number_of_participants <- 6
+number_of_participants <- 7
 ```
 
 ### Marginalized Proportions Score
@@ -235,7 +314,7 @@ marginalized_proportions_coefficient <- 1
 ### Intersectionally Marginalized Score
 
 ```{r}
-intersectionally_marginalized_value <- .95
+intersectionally_marginalized_value <- 1
 intersectionally_marginalized_coefficient <- 1
 # 0.85 indicates one degree away, e.g., students of teachers, while 1 indicates
 # direct engagement
@@ -244,33 +323,63 @@ intersectionally_marginalized_coefficient <- 1
 ### Calculate Participation Score
 
 $$
-p_s = p_n \cdot \left( 1 + \frac{(\beta_m \cdot p_m + \beta_i \cdot p_i)}{2} \right)
+p_s = p_n \left( 1 + \frac{(\beta_m \cdot p_m + \beta_i \cdot p_i)}{2} \right)
 $$
 
 ```{r calculate-participant-score, echo = FALSE}
-participant_average <- (((marginalized_proportions_value *
-                           marginalized_proportions_coefficient) +
-                          (intersectionally_marginalized_value *
-                             intersectionally_marginalized_coefficient))
-                        / 2)
-participant_average <- round(participant_average, 2)
-marginalized_proportions <- (marginalized_proportions_value *
-                                marginalized_proportions_coefficient)
-intersectionally_marginalized <- (intersectionally_marginalized_value *
-                                     intersectionally_marginalized_coefficient)
-participant_amplifier <- (1 + participant_average)
-participant_score <- (number_of_participants * participant_amplifier)
 
-participant_score_frame <- data.frame(
-  number_of_participants = number_of_participants,
-  marginalized_proportions = marginalized_proportions,
-  intersectionally_marginalized = intersectionally_marginalized,
-  participant_average = participant_average,
-  participant_amplifier = participant_amplifier,
-  participant_score = participant_score
+marginalized_proportions_value <- round(
+  marginalized_proportions_value * marginalized_proportions_coefficient,
+  digits = 2
 )
 
-gt(participant_score_frame)
+intersectionally_marginalized_value <- round(
+  intersectionally_marginalized_value * intersectionally_marginalized_coefficient,
+  digits = 2
+)
+
+category_scores_STEM <- category_scores_STEM |>
+  add_category(
+    "Participation",
+    number_of_participants,
+    marginalized_proportions_value,
+    intersectionally_marginalized_value
+  )
+
+participation_component_list <- c("Number of Participants",
+                                  "Marginalized Participation Score",
+                                  "Intersectionally Marginalized Participation Score",
+                                  "Participation Category Index",
+                                  "Participation Category Score")
+rank_adjusted <- FALSE
+
+if(marginalized_proportions_coefficient < 1) {
+  participation_component_list[2] <- "Marginalized Participation Score*"
+  rank_adjusted <- TRUE
+}
+
+if(intersectionally_marginalized_value < 1) {
+  participation_component_list[3] <- "Intersectionally Marginalized Participation Score*"
+  rank_adjusted <- TRUE
+}
+
+participation_table <- category_scores_STEM |>
+  create_display_table(
+    "Participation",
+    marginalized_proportions_value,
+    intersectionally_marginalized_value,
+    participation_component_list
+  )
+
+participation_table <- participation_table |>
+  gt()
+
+if(rank_adjusted == TRUE) {
+  participation_table <- participation_table |>
+      tab_footnote(footnote = "*Adjusted scores.")
+}
+
+participation_table
 ```
 
 ## Engagement
@@ -341,23 +450,33 @@ duration_score <- 0.75
 ### Calculate Engagement Score
 
 $$
-e_s = e_h \cdot \left(1 + \frac{(e_d + e_f)}{2}\right)
+e_s = e_h \left(1 + \frac{(e_d + e_f)}{2}\right)
 $$
 
 ```{r calculate-engagement-score}
-engagement_average <- round(((duration_score + frequency_score) / 2), 2)
-engagement_amplifier <- (1 + engagement_average)
-engagement_score <- (engagement_hours * engagement_amplifier)
+category_scores_STEM <- category_scores_STEM |>
+  add_category(
+    "Engagement",
+    engagement_hours,
+    frequency_score,
+    duration_score
+  )
 
-engagement_score_frame <- data.frame(
-  engagement_hours = engagement_hours,
-  duration_score = duration_score,
-  frequency_score = frequency_score,
-  engagement_average = engagement_average,
-  engagement_amplifier = engagement_amplifier,
-  engagement_score = engagement_score
-)
-engagement_score_frame |>
+engagement_component_list <- c("Number of Contact Hours",
+                                  "Frequency Component Score",
+                                  "Duration Component Score",
+                                  "Engagement Category Index",
+                                  "Engagement Category Score")
+
+engagement_table <- category_scores_STEM |>
+  create_display_table(
+    "Engagement",
+    frequency_score,
+    duration_score,
+    engagement_component_list
+  )
+
+engagement_table |>
   gt()
 ```
 
@@ -399,34 +518,44 @@ number_of_infrastructure_products <- 8
 
 ### Infrastructure Purpose
 ```{r}
-infrastructure_purpose <- 0.9
+infrastructure_purpose <- 0.90
 ```
 
 ### Infrastructure Co-Construction
 ```{r}
-infrastructure_co_construction <- 0.1
+infrastructure_co_construction <- 0.10
 ```
 
 ### Calculate Infrastructure Score
 
 $$
-i_s = i_p \cdot \left(1 + \frac{(i_u + i_c)}{2}\right)
+i_s = i_p \left(1 + \frac{(i_u + i_c)}{2}\right)
 $$
 
 ```{r calculate-infrastructure-score}
-infrastructure_average <- round(((infrastructure_purpose + infrastructure_co_construction) / 2), 2)
-infrastructure_amplifier <- (1 + infrastructure_average)
-infrastructure_score <- (number_of_infrastructure_products * infrastructure_amplifier)
+category_scores_STEM <- category_scores_STEM |>
+  add_category(
+    "Infrastructure",
+    number_of_infrastructure_products,
+    infrastructure_purpose,
+    infrastructure_co_construction
+  )
 
-infrastructures_score_frame <- data.frame(
-  number_of_infrastructure_products = number_of_infrastructure_products,
-  infrastructure_purpose = infrastructure_purpose,
-  infrastructure_co_construction = infrastructure_co_construction,
-  infrastructure_average = infrastructure_average,
-  infrastructure_amplifier = infrastructure_amplifier,
-  infrastructure_score = infrastructure_score
-)
-infrastructures_score_frame |>
+infrastructure_component_list <- c("Number of Infrasctructure Products",
+                                  "Infrastructure Purpose Score",
+                                  "Infrastructure Co-Construction Score",
+                                  "Infrastructure Category Index",
+                                  "Infrastructure Category Score")
+
+infrastructure_table <- category_scores_STEM |>
+  create_display_table(
+    "Infrastructure",
+    infrastructure_purpose,
+    infrastructure_co_construction,
+    infrastructure_component_list
+  )
+
+infrastructure_table |>
   gt()
 ```
 
@@ -449,9 +578,9 @@ outputs_frame <- data.frame(
     "Full Partnership"
   ),
   value = c(
-    0.1,
-    0.5,
-    0.9,
+    0.10,
+    0.50,
+    0.90,
     0.95,
     1
   ))
@@ -469,35 +598,45 @@ number_of_outputs <- 1
 ### Distribution of Venues
 
 ```{r}
-distribution_of_venues <- 0.1
+distribution_of_venues <- 0.10
 ```
 
 ### Inclusion of Participants and Partners
 
 ```{r}
-inclusion_of_participants <- 0.9
+inclusion_of_participants <- 0.90
 ```
 
 ### Calculate Outputs Score
 
 $$
-s_o = i_o \cdot \left(1 + \frac{(o_v + o_i)}{2}\right)
+o_s = o_p \left(1 + \frac{(o_v + o_i)}{2}\right)
 $$
 
 ```{r calculate-outputs-score}
-outputs_average <- round(((distribution_of_venues + inclusion_of_participants) / 2), 2)
-outputs_amplifier <- (1 + outputs_average)
-outputs_score <- (number_of_outputs * outputs_amplifier)
+category_scores_STEM <- category_scores_STEM |>
+  add_category(
+    "Outputs",
+    number_of_outputs,
+    distribution_of_venues,
+    inclusion_of_participants
+  )
 
-outputs_score_frame <- data.frame(
-  number_of_outputs = number_of_outputs,
-  distribution_of_venues = distribution_of_venues,
-  inclusion_of_participants = inclusion_of_participants,
-  outputs_average = outputs_average,
-  outputs_amplifier = outputs_amplifier,
-  outputs_score = outputs_score
-)
-outputs_score_frame |>
+outputs_component_list <- c("Number of Output Products",
+                                  "Distribution of Venues Score",
+                                  "Inclusion of Participants Score",
+                                  "Outputs Category Index",
+                                  "Outputs Category Score")
+
+outputs_table <- category_scores_STEM |>
+  create_display_table(
+    "Outputs",
+    distribution_of_venues,
+    inclusion_of_participants,
+    outputs_component_list
+  )
+
+outputs_table |>
   gt()
 ```
 
@@ -546,50 +685,43 @@ distribution_of_responsibility <- 0.5
 ### Distribution of Material Support
 
 ```{r}
-distribution_of_material_support <- 0.1
+distribution_of_material_support <- 0.5
 ```
 
 ### Calculate Sustainability Score
 
 $$
-s_s = i_s \cdot \left(1 + \frac{(c_{s_r} + c_{s_m})}{2}\right)
+s_s = s_p \left(1 + \frac{(s_r + s_m)}{2}\right)
 $$
 
 ```{r calculate-sustainability-score}
-sustainability_average <- round(((distribution_of_responsibility + distribution_of_material_support) / 2), 2)
-sustainability_amplifier <- (1 + sustainability_average)
-sustainability_score <- (number_of_partners * sustainability_amplifier)
+category_scores_STEM <- category_scores_STEM |>
+  add_category(
+    "Sustainability",
+    number_of_partners,
+    distribution_of_responsibility,
+    distribution_of_material_support
+  )
 
-sustainability_score_frame <- data.frame(
-  number_of_partners = number_of_partners,
-  distribution_of_responsibility = distribution_of_responsibility,
-  distribution_of_material_support = distribution_of_material_support,
-  sustainability_average = sustainability_average,
-  sustainability_amplifier = sustainability_amplifier,
-  sustainability_score = sustainability_score
-)
-sustainability_score_frame |>
+sustainability_component_list <- c("Number of Partners",
+                                  "Distribution of Responsibiilty Score",
+                                  "Distribution of Material Support Score",
+                                  "Sustainability Category Index",
+                                  "Sustainability Category Score")
+
+sustainability_table <- category_scores_STEM |>
+  create_display_table(
+    "Sustainability",
+    distribution_of_responsibility,
+    distribution_of_material_support,
+    sustainability_component_list
+  )
+
+sustainability_table |>
   gt()
 ```
 
 ## Overall Score
-
-$$
-S_O = \sum_{x=1}^n s_x
-$$
-
-```{r}
-overall_score <-
-  participant_score +
-  engagement_score +
-  infrastructure_score +
-  outputs_score +
-  sustainability_score
-overall_score <- round(overall_score, 0)
-overall_score
-```
-
-## Overall Representation
 
 > "Red Beans and Ricely Yours"
 >
@@ -597,14 +729,19 @@ overall_score
 
 !["Here are my beans, come count them!" As imagined by Adobe Firefly.](assets/introbeans.jpg)
 
+$$
+S_O = \sum_{x=1}^n s_x
+$$
+
+```{r}
+overall_score <- sum(category_scores_STEM$category_score)
+```
+
+The Overall Score $S_O$ for the STEM Studio is `r overall_score`.
+
+## Overall Representation
+
 ```{r represent, fig.showtext=TRUE, warning=FALSE, message=FALSE, echo=FALSE}
-iu_palette = c(
-  "#99000088",
-  "#FFAA0088",
-  "#00629888",
-  "#59264D88",
-  "#056E4188"
-  )
 
 category_names <- c(
   "Sustainability",
@@ -614,54 +751,27 @@ category_names <- c(
   "Participation"
 )
 
-category_levels <- c(
-  "Participation",
-  "Engagement",
-  "Infrastructure",
-  "Outputs",
-  "Sustainability"
+donut_labels <- vector()
+
+for (i in 1:5) {
+  donut_labels[i] <- glue(
+    "{category_scores_STEM$category_name[i]}\n{category_scores_STEM$category_index[i]}"
+    )
+}
+
+donut_frame <- data.frame(
+  names = category_levels,
+  label = donut_labels,
+  score = category_scores_STEM$category_index
 )
 
-overall_frame <- data.frame(
-  names = c(
-    "Participation",
-    "Engagement",
-    "Sustainability",
-    "Infrastructure",
-    "Outputs"
-  ),
-  label = c(
-    glue("Participation\n{participant_average}"),
-    glue("Engagement\n{engagement_average}"),
-    glue("Sustainability\n{sustainability_average}"),
-    glue("Infrastructure\n{infrastructure_average}"),
-    glue("Outputs\n{outputs_average}")
-  ),
-  score = c(
-    participant_average,
-    engagement_average,
-    sustainability_average,
-    infrastructure_average,
-    outputs_average
-    )
-  )
-
-overall_frame$names <- factor(
-  overall_frame$names,
+donut_frame$names <- factor(
+  donut_frame$names,
   levels = category_levels
 )
 
-overall_score <-
-  participant_score +
-  engagement_score +
-  infrastructure_score +
-  outputs_score +
-  sustainability_score
-
-overall_score <- round(overall_score, 0)
-
 bean_donut <- ggdonutchart(
-  overall_frame, "score",
+  donut_frame, "score",
   fill = "names", color = "#EDEBEB",
   palette = iu_palette,
   lab.font = "#191919",
@@ -678,62 +788,31 @@ bean_donut <- ggdonutchart(
   theme(
     legend.position = "none",
     panel.background = element_rect(fill='transparent'),
-    plot.background = element_rect(fill='transparent', color=NA)
+    plot.background = element_rect(fill='transparent', color=NA),
+    axis.ticks = element_blank()
     )
 
-simple_frame <- overall_frame |>
-  select(-label)
+raw_impacts <- c(
+  "Participants",
+  "Hours",
+  "Infrastructures",
+  "Outputs",
+  "Partners"
+)
 
-simple_donut <- ggdonutchart(
-  simple_frame, "score",
-  fill = "names", color = "#EDEBEB",
-  palette = iu_palette,
-  label = "names",
-  lab.pos = "in"
-  ) +
-  annotate(
-    geom = "text",
-    x = 0.5,
-    y = 0,
-    label = overall_score,
-    size = 18,
-    family = "jetbrains"
-    ) +
-  theme(
-    legend.position = "none",
-    panel.background = element_rect(fill='transparent'),
-    plot.background = element_rect(fill='transparent', color=NA)
+raw_labels <- vector()
+
+for (i in 1:5) {
+  raw_labels[i] <- glue(
+    "{category_scores_STEM$category_impact_number[i]} {raw_impacts[i]}"
     )
+}
 
 raw_frame <- data.frame(
-  names = c(
-    "Participation",
-    "Engagement",
-    "Infrastructure",
-    "Outputs",
-    "Sustainability"
-  ),
-  label = c(
-    glue("{number_of_participants} Participants"),
-    glue("{engagement_hours} Hours"),
-    glue("{number_of_infrastructure_products} Infrastructures"),
-    glue("{number_of_outputs} Outputs"),
-    glue("{number_of_partners} Partners")
-  ),
-  values = c(
-    number_of_participants,
-    engagement_hours,
-    number_of_infrastructure_products,
-    number_of_outputs,
-    number_of_partners
-  ),
-  bean = c(
-    "BEAN",
-    "BEAN",
-    "BEAN",
-    "BEAN",
-    "BEAN"
-  )
+  names = category_levels,
+  label = raw_labels,
+  values = category_scores_STEM$category_impact_number,
+  bean = c("BEAN", "BEAN", "BEAN", "BEAN", "BEAN")
 )
 
 raw_frame$names <- factor(
@@ -766,7 +845,7 @@ label_frame <- data.frame(
   x = 1,
   y = 2,
   label = glue(
-    "<span style='color:#99000088;'>█</span> <span style='color:#990000;'><b>{number_of_participants}</b></span> Participants <span style='color:#FFAA0088;'>█</span> <span style='color:#FFAA00;'><b>{engagement_hours}</b></span> Engagement Hours <span style='color:#00629888;'>█</span> <span style='color:#006298;'><b>{number_of_infrastructure_products}</b></span> Infrastructure Products <span style='color:#59264D88;'>█</span> <span style='color:#59264D;'><b>{number_of_outputs}</b></span> Outputs <span style='color:#056E4188;'>█</span> <span style='color:#056E41;'><b>{number_of_partners}</b></span> Partners"
+    "<span style='color:#99000088;'>█</span> <span style='color:#990000;'><b>{category_scores_STEM$category_impact_number[1]}</b></span> Participants <span style='color:#FFAA0088;'>█</span> <span style='color:#FFAA00;'><b>{category_scores_STEM$category_impact_number[2]}</b></span> Engagement Hours <span style='color:#00629888;'>█</span> <span style='color:#006298;'><b>{category_scores_STEM$category_impact_number[3]}</b></span> Infrastructure Products <span style='color:#59264D88;'>█</span> <span style='color:#59264D;'><b>{category_scores_STEM$category_impact_number[4]}</b></span> Outputs <span style='color:#056E4188;'>█</span> <span style='color:#056E41;'><b>{category_scores_STEM$category_impact_number[5]}</b></span> Partners"
     )
   )
 
@@ -845,27 +924,7 @@ ggsave(
   height = 8,
   units = "in"
   )
-
-simple_badge <- ggarrange(
-  simple_donut,
-  credit_line,
-  ncol = 1,
-  nrow = 2,
-  heights = c(8,1)
-)
-ggsave(
-  simple_badge,
-  filename = "assets/simple_badge.png",
-  dpi = 320,
-  width = 8,
-  height = 8,
-  units = "in"
-  )
 ```
-
-### Simple Badge
-
-![An example of a simple badge that simply presents the proportionality of the project with the total score.](assets/simple_badge.png)
 
 ### Detailed Badge
 
