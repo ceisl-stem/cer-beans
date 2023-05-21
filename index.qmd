@@ -1,5 +1,5 @@
 ---
-title: "CER-BEANS: Community Engaged Research Balanced Assessments and Expressions with Nuanced Scores"
+title: "CER-BEANS: Community Engaged Research Balanced Expressions and Assessments with Nuanced Scores"
 subtitle: "A Framework for Constructing Quantitative Metrics for Community Engaged Research Projects"
 author:
   - name: Jeremy F Price 
@@ -25,6 +25,15 @@ citation:
 google-scholar: true
 ---
 
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+```
+
 ```{r load-libraries, message = FALSE, warning=FALSE, echo = FALSE}
 library(scales)
 library(gt)
@@ -37,6 +46,7 @@ library(glue)
 library(ggrepel)
 library(ggtext)
 library(showtext)
+library(ggforce)
 ```
 
 ```{r load-fonts, echo = FALSE, include=FALSE}
@@ -46,38 +56,99 @@ font_add_google("Domine", "domine", regular.wt = 700)
 ```
 
 ```{r setup, echo=FALSE}
-category_scores_STEM <- data.frame(
+category_scores <- data.frame(
+  project_name = character(),
   category_name = character(),
   category_impact_number = integer(),
   category_index = double(),
   category_score = integer()
   )
 
-iu_palette = c(
-  "#99000088",
-  "#FFAA0088",
-  "#00629888",
-  "#59264D88",
-  "#056E4188"
+iu_palette <<- c(
+  "#990000",
+  "#FFAA00",
+  "#006298",
+  "#7D4C73",
+  "#056E41"
   )
 
-category_levels <- c(
+category_levels <<- c(
   "Participation",
   "Engagement",
   "Infrastructure",
   "Outputs",
   "Sustainability"
 )
+
+raw_impacts <<- c(
+  "Participants",
+  "Hours",
+  "Infrastructures",
+  "Outputs",
+  "Partners"
+)
+
+credit_frame <- data.frame(
+  x = 1,
+  y = 1,
+  label = glue("Community Engaged Research Balanced Expressions and Assessments with Nuanced Scores -- Generated {Sys.Date()} -- CC BY-NC-SA 4.0")
+)
+credit_line <<- ggplot(
+  credit_frame,
+  aes(
+    x = x,
+    y = y,
+    label = label
+  )
+) +
+  geom_richtext(
+    fill = NA,
+    label.color = NA,
+    color = "#191919",
+    size = 2.5
+  ) +
+  theme_light() +
+  theme(
+    legend.position = "none",
+    axis.title = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    panel.border = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.background = element_rect(fill = "transparent"),
+    plot.background = element_rect(fill = "transparent", color = NA)
+  )
+
+  # Source and inspiration: https://datasketch.dev/post/2020-08-09-how-to-make-spirals-with-r/
+  # vogel_t <- 1:100
+  # vogel_r <- sqrt(vogel_t)
+  # golden_angle <- pi * (3 - sqrt(5))
+  # theta <- vogel_t * golden_angle
+  # vogel_x <- vogel_r * cos(theta)
+  # vogel_y <- vogel_r * sin(theta)
+  # vogel_coords <<- tibble::tibble(vogel_x, vogel_y)
+# Archimedan
+  # n_arch <- 100
+  # # b separation of turns
+  # t_arch <- seq(0, 3  * 2 * pi, length.out = n_arch)
+  # x_arch <- (0 + 1 * t_arch) * cos(t_arch)
+  # y_arch <- (0 + 1 * t_arch) * sin(t_arch)
+  # arch_coords <- tibble::tibble(x_arch, y_arch)
+  # arch_coords$n <- 1:n
+
 ```
 
 ```{r define-functions, echo=FALSE}
 add_category <- function(the_frame,
+                         the_project,
                          category_name,
                          impact_number,
                          component_score_1,
                          component_score_2) {
   the_frame <- the_frame |>
     add_row(
+      project_name = the_project,
       category_name = category_name,
       category_impact_number = impact_number,
       category_index = round((component_score_1 + component_score_2) / 2,
@@ -119,6 +190,344 @@ create_display_table <- function(the_frame,
   the_table$Component <- component_title_list
   return(the_table)
 }
+
+adjust_component_score <- function(the_score, the_coefficient) {
+  the_component_score <- round(the_score * the_coefficient, 2)
+}
+
+bake_donut <- function(category_scores, the_project, the_overall) {
+  the_frame <- category_scores |>
+    filter(project_name == the_project)
+  donut_labels <- vector()
+  for (i in 1:5) {
+    donut_labels[i] <- glue(
+      "{the_frame$category_name[i]}\n{the_frame$category_index[i]}"
+    )
+  }
+  donut_frame <- data.frame(
+    names = category_levels,
+    label = donut_labels,
+    score = the_frame$category_index
+  )
+  donut_frame$names <- factor(
+    donut_frame$names,
+    levels = category_levels
+  )
+  bean_donut <- ggdonutchart(
+    donut_frame, "score",
+    fill = "names", color = "#EDEBEB",
+    palette = iu_palette,
+    lab.font = "#191919",
+    # font.family = "rubik"
+  ) +
+    annotate(
+      geom = "text",
+      x = 0.5,
+      y = 0,
+      label = the_overall,
+      size = 18,
+      # family = "jetbrains"
+    ) +
+    theme(
+      legend.position = "none",
+      panel.background = element_rect(fill = "transparent"),
+      plot.background = element_rect(fill = "transparent", color = NA),
+      axis.ticks = element_blank()
+    )
+  return(bean_donut)
+}
+
+prep_raw <- function(category_scores, the_project) {
+  the.frame <- category_scores |>
+    filter(project_name == the_project)
+  raw_labels <- vector()
+
+  for (i in 1:5) {
+    raw_labels[i] <- glue(
+      "{category_scores$category_impact_number[i]} {raw_impacts[i]}"
+    )
+  }
+
+  raw_frame <- data.frame(
+    names = category_levels,
+    label = raw_labels,
+    values = the.frame$category_impact_number,
+    bean = c("BEAN", "BEAN", "BEAN", "BEAN", "BEAN")
+  )
+
+  raw_frame$names <- factor(
+    raw_frame$names,
+    levels = rev(category_levels)
+  )
+
+  raw_frame$values_adjusted <- rescale(raw_frame$values, to = c(3, 100))
+
+  raw_bar <- ggplot(raw_frame, aes(x = bean, y = values_adjusted, fill = names)) +
+    geom_bar(
+      stat = "identity",
+      width = 1,
+      color = "#EDEBEB"
+    ) +
+    coord_flip() +
+    scale_fill_manual(values = rev(iu_palette)) +
+    theme_light() +
+    theme(
+      legend.position = "none",
+      axis.title = element_blank(),
+      axis.text = element_blank(),
+      axis.ticks = element_blank(),
+      panel.border = element_blank(),
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      panel.background = element_rect(fill = "transparent"),
+      plot.background = element_rect(fill = "transparent", color = NA)
+    )
+  return(raw_bar)
+}
+
+prep_labels <- function(category_scores, the_project) {
+  the_frame <- category_scores |>
+    filter(project_name == the_project)
+  label_frame <- data.frame(
+    x = 1,
+    y = 2,
+    label = glue(
+      "<span style='color:#99000088;'>█</span> <span style='color:#990000;'><b>{the_frame$category_impact_number[1]}</b></span> Participants <span style='color:#FFAA0088;'>█</span> <span style='color:#FFAA00;'><b>{the_frame$category_impact_number[2]}</b></span> Engagement Hours <span style='color:#00629888;'>█</span> <span style='color:#006298;'><b>{the_frame$category_impact_number[3]}</b></span> Infrastructure Products <span style='color:#59264D88;'>█</span> <span style='color:#59264D;'><b>{the_frame$category_impact_number[4]}</b></span> Outputs <span style='color:#056E4188;'>█</span> <span style='color:#056E41;'><b>{the_frame$category_impact_number[5]}</b></span> Partners"
+    )
+  )
+
+  label_line <- ggplot(
+    label_frame,
+    aes(
+      x = x,
+      y = y,
+      label = label
+    )
+  ) +
+    geom_richtext(
+      fill = NA,
+      label.color = NA,
+      color = "#191919",
+      size = 3.5
+    ) +
+    theme_light() +
+    theme(
+      legend.position = "none",
+      axis.title = element_blank(),
+      axis.text = element_blank(),
+      axis.ticks = element_blank(),
+      panel.border = element_blank(),
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      panel.background = element_rect(fill = "transparent"),
+      plot.background = element_rect(fill = "transparent", color = NA)
+    )
+  return(label_line)
+}
+
+calculate_overall <- function(category_scores, the_project) {
+  overall_score <- category_scores |>
+    filter(project_name == the_project) |>
+    tally(category_score) |>
+    pull(n)
+}
+
+compile_badge <- function(the_donut, the_raw, the_labels, project_abbrev) {
+  the_file <- glue("outputs/{project_abbrev}_badge.png")
+  detailed_badge <- ggarrange(
+    the_donut,
+    the_raw,
+    the_labels,
+    credit_line,
+    ncol = 1,
+    nrow = 4,
+    heights = c(8, 1, 1, 1)
+  )
+  ggsave(
+  detailed_badge,
+  filename = the_file,
+  dpi = 320,
+  width = 8,
+  height = 8,
+  units = "in"
+  )
+}
+
+map_ripples <- function(the_project, the_frame) {
+  the_project <- "PD @ TG"
+  the_frame <- pdtg_ripple
+  
+  the_frame <- the_frame |>
+    filter(project_name == the_project) |>
+    select(-project_name)
+  library(DiagrammeR)
+  the_graph <- the_frame |>
+    graph_from_data_frame(directed = TRUE)
+  
+}
+
+map_spiral <- function(the_frame, the_colors, the_levels, the_grid) {
+  the_frame <- the_frame |>
+    mutate(values = ((values / sum(values)) * 100))
+  the_frame$values <- round(the_frame$values, digits = 0)
+  rep_frame <- rep(the_frame$name, times = the_frame$values)
+  spiral_frame <- data.frame(
+    group = rep_frame,
+    x = vogel_coords$vogel_x,
+    y = vogel_coords$vogel_y
+  )
+  the_spiral <- ggplot(spiral_frame) +
+    geom_segment(
+      aes(
+        x = -10,
+        y = 0,
+        xend = 10,
+        yend = 0
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.01
+    ) +
+    geom_segment(
+      aes(
+        x = 0,
+        y = -10,
+        xend = 0,
+        yend = 10
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.01
+    ) +
+    geom_segment(
+      aes(
+        x = 0,
+        y = 0,
+        xend = 8,
+        yend = -8
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.01
+    ) +
+    geom_segment(
+      aes(
+        x = 0,
+        y = 0,
+        xend = 8,
+        yend = 8
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.01
+    ) +
+    geom_segment(
+      aes(
+        x = 0,
+        y = 0,
+        xend = -8,
+        yend = -8
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.01
+    ) +
+    geom_segment(
+      aes(
+        x = 0,
+        y = 0,
+        xend = -8,
+        yend = 8
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.01
+    ) +
+    geom_circle(
+      aes(
+        x0 = 0,
+        y0 = 0,
+        r = 1
+      ),
+      color = "#eeeeee",
+      fill = "#ffffff"
+    ) +
+    geom_circle(
+      aes(
+        x0 = 0,
+        y0 = 0,
+        r = 5
+      ),
+      color = "#eeeeee"
+    ) +
+    geom_circle(
+      aes(
+        x0 = 0,
+        y0 = 0,
+        r = 10
+      ),
+      color = "#eeeeeecc"
+    ) +
+    geom_point(
+      aes(
+        x = 0,
+        y = 0
+      ),
+      color = "#eeeeee",
+      size = 2
+    ) +
+    geom_point(
+      aes(
+        x,
+        y,
+        color = group
+      ),
+      size = 6
+    ) +
+    coord_equal() +
+    scale_color_manual(
+      values = the_colors
+    ) +
+    theme_minimal() +
+    theme(
+      axis.ticks = element_blank(),
+      axis.text = element_blank(),
+      axis.title = element_blank(),
+      panel.grid = element_blank(),
+      legend.title = element_blank(),
+      legend.position = "bottom",
+      panel.background = element_rect(
+        fill = "transparent",
+        color = NA
+      ),
+      plot.background = element_rect(
+        fill = "transparent",
+        color = NA
+      )
+    )
+}
+
+vogel_spiral <- function(n){
+  t <- 1:n
+  r <- sqrt(t)
+  golden_angle <- pi * (3 - sqrt(5))
+  theta <- t * golden_angle
+  x <- r * cos(theta)
+  y <- r * sin(theta)
+  d <- tibble::tibble(x, y)
+  d$n <- 1:n
+  d
+}
+
+archimedean_spiral <- function(n, a = 0, b = 1, turns = 3){
+  # b separation of turns
+  t <- seq(0, turns  * 2 *pi, length.out=n)
+  x <- (a + b*t) * cos(t)
+  y <- (a + b*t) * sin(t)
+  d <- tibble::tibble(x, y)
+  d$n <- 1:n
+  d
+}
 ```
 
 ## Introduction
@@ -135,9 +544,11 @@ in academia ❤️&nbsp;**love**&nbsp;❤️ putting numbers on things and count
 Rather than sitting back and stewing like a pot of vegetarian chili while fretting
 about whether or not faculty committees and administrators will count the kinds of
 beans I hope they would count, I decided to create my own set of beans for them to
-count. Therefore:
+count.
 
-**Community Engaged Research Broad Evaluation and Assessments with Nuanced Scores
+Therefore:
+
+**Community Engaged Research Balanced Expressions and Assessments with Nuanced Scores
 (CER-BEANS)**[CER-BEANS is pronounced "Sir&nbsp;Beans."]{.aside}
 
 I was inspired by the [Altmetric badge](https://www.altmetric.com/), so I want to
@@ -151,7 +562,7 @@ should be focusing on.
 
 How 'bout *these* beans?
 
-![An example of a detailed badge.](assets/detailed_badge.png)
+![](outputs/pdtg_badge.png)
 
 Pretty [*radicle,*](https://en.wikipedia.org/wiki/Radicle) eh?
 
@@ -295,6 +706,7 @@ How many participants involved? This is $p_n$. For this example, there are **6 p
 
 ```{r, echo = FALSE}
 number_of_participants <- 7
+tg_number_of_participants <- 70
 ```
 
 ### Marginalized Proportions Score
@@ -309,6 +721,8 @@ these identities and communities?
 ```{r, echo = FALSE}
 marginalized_proportions_value <- 1
 marginalized_proportions_coefficient <- 1
+tg_marginalized_proportions_value <- 0.95
+tg_marginalized_proportions_coefficient <- 0.85
 ```
 
 ### Intersectionally Marginalized Score
@@ -316,6 +730,8 @@ marginalized_proportions_coefficient <- 1
 ```{r}
 intersectionally_marginalized_value <- 1
 intersectionally_marginalized_coefficient <- 1
+tg_intersectionally_marginalized_value <- 0.95
+tg_intersectionally_marginalized_coefficient <- 0.85
 # 0.85 indicates one degree away, e.g., students of teachers, while 1 indicates
 # direct engagement
 ```
@@ -328,22 +744,42 @@ $$
 
 ```{r calculate-participant-score, echo = FALSE}
 
-marginalized_proportions_value <- round(
-  marginalized_proportions_value * marginalized_proportions_coefficient,
-  digits = 2
+marginalized_proportions_score <- adjust_component_score(
+  marginalized_proportions_value,
+  marginalized_proportions_coefficient
 )
 
-intersectionally_marginalized_value <- round(
-  intersectionally_marginalized_value * intersectionally_marginalized_coefficient,
-  digits = 2
+intersectionally_marginalized_score <- adjust_component_score(
+  intersectionally_marginalized_value,
+  intersectionally_marginalized_coefficient
 )
 
-category_scores_STEM <- category_scores_STEM |>
+category_scores <- category_scores |>
   add_category(
+    "STEM Studio",
     "Participation",
     number_of_participants,
-    marginalized_proportions_value,
-    intersectionally_marginalized_value
+    marginalized_proportions_score,
+    intersectionally_marginalized_score
+  )
+
+tg_marginalized_proportions_score <- adjust_component_score(
+  tg_marginalized_proportions_value,
+  tg_marginalized_proportions_coefficient
+)
+
+tg_intersectionally_marginalized_score <- adjust_component_score(
+  tg_intersectionally_marginalized_value,
+  tg_intersectionally_marginalized_coefficient
+)
+
+category_scores <- category_scores |>
+  add_category(
+    "PD @ TG",
+    "Participation",
+    tg_number_of_participants,
+    tg_marginalized_proportions_score,
+    tg_intersectionally_marginalized_score
   )
 
 participation_component_list <- c("Number of Participants",
@@ -363,23 +799,24 @@ if(intersectionally_marginalized_value < 1) {
   rank_adjusted <- TRUE
 }
 
-participation_table <- category_scores_STEM |>
-  create_display_table(
-    "Participation",
-    marginalized_proportions_value,
-    intersectionally_marginalized_value,
-    participation_component_list
-  )
+#participation_table <- category_scores |>
+#  #select(-project_name) |>
+#  create_display_table(
+#    "Participation",
+#    marginalized_proportions_value,
+#    intersectionally_marginalized_value,
+#    participation_component_list
+#  )
 
-participation_table <- participation_table |>
-  gt()
+#participation_table <- participation_table |>
+#  gt()
 
-if(rank_adjusted == TRUE) {
-  participation_table <- participation_table |>
-      tab_footnote(footnote = "*Adjusted scores.")
-}
+#if(rank_adjusted == TRUE) {
+#  participation_table <- participation_table |>
+#      tab_footnote(footnote = "*Adjusted scores.")
+#}
 
-participation_table
+#participation_table
 ```
 
 ## Engagement
@@ -433,18 +870,21 @@ engagement_frame |>
 
 ```{r}
 engagement_hours <- 16
+tg_engagement_hours <- 18
 ```
 
 ### Frequency
 
 ```{r frequency-score}
 frequency_score <- 0.85
+tg_frequency_score <- 0.50
 ```
   
 ### Duration
 
 ```{r duration-score}
 duration_score <- 0.75
+tg_duration_score <- 0.85
 ```
 
 ### Calculate Engagement Score
@@ -454,12 +894,22 @@ e_s = e_h \left(1 + \frac{(e_d + e_f)}{2}\right)
 $$
 
 ```{r calculate-engagement-score}
-category_scores_STEM <- category_scores_STEM |>
+category_scores <- category_scores |>
   add_category(
+    "STEM Studio",
     "Engagement",
     engagement_hours,
     frequency_score,
     duration_score
+  )
+
+category_scores <- category_scores |>
+  add_category(
+    "PD @ TG",
+    "Engagement",
+    tg_engagement_hours,
+    tg_frequency_score,
+    tg_duration_score
   )
 
 engagement_component_list <- c("Number of Contact Hours",
@@ -468,16 +918,17 @@ engagement_component_list <- c("Number of Contact Hours",
                                   "Engagement Category Index",
                                   "Engagement Category Score")
 
-engagement_table <- category_scores_STEM |>
-  create_display_table(
-    "Engagement",
-    frequency_score,
-    duration_score,
-    engagement_component_list
-  )
+#engagement_table <- category_scores |>
+#  select(-project_name) |>
+#  create_display_table(
+#    "Engagement",
+#    frequency_score,
+#    duration_score,
+#    engagement_component_list
+#  )
 
-engagement_table |>
-  gt()
+#engagement_table |>
+#  gt()
 ```
 
 ## Infrastructure Score
@@ -514,16 +965,19 @@ infrastructure_frame |>
 
 ```{r}
 number_of_infrastructure_products <- 8
+tg_number_of_infrastructure_products <- 10
 ```
 
 ### Infrastructure Purpose
 ```{r}
 infrastructure_purpose <- 0.90
+tg_infrastructure_purpose <- 0.90
 ```
 
 ### Infrastructure Co-Construction
 ```{r}
 infrastructure_co_construction <- 0.10
+tg_infrastructure_co_construction <- 0.10
 ```
 
 ### Calculate Infrastructure Score
@@ -533,12 +987,22 @@ i_s = i_p \left(1 + \frac{(i_u + i_c)}{2}\right)
 $$
 
 ```{r calculate-infrastructure-score}
-category_scores_STEM <- category_scores_STEM |>
+category_scores <- category_scores |>
   add_category(
+    "STEM Studio",
     "Infrastructure",
     number_of_infrastructure_products,
     infrastructure_purpose,
     infrastructure_co_construction
+  )
+
+category_scores <- category_scores |>
+  add_category(
+    "PD @ TG",
+    "Infrastructure",
+    tg_number_of_infrastructure_products,
+    tg_infrastructure_purpose,
+    tg_infrastructure_co_construction
   )
 
 infrastructure_component_list <- c("Number of Infrasctructure Products",
@@ -547,16 +1011,17 @@ infrastructure_component_list <- c("Number of Infrasctructure Products",
                                   "Infrastructure Category Index",
                                   "Infrastructure Category Score")
 
-infrastructure_table <- category_scores_STEM |>
-  create_display_table(
-    "Infrastructure",
-    infrastructure_purpose,
-    infrastructure_co_construction,
-    infrastructure_component_list
-  )
+#infrastructure_table <- category_scores |>
+#  select(-project_name) |>
+#  create_display_table(
+#    "Infrastructure",
+#    infrastructure_purpose,
+#    infrastructure_co_construction,
+#    infrastructure_component_list
+#  )
 
-infrastructure_table |>
-  gt()
+#infrastructure_table |>
+#  gt()
 ```
 
 ## Outputs Score
@@ -593,18 +1058,21 @@ outputs_frame |>
 
 ```{r}
 number_of_outputs <- 1
+tg_number_of_outputs <- 0
 ```
 
 ### Distribution of Venues
 
 ```{r}
 distribution_of_venues <- 0.10
+tg_distribution_of_venues <- 0.10
 ```
 
 ### Inclusion of Participants and Partners
 
 ```{r}
 inclusion_of_participants <- 0.90
+tg_inclusion_of_participants <- 0.10
 ```
 
 ### Calculate Outputs Score
@@ -614,12 +1082,22 @@ o_s = o_p \left(1 + \frac{(o_v + o_i)}{2}\right)
 $$
 
 ```{r calculate-outputs-score}
-category_scores_STEM <- category_scores_STEM |>
+category_scores <- category_scores |>
   add_category(
+    "STEM Studio",
     "Outputs",
     number_of_outputs,
     distribution_of_venues,
     inclusion_of_participants
+  )
+
+category_scores <- category_scores |>
+  add_category(
+    "PD @ TG",
+    "Outputs",
+    tg_number_of_outputs,
+    tg_distribution_of_venues,
+    tg_inclusion_of_participants
   )
 
 outputs_component_list <- c("Number of Output Products",
@@ -628,16 +1106,17 @@ outputs_component_list <- c("Number of Output Products",
                                   "Outputs Category Index",
                                   "Outputs Category Score")
 
-outputs_table <- category_scores_STEM |>
-  create_display_table(
-    "Outputs",
-    distribution_of_venues,
-    inclusion_of_participants,
-    outputs_component_list
-  )
+#outputs_table <- category_scores |>
+#  select(-project_name) |>
+#  create_display_table(
+#    "Outputs",
+#    distribution_of_venues,
+#    inclusion_of_participants,
+#    outputs_component_list
+#  )
 
-outputs_table |>
-  gt()
+#outputs_table |>
+#  gt()
 ```
 
 ## Sustainability
@@ -674,18 +1153,21 @@ sustainability_frame |>
 
 ```{r}
 number_of_partners <- 2
+tg_number_of_partners <- 1
 ```
 
 ### Distribution of Responsibility
 
 ```{r}
 distribution_of_responsibility <- 0.5
+tg_distribution_of_responsibility <- 0.5
 ```
 
 ### Distribution of Material Support
 
 ```{r}
 distribution_of_material_support <- 0.5
+tg_distribution_of_material_support <- 0.5
 ```
 
 ### Calculate Sustainability Score
@@ -695,12 +1177,22 @@ s_s = s_p \left(1 + \frac{(s_r + s_m)}{2}\right)
 $$
 
 ```{r calculate-sustainability-score}
-category_scores_STEM <- category_scores_STEM |>
+category_scores <- category_scores |>
   add_category(
+    "STEM Studio",
     "Sustainability",
     number_of_partners,
     distribution_of_responsibility,
     distribution_of_material_support
+  )
+
+category_scores <- category_scores |>
+  add_category(
+    "PD @ TG",
+    "Sustainability",
+    tg_number_of_partners,
+    tg_distribution_of_responsibility,
+    tg_distribution_of_material_support
   )
 
 sustainability_component_list <- c("Number of Partners",
@@ -709,16 +1201,208 @@ sustainability_component_list <- c("Number of Partners",
                                   "Sustainability Category Index",
                                   "Sustainability Category Score")
 
-sustainability_table <- category_scores_STEM |>
-  create_display_table(
-    "Sustainability",
-    distribution_of_responsibility,
-    distribution_of_material_support,
-    sustainability_component_list
+#sustainability_table <- category_scores |>
+#  select(-project_name) |>
+#  create_display_table(
+#    "Sustainability",
+#    distribution_of_responsibility,
+#    distribution_of_material_support,
+#    sustainability_component_list
+#  )
+
+#sustainability_table |>
+#  gt()
+```
+
+## Ripple Effects
+
+```{r echo = TRUE}
+mu_ripple <- 0.55
+```
+
+$$
+\lambda_r = 10 \cdot \frac{\log(\mu_r + 1)}{d_r \cdot \log(p_n + 1)}
+$$
+
+$$
+\eta_r = {\lambda_r \cdot p_\delta \mid \delta \in {1, 2, \ldots, n}}
+$$
+
+```{r}
+pdtg_ripple <- data.frame(
+  group = c(1, 2, 3),
+  group_name = c("Teachers", "Students", "Family Members"),
+  values = c(70, 522, 2088)
+)
+
+spiral_palette <- c(
+  "1" = "#990000",
+  "2" = "#F23A3F",
+  "3" = "#FFD6DB",
+  "4" = "#FFF7F8"
+)
+
+
+pdtg_ripple$adj_values <- ((pdtg_ripple$values / sum(pdtg_ripple$values)) * 100)
+pdtg_ripple$adj_values <- round(pdtg_ripple$adj_values, digits = 0)
+#pdtg_ripple <- pdtg_ripple |>
+#  mutate(adj_values = if_else(adj_values == 0, 1, adj_values))
+pdtg_ripple$lambda_ripple <- (log(mu_ripple + 1)) /
+  (pdtg_ripple$group * log(pdtg_ripple$values + 1)) * 10
+pdtg_ripple$ripple_score <- pdtg_ripple$lambda_ripple * pdtg_ripple$values
+pdtg_ripple$ripple_score <- round(pdtg_ripple$ripple_score, digits = 0)
+#pdtg_ripple$adj_score <- ((pdtg_ripple$ripple_score / sum(pdtg_ripple$ripple_score)) * 100)
+#pdtg_ripple$adj_score <- round(pdtg_ripple$adj_score, digits = 0)
+
+pdtg_ripple <- pdtg_ripple |>
+  mutate(group_name = glue("{values} {group_name}\n(η = {ripple_score})"))
+
+total_ripple_score <- sum(pdtg_ripple$ripple_score)
+
+rep_frame <- data.frame(
+  group = rep(pdtg_ripple$group, times = pdtg_ripple$adj_values),
+  group_name = rep(pdtg_ripple$group_name, times = pdtg_ripple$adj_values)
+  )
+spiral_frame <- vogel_spiral(sum(pdtg_ripple$adj_values))
+spiral_frame$group_name = rep_frame$group_name
+spiral_frame$group = rep_frame$group
+spiral_frame$group <- factor(
+    spiral_frame$group,
+    levels = c(1:max(spiral_frame$group))
+  )
+pdtg_spiral <- ggplot(spiral_frame) +
+  geom_segment(
+    aes(
+      x = -10,
+      y = 0,
+      xend = 10,
+      yend = 0
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_segment(
+    aes(
+      x = 0,
+      y = -10,
+      xend = 0,
+      yend = 10
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_segment(
+    aes(
+      x = 0,
+      y = 0,
+      xend = 8,
+      yend = -8
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_segment(
+    aes(
+      x = 0,
+      y = 0,
+      xend = 8,
+      yend = 8
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_segment(
+    aes(
+      x = 0,
+      y = 0,
+      xend = -8,
+      yend = -8
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_segment(
+    aes(
+      x = 0,
+      y = 0,
+      xend = -8,
+      yend = 8
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_circle(
+    aes(
+      x0 = 0,
+      y0 = 0,
+      r = 1
+    ),
+    color = "#eeeeee",
+    fill = "#ffffff"
+  ) +
+  geom_circle(
+    aes(
+      x0 = 0,
+      y0 = 0,
+      r = 5
+    ),
+    color = "#eeeeee"
+  ) +
+  geom_circle(
+    aes(
+      x0 = 0,
+      y0 = 0,
+      r = 10
+    ),
+    color = "#eeeeeecc"
+  ) +
+  geom_point(
+    aes(
+      x = 0,
+      y = 0
+    ),
+    color = "#eeeeee",
+    size = 2
+  ) +
+  geom_point(
+    aes(
+      x,
+      y,
+      color = group
+    ),
+    size = 6
+  ) +
+  coord_equal() +
+  scale_color_manual(
+    labels = pdtg_ripple$group_name,
+    values = spiral_palette
+  ) +
+  theme_minimal() +
+  theme(
+    axis.ticks = element_blank(),
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    legend.title = element_blank(),
+    legend.position = "bottom",
+    panel.background = element_rect(
+      fill = "transparent",
+      color = NA
+    ),
+    plot.background = element_rect(
+      fill = "transparent",
+      color = NA
+    )
   )
 
-sustainability_table |>
-  gt()
+
+pdtg_spiral
 ```
 
 ## Overall Score
@@ -734,10 +1418,12 @@ S_O = \sum_{x=1}^n s_x
 $$
 
 ```{r}
-overall_score <- sum(category_scores_STEM$category_score)
+stst_overall_score <- calculate_overall(category_scores, "STEM Studio")
+pdtg_overall_score <- calculate_overall(category_scores, "PD @ TG")
 ```
 
-The Overall Score $S_O$ for the STEM Studio is `r overall_score`.
+The Overall Score $S_O$ for the STEM Studio is `r stst_overall_score` while the
+Overall Score $S_O$ for the Professional Development is `r pdtg_overall_score`.
 
 ## Overall Representation
 
@@ -751,117 +1437,169 @@ category_names <- c(
   "Participation"
 )
 
-donut_labels <- vector()
+pdtg_frame <- category_scores |>
+  filter(project_name == "PD @ TG") |>
+  mutate(category_score = category_score + 1) |>
+  mutate(category_name = glue("{category_name}\n(i = {category_index})"))
+pdtg_frame$category <- c(1, 2, 3, 4, 5)
 
-for (i in 1:5) {
-  donut_labels[i] <- glue(
-    "{category_scores_STEM$category_name[i]}\n{category_scores_STEM$category_index[i]}"
-    )
-}
+  pdtg_frame <- pdtg_frame |>
+    mutate(adj_score = ((category_score / sum(category_score)) * 100))
+  pdtg_frame$adj_score <- round(pdtg_frame$adj_score, digits = 0)
 
-donut_frame <- data.frame(
-  names = category_levels,
-  label = donut_labels,
-  score = category_scores_STEM$category_index
+arch_frame <- archimedean_spiral(sum(pdtg_frame$adj_score))
+arch_frame$category_name <- rep(pdtg_frame$category_name, times = pdtg_frame$adj_score)
+arch_frame$category <- rep(pdtg_frame$category, times = pdtg_frame$adj_score)
+arch_frame$category <- factor(
+  arch_frame$category,
+  levels = c("1", "2", "3", "4", "5")
 )
+#arch_frame <- data.frame(
+#  category = rep_frame,
+#  x = arch_coords$x_arch,
+#  y = arch_coords$y_arch)
 
-donut_frame$names <- factor(
-  donut_frame$names,
-  levels = category_levels
-)
-
-bean_donut <- ggdonutchart(
-  donut_frame, "score",
-  fill = "names", color = "#EDEBEB",
-  palette = iu_palette,
-  lab.font = "#191919",
-  font.family = "rubik"
+g1 <- ggplot(arch_frame) + 
+    geom_segment(
+    aes(
+      x = -16,
+      y = 0,
+      xend = 16,
+      yend = 0
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
   ) +
-  annotate(
-    geom = "text",
-    x = 0.5,
-    y = 0,
-    label = overall_score,
-    size = 18,
-    family = "jetbrains"
-    ) +
+  geom_segment(
+    aes(
+      x = 0,
+      y = -16,
+      xend = 0,
+      yend = 16
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_segment(
+    aes(
+      x = 0,
+      y = 0,
+      xend = 15,
+      yend = -15
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_segment(
+    aes(
+      x = 0,
+      y = 0,
+      xend = 15,
+      yend = 15
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_segment(
+    aes(
+      x = 0,
+      y = 0,
+      xend = -15,
+      yend = -15
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_segment(
+    aes(
+      x = 0,
+      y = 0,
+      xend = -15,
+      yend = 15
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_circle(
+    aes(
+      x0 = 0,
+      y0 = 0,
+      r = 1
+    ),
+    color = "#eeeeee",
+    fill = "#ffffff"
+  ) +
+  geom_circle(
+    aes(
+      x0 = 0,
+      y0 = 0,
+      r = 5
+    ),
+    color = "#eeeeee"
+  ) +
+  geom_circle(
+    aes(
+      x0 = 0,
+      y0 = 0,
+      r = 10
+    ),
+    color = "#eeeeeecc"
+  ) +
+  geom_circle(
+    aes(
+      x0 = 0,
+      y0 = 0,
+      r = 15
+    ),
+    color = "#eeeeeecc"
+  ) +
+  geom_point(aes(x,y, color = category), size = 8) + coord_equal() +
+  scale_color_manual(
+    values = iu_palette,
+    labels = pdtg_frame$category_name) +
+  theme_minimal() +
   theme(
-    legend.position = "none",
-    panel.background = element_rect(fill='transparent'),
-    plot.background = element_rect(fill='transparent', color=NA),
-    axis.ticks = element_blank()
+    legend.position = "bottom",
+    axis.ticks = element_blank(),
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    legend.title = element_blank(),
+    panel.background = element_rect(
+      fill = "transparent",
+      color = NA
+    ),
+    plot.background = element_rect(
+      fill = "transparent",
+      color = NA
     )
+  ) +
+  guides(color = guide_legend(nrow = 1, byrow = TRUE))
 
-raw_impacts <- c(
-  "Participants",
-  "Hours",
-  "Infrastructures",
-  "Outputs",
-  "Partners"
-)
-
-raw_labels <- vector()
-
-for (i in 1:5) {
-  raw_labels[i] <- glue(
-    "{category_scores_STEM$category_impact_number[i]} {raw_impacts[i]}"
-    )
-}
-
-raw_frame <- data.frame(
-  names = category_levels,
-  label = raw_labels,
-  values = category_scores_STEM$category_impact_number,
-  bean = c("BEAN", "BEAN", "BEAN", "BEAN", "BEAN")
-)
-
-raw_frame$names <- factor(
-  raw_frame$names,
-  levels = rev(category_levels)
-)
-
-raw_frame$values_adjusted <- rescale(raw_frame$values, to = c(3,100))
-
-raw_bar <- ggplot(raw_frame, aes(x = bean, y = values_adjusted, fill = names)) +
-  geom_bar(
-    stat = "identity",
-    width = 1,
-    color = "#EDEBEB"
-    ) +
-  coord_flip() +
-  scale_fill_manual(values = rev(iu_palette)) +
-  theme_light() +
-  theme(legend.position = "none",
-        axis.title = element_blank(),
-        axis.text = element_blank(),
-        panel.border = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-    panel.background = element_rect(fill='transparent'),
-    plot.background = element_rect(fill='transparent', color=NA)
-    )
-
-label_frame <- data.frame(
+arch_title <- data.frame(
   x = 1,
-  y = 2,
-  label = glue(
-    "<span style='color:#99000088;'>█</span> <span style='color:#990000;'><b>{category_scores_STEM$category_impact_number[1]}</b></span> Participants <span style='color:#FFAA0088;'>█</span> <span style='color:#FFAA00;'><b>{category_scores_STEM$category_impact_number[2]}</b></span> Engagement Hours <span style='color:#00629888;'>█</span> <span style='color:#006298;'><b>{category_scores_STEM$category_impact_number[3]}</b></span> Infrastructure Products <span style='color:#59264D88;'>█</span> <span style='color:#59264D;'><b>{category_scores_STEM$category_impact_number[4]}</b></span> Outputs <span style='color:#056E4188;'>█</span> <span style='color:#056E41;'><b>{category_scores_STEM$category_impact_number[5]}</b></span> Partners"
-    )
-  )
-
-label_line <- ggplot(
-  label_frame,
+  y = 1,
+  label = glue("Overall Score <b>{pdtg_overall_score}</b>")
+)
+arch_line <<- ggplot(
+  arch_title,
   aes(
     x = x,
     y = y,
     label = label
-    )
-  ) +
+  )
+) +
   geom_richtext(
     fill = NA,
     label.color = NA,
-    color = "#191919",
-    size = 3.5
+    color = "#ffffff",
+    size = 9
   ) +
   theme_light() +
   theme(
@@ -872,60 +1610,238 @@ label_line <- ggplot(
     panel.border = element_blank(),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
-    panel.background = element_rect(fill='transparent'),
-    plot.background = element_rect(fill='transparent', color=NA)
-    )
-credit_frame <- data.frame(
+    panel.background = element_rect(fill = "transparent"),
+    plot.background = element_rect(fill = "#990000aa", color = "#990000aa")
+  )
+#arch_line
+
+ripple_title <- data.frame(
   x = 1,
   y = 1,
-  label = glue("Community Engaged Research Balanced Assessments and Expressions with Nuanced Scores -- Generated {Sys.Date()} -- CC BY-NC-SA 4.0")
+  label = glue("Ripple Effects <b>{total_ripple_score}</b>")
 )
-credit_line <- ggplot(
-  credit_frame,
+ripple_line <<- ggplot(
+  ripple_title,
   aes(
     x = x,
     y = y,
     label = label
-    )
-  ) +
+  )
+) +
   geom_richtext(
     fill = NA,
     label.color = NA,
-    color = "#191919",
-    size = 2.5
+    color = "#ffffff",
+    size = 9
   ) +
   theme_light() +
   theme(
     legend.position = "none",
-        axis.title = element_blank(),
-        axis.text = element_blank(),
-        axis.ticks = element_blank(),
-        panel.border = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-    panel.background = element_rect(fill='transparent'),
-    plot.background = element_rect(fill='transparent', color=NA)
-    )
+    axis.title = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    panel.border = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.background = element_rect(fill = "transparent"),
+    plot.background = element_rect(fill = "#990000aa", color = "#990000aa")
+  )
+#ripple_line
 
-detailed_badge <- ggarrange(
-  bean_donut,
-  raw_bar,
-  label_line,
+
+indicator_title <- data.frame(
+  x = 1,
+  y = 1,
+  label = "<b>Indicators</b>")
+
+indicator_line <<- ggplot(
+  indicator_title,
+  aes(
+    x = x,
+    y = y,
+    label = label
+  )
+) +
+  geom_richtext(
+    fill = NA,
+    label.color = NA,
+    color = "#ffffff",
+    size = 9
+  ) +
+  theme_light() +
+  theme(
+    legend.position = "none",
+    axis.title = element_blank(),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    panel.border = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.background = element_rect(fill = "transparent"),
+    plot.background = element_rect(fill = "#990000aa", color = "#990000aa")
+  )
+
+#cer_score <- ggarrange(arch_line,  g1, ncol = 2, widths = c(2.5, 12))
+#re_score <- ggarrange(ripple_line, pdtg_spiral, ncol = 2, widths = c(2.5, 12))
+
+top_badge <- ggarrange(
+  arch_line,
+  NULL,
+  ripple_line,
+  g1,
+  NULL,
+  pdtg_spiral,
+  ncol = 3,
+  nrow = 2,
+  widths = c(14.5, 2, 14.5),
+  heights = c(2, 14.5))
+
+indicator_frame <- category_scores |>
+  filter(project_name == "PD @ TG") |>
+  select(category_name, category_impact_number)
+indicator_frame$x <- c(1, 2, 3, 4, 5)
+indicator_frame$y <- 0
+indicator_frame$category_name <- factor(
+  indicator_frame$category_name,
+  levels = category_levels
+)
+correct_infrastructure <- if_else(
+  pdtg_frame$category_impact_number[3] == 1,
+  "Infrastructure Product",
+  "Infrastructure Products"
+  )
+correct_output <- if_else(
+  pdtg_frame$category_impact_number[4] == 1,
+  "Output",
+  "Outputs"
+  )
+correct_partner <- if_else(
+  pdtg_frame$category_impact_number[5] == 1,
+  "Partner",
+  "Partners"
+  )
+
+indicator_frame$category_labels <- c(
+  glue("{indicator_frame$category_impact_number[1]} Participants"),
+  glue("{indicator_frame$category_impact_number[2]} Engagement Hours"),
+  glue("{indicator_frame$category_impact_number[3]} {correct_infrastructure}"),
+  glue("{indicator_frame$category_impact_number[4]} {correct_output}"),
+  glue("{indicator_frame$category_impact_number[5]} {correct_partner}")
+  )
+
+
+indicator_bubbles <- ggplot(
+  indicator_frame,
+  aes(
+    x = x,
+    y = y,
+    size = category_impact_number,
+    color = category_name
+  )
+) +
+  geom_point() +
+  xlim(0, 6) +
+  scale_color_manual(
+    values = iu_palette,
+    labels = indicator_frame$category_labels
+  ) +
+  scale_size(range = c(0.1, 50)) +
+  guides(
+    fill = FALSE,
+    size = FALSE
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    axis.ticks = element_blank(),
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    legend.title = element_blank(),
+    panel.background = element_rect(
+      fill = "transparent",
+      color = NA
+    ),
+    plot.background = element_rect(
+      fill = "transparent",
+      color = NA
+    )
+  )
+  
+
+# # batter_frame <- category_scores |>
+# #   filter(project_name == "PD @ TG") |>
+# #   select(category_name, category_impact_number, category_index) |>
+# #   mutate(adj_indicator = ((category_impact_number + 1) / (sum((category_impact_number) + 1))) * 100) |>
+# #   select(category_name, adj_indicator)
+# batter_frame$adj_indicator <- round(batter_frame$adj_indicator, digits = 0)
+# correct_infrastructure <- if_else(pdtg_frame$category_impact_number[3] == 1, "Infrastructure Product", "Infrastructure Products")
+# correct_output <- if_else(pdtg_frame$category_impact_number[4] == 1, "Output", "Outputs")
+# correct_partner <- if_else(pdtg_frame$category_impact_number[5] == 1, "Partner", "Partners")
+# batter_frame$category_name <- c(
+#   glue("{pdtg_frame$category_impact_number[1]} Participants"),
+#   glue("{pdtg_frame$category_impact_number[2]} Engagement Hours"),
+#   glue("{pdtg_frame$category_impact_number[3]} {correct_infrastructure}"),
+#   glue("{pdtg_frame$category_impact_number[4]} {correct_output}"),
+#   glue("{pdtg_frame$category_impact_number[5]} {correct_partner}")
+#   )
+# 
+# library(waffle)
+# indicator_waffle <- waffle(batter_frame, rows = 4, colors = iu_palette, legend_pos = "bottom")
+#ggplot(batter_frame, aes(fill = category_name, values = adj_indicator)) +
+#  geom_waffle(n_rows = 10)
+
+#stst_donut <- bake_donut(category_scores, "STEM Studio", stst_overall_score)
+#pdtg_donut <- bake_donut(category_scores, "PD @ TG", pdtg_overall_score)
+#pdtg_donut
+#stst_raw_bar <- prep_raw(category_scores, "STEM Studio")
+#pdtg_raw_bar <- prep_raw(category_scores, "PD @ TG")
+
+
+#test <- ggarrange(pdtg_spiral, pdtg_raw_bar, ncol = 1, nrow = 2)
+#test2 <- ggarrange(pdtg_donut, test, ncol = 2, nrow = 1)
+
+#stst_labels <- prep_labels(category_scores, "STEM Studio")
+#pdtg_labels <- prep_labels(category_scores, "PD @ TG")
+
+full_badge <- ggarrange(
+  top_badge,
+  indicator_line,
+  indicator_bubbles,
   credit_line,
   ncol = 1,
   nrow = 4,
-  heights = c(8, 1, 1, 1)
+  heights = c(
+    16,
+    1.5,
+    8,
+    1
+    )
   )
-ggsave(
-  detailed_badge,
-  filename = "assets/detailed_badge.png",
-  dpi = 320,
-  width = 8,
-  height = 8,
-  units = "in"
-  )
+#full_badge
+
+ggsave("outputs/pdtg_badge.png", full_badge, width = 16, height = 10, units = "in", dpi = 320)
+ggsave("outputs/pdtg_badge.pdf", full_badge, width = 16, height = 10, units = "in", dpi = 320)
+
+#stst_badge <- compile_badge(
+#  stst_donut,
+#  stst_raw_bar,
+#  stst_labels,
+#  "stst"
+#)
+
+#pdtg_badge <- compile_badge(
+#  pdtg_donut,
+#  pdtg_raw_bar,
+#  pdtg_labels,
+#  "pdtg"
+#)
 ```
 
-### Detailed Badge
+### Professional Development Example
 
-![An example of a detailed badge. This badge contains multiple levels of information including the total score, individual scores, and raw scores.](assets/detailed_badge.png)
+An example of a detailed badge for a professional development program at a school. This badge contains multiple levels of information including the overall score, the ripple effect score, and direct indicators.
+
+:::{.column-page-inset}
+![](outputs/pdtg_badge.png)
+:::
