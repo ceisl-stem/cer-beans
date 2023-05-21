@@ -72,6 +72,13 @@ iu_palette <<- c(
   "#056E41"
   )
 
+spiral_palette <<- c(
+  "1" = "#990000",
+  "2" = "#F23A3F",
+  "3" = "#FFD6DB",
+  "4" = "#FFF7F8"
+)
+
 category_levels <<- c(
   "Participation",
   "Engagement",
@@ -119,6 +126,8 @@ credit_line <<- ggplot(
     panel.background = element_rect(fill = "transparent"),
     plot.background = element_rect(fill = "transparent", color = NA)
   )
+
+lambda_ripple <<- 0.55
 
   # Source and inspiration: https://datasketch.dev/post/2020-08-09-how-to-make-spirals-with-r/
   # vogel_t <- 1:100
@@ -527,6 +536,192 @@ archimedean_spiral <- function(n, a = 0, b = 1, turns = 3){
   d <- tibble::tibble(x, y)
   d$n <- 1:n
   d
+}
+
+calculate_ripple <- function(the_frame) {
+  the_frame$ripple_score <- lambda_ripple *
+    (the_frame$values /
+      (log(the_frame$group + 1)))
+  the_frame <- the_frame |>
+    mutate(
+      ripple_score = if_else(
+        is.infinite(ripple_score),
+        values,
+        ripple_score
+      )
+    )
+  the_frame$ripple_score <- round(
+    the_frame$ripple_score,
+    digits = 0
+  )
+  the_frame$adj_score <- ((the_frame$ripple_score /
+    sum(the_frame$ripple_score)) *
+    100)
+  the_frame$adj_score <- round(
+    the_frame$adj_score,
+    digits = 0
+  )
+  the_frame <- the_frame |>
+    mutate(
+      group_name = glue(
+        "{values} {group_name}\n(η = {ripple_score})"
+      )
+    ) |>
+    mutate(group = group + 1)
+}
+
+prepare_vogel <- function(the_frame) {
+  rep_frame <- data.frame(
+    group = rep(
+      the_frame$group,
+      times = the_frame$adj_score
+    ),
+    group_name = rep(
+      the_frame$group_name,
+      the_frame$adj_score
+    )
+  )
+  spiral_frame <- vogel_spiral(sum(the_frame$adj_score))
+  spiral_frame$group_name <- rep_frame$group_name
+  spiral_frame$group <- rep_frame$group
+  return(spiral_frame)
+}
+
+plot_vogel <- function(the_frame, the_labels) {
+  the_frame$group <- factor(
+    the_frame$group,
+    levels = c(1:max(the_frame$group))
+  )
+  vogel_plot <- ggplot(the_frame) +
+  geom_segment(
+    aes(
+      x = -10,
+      y = 0,
+      xend = 10,
+      yend = 0
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_segment(
+    aes(
+      x = 0,
+      y = -10,
+      xend = 0,
+      yend = 10
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_segment(
+    aes(
+      x = 0,
+      y = 0,
+      xend = 8,
+      yend = -8
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_segment(
+    aes(
+      x = 0,
+      y = 0,
+      xend = 8,
+      yend = 8
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_segment(
+    aes(
+      x = 0,
+      y = 0,
+      xend = -8,
+      yend = -8
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_segment(
+    aes(
+      x = 0,
+      y = 0,
+      xend = -8,
+      yend = 8
+    ),
+    color = "#eeeeee",
+    linetype = "solid",
+    linewidth = 0.01
+  ) +
+  geom_circle(
+    aes(
+      x0 = 0,
+      y0 = 0,
+      r = 1
+    ),
+    color = "#eeeeee",
+    fill = "#ffffff"
+  ) +
+  geom_circle(
+    aes(
+      x0 = 0,
+      y0 = 0,
+      r = 5
+    ),
+    color = "#eeeeee"
+  ) +
+  geom_circle(
+    aes(
+      x0 = 0,
+      y0 = 0,
+      r = 10
+    ),
+    color = "#eeeeee"
+  ) +
+  geom_point(
+    aes(
+      x = 0,
+      y = 0
+    ),
+    color = "#eeeeee",
+    size = 2
+  ) +
+  geom_point(
+    aes(
+      x,
+      y,
+      color = group
+    ),
+    size = 6
+  ) +
+  coord_equal() +
+  scale_color_manual(
+    labels = the_labels,
+    values = spiral_palette
+  ) +
+  theme_minimal() +
+  theme(
+    axis.ticks = element_blank(),
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    legend.title = element_blank(),
+    legend.position = "bottom",
+    panel.background = element_rect(
+      fill = "transparent",
+      color = NA
+    ),
+    plot.background = element_rect(
+      fill = "transparent",
+      color = NA
+    )
+  )
 }
 ```
 
@@ -1294,195 +1489,137 @@ sustainability_component_list <- c("Number of Partners",
 
 ## Ripple Effects
 
-```{r echo = TRUE}
-lambda_ripple <- 0.55
-```
+One of the trickier elements to measure in community-engaged research are "ripple
+effects." Because we are working in direct contact and cooperation with publics,
+we can assume that the work we do together has a broader impact than just the time
+we spend together. [Ripple effects mapping](https://extension.umn.edu/community-development/ripple-effect-mapping) is
+an excellent qualitative tool for capturing and understanding the ways in which
+participants' views and practices change through the cooperative work. It is,
+however, very difficult to distill into a quantitative metric.
+
+For the purposes of these metrics, we use *the number of people potentially impacted*
+as a way to measure these ripple effects over a number of degrees of separation from
+the participants directly impacted.
+
+It is understood that with each degree of separation, there is going to be a lessening
+of impact; the equation used to calcuate the `Ripple Effect` ($\eta_r$) at each
+degree ($d_r$) includes both a `decay constant` ($\lambda_r$), which is set to
+**0.55**, and utilizes an inverse logarithmic function to calculate a reduction of
+impact over each degree.
 
 $$
 \eta_r =  \lambda_r \cdot \frac{n_r}{\log(d_r + 1)}
 $$
 
-```{r}
+In this equation, $n_r$ represents the number of people potentially impacted by
+the community engaged work. This is divided by the logarithm of the degree of
+separation ($d_r$)[The $\log$ of $d_r + 1$ is calculated to avoid 0 in the denominator]{.aside}
+and then multiplied by the decay constant ($\lambda_r$), providing a ripple effect score
+($\eta_r$) at each degree of separation.
+
+For the Professional Development project, impact at each degree is determined this way:
+
+* *Direct Impact:* **70 teachers** participated in the Professional Development
+project.
+* *1 Degree of Separation:* There are **522 students** enrolled in the school,
+resulting in the likelihood that there will be some impact from the
+Professional Development.
+* *2 Degrees of Separation:* The [average family size in Indianapolis](https://en.wikipedia.org/wiki/Indianapolis_(balance)) is 3.04 people.
+The potential family size, however, is assumed to be rounded *up* to 4 people in a family.
+This allows for "non-traditional," non-normative, and more expansive family structures
+to be counted. This translates to potentially around **2,088 family members**.
+
+```{r set-pdtg-ripple, echo = TRUE}
 pdtg_ripple <- data.frame(
   group = c(0, 1, 2),
-  group_name = c("Teachers", "Students", "Family Members"),
+  group_name = c(
+    "Teachers",
+    "Students",
+    "Family Members"
+  ),
   values = c(70, 522, 2088)
 )
-
-spiral_palette <- c(
-  "1" = "#990000",
-  "2" = "#F23A3F",
-  "3" = "#FFD6DB",
-  "4" = "#FFF7F8"
-)
-
-
-pdtg_ripple$ripple_score <- lambda_ripple *(pdtg_ripple$values / (log(pdtg_ripple$group + 1)))
-pdtg_ripple <- pdtg_ripple |>
-  mutate(ripple_score = if_else(is.infinite(ripple_score), values, ripple_score))
-pdtg_ripple$ripple_score <- round(pdtg_ripple$ripple_score, digits = 0)
-total_ripple_score <- sum(pdtg_ripple$ripple_score)
-pdtg_ripple$adj_score <- ((pdtg_ripple$ripple_score / sum(pdtg_ripple$ripple_score)) * 100)
-pdtg_ripple$adj_score <- round(pdtg_ripple$adj_score, digits = 0)
-
-pdtg_ripple <- pdtg_ripple |>
-  mutate(group_name = glue("{values} {group_name}\n(η = {ripple_score})")) |>
-  mutate(group = group + 1)
-
-rep_frame <- data.frame(
-  group = rep(pdtg_ripple$group, times = pdtg_ripple$adj_score),
-  group_name = rep(pdtg_ripple$group_name, pdtg_ripple$adj_score)
-  )
-
-spiral_frame <- vogel_spiral(sum(pdtg_ripple$adj_score))
-spiral_frame$group_name = rep_frame$group_name
-spiral_frame$group = rep_frame$group
-spiral_frame$group <- factor(
-    spiral_frame$group,
-    levels = c(1:max(spiral_frame$group))
-  )
-pdtg_spiral <- ggplot(spiral_frame) +
-  geom_segment(
-    aes(
-      x = -10,
-      y = 0,
-      xend = 10,
-      yend = 0
-    ),
-    color = "#eeeeee",
-    linetype = "solid",
-    linewidth = 0.01
-  ) +
-  geom_segment(
-    aes(
-      x = 0,
-      y = -10,
-      xend = 0,
-      yend = 10
-    ),
-    color = "#eeeeee",
-    linetype = "solid",
-    linewidth = 0.01
-  ) +
-  geom_segment(
-    aes(
-      x = 0,
-      y = 0,
-      xend = 8,
-      yend = -8
-    ),
-    color = "#eeeeee",
-    linetype = "solid",
-    linewidth = 0.01
-  ) +
-  geom_segment(
-    aes(
-      x = 0,
-      y = 0,
-      xend = 8,
-      yend = 8
-    ),
-    color = "#eeeeee",
-    linetype = "solid",
-    linewidth = 0.01
-  ) +
-  geom_segment(
-    aes(
-      x = 0,
-      y = 0,
-      xend = -8,
-      yend = -8
-    ),
-    color = "#eeeeee",
-    linetype = "solid",
-    linewidth = 0.01
-  ) +
-  geom_segment(
-    aes(
-      x = 0,
-      y = 0,
-      xend = -8,
-      yend = 8
-    ),
-    color = "#eeeeee",
-    linetype = "solid",
-    linewidth = 0.01
-  ) +
-  geom_circle(
-    aes(
-      x0 = 0,
-      y0 = 0,
-      r = 1
-    ),
-    color = "#eeeeee",
-    fill = "#ffffff"
-  ) +
-  geom_circle(
-    aes(
-      x0 = 0,
-      y0 = 0,
-      r = 5
-    ),
-    color = "#eeeeee"
-  ) +
-  geom_circle(
-    aes(
-      x0 = 0,
-      y0 = 0,
-      r = 10
-    ),
-    color = "#eeeeeecc"
-  ) +
-  geom_point(
-    aes(
-      x = 0,
-      y = 0
-    ),
-    color = "#eeeeee",
-    size = 2
-  ) +
-  geom_point(
-    aes(
-      x,
-      y,
-      color = group
-    ),
-    size = 6
-  ) +
-  coord_equal() +
-  scale_color_manual(
-    labels = pdtg_ripple$group_name,
-    values = spiral_palette
-  ) +
-  theme_minimal() +
-  theme(
-    axis.ticks = element_blank(),
-    axis.text = element_blank(),
-    axis.title = element_blank(),
-    panel.grid = element_blank(),
-    legend.title = element_blank(),
-    legend.position = "bottom",
-    panel.background = element_rect(
-      fill = "transparent",
-      color = NA
-    ),
-    plot.background = element_rect(
-      fill = "transparent",
-      color = NA
-    )
-  )
-
-
-pdtg_spiral
 ```
 
-## Overall Score
+The Family as Faculty as an Infrastructure is a much more complex project, even
+though it may directly involve fewer people. As delineated in the
+[Participants section](#number-of-participants), there are a number of
+different categories of participants. Impact is also mapped out to a further degree
+given that it involves Teacher Education Students, so their future K-12 students
+need to be considered. Impact at each degree is determined in the following manner:
 
-> "Red Beans and Ricely Yours"
->
-> -- Louis Armstrong
+* *Direct Impact:* There are **50 participants** directly involved in the project
+as outlined in the [Participants section](#number-of-participants).
+* *1 Degree of Separation:* The complexity of the project is clearly evident at
+this degree, as there are different connections that can be considered. Because
+the Teacher Education Students are involved in the school, we include the 388 students
+in the school. In addition, we include four family members for each Family Leader
+and Neighborhood Caucus Member, for a total of 36. We also assume approximately
+100 members of Down Syndrome Indiana who may be reached at this degree. This results
+in potentially **524 people** being impacted.
+* *2 Degrees of Separation:* According to a survey of the Teacher Education Students,
+80%, or 24 students, indicated that they were going to be continuing on the path
+to becoming a teacher. We can assume that each of these future teachers will have
+an average of [26.9 K-12 students](https://nces.ed.gov/surveys/ntps/tables/ntps1718_fltable06_t1s.asp)
+in their classes in Indiana. This translates to a potential of **648 K-12 students**
+*per year.*
+* *3 Degrees of Separation:* Because this is a project that links and empowers families
+and educators to best support the learning of K-12 students, the last degree of separation
+involves the potential families of the future K-12 students. Four family members for
+648 students potentially results in **2592 family members** *per year.*
 
-!["Here are my beans, come count them!" As imagined by Adobe Firefly.](assets/introbeans.jpg)
+```{r set-fafi-ripple, echo = TRUE}
+fafi_ripple <- data.frame(
+  group = c(0, 1, 2, 3),
+  group_name = c(
+    "Participants",
+    "Contemporaries",
+    "Future Students",
+    "Future Families"
+  ),
+  values = c(50, 524, 648, 2592)
+)
+```
+
+```{r calculate-plot-ripple}
+pdtg_ripple <- pdtg_ripple |> calculate_ripple()
+fafi_ripple <- fafi_ripple |> calculate_ripple()
+
+pdtg_vogel_frame <- pdtg_ripple |> prepare_vogel()
+fafi_vogel_frame <- fafi_ripple |> prepare_vogel()
+
+pdtg_vogel_ripple <- pdtg_vogel_frame |> plot_vogel(pdtg_ripple$group_name)
+fafi_vogel_ripple <- fafi_vogel_frame |> plot_vogel(fafi_ripple$group_name)
+
+pdtg_composite_ripple_score <- sum(pdtg_ripple$ripple_score)
+fafi_composite_ripple_score <- sum(fafi_ripple$ripple_score)
+```
+
+The Professional Development project has a Ripple Effect Score of **`r pdtg_composite_ripple_score`**.
+The ripple effect plot, based on a Vogel Spiral, looks like this:
+
+```{r}
+  print(pdtg_vogel_ripple)
+```
+
+The Family as Faculty as an Infrastructure project has a Ripple Effect Score of
+**`r fafi_composite_ripple_score`**. The ripple effect plot looks like this:
+
+```{r}
+  print(fafi_vogel_ripple)
+```
+
+::: {.callout-important}
+## Remember that The Map is Not the Territory
+
+This is a model, and while it is robust, it is still an estimation of the ripple
+effects of community-engaged research projects. It is important to provide accurate
+and well-reasoned numbers in the model, and it is important to capture different
+types of evidence to support a deep understanding of the impacts of this type of
+research.
+:::
+
+## Composite Impact Score
 
 $$
 S_O = \sum_{x=1}^n s_x
@@ -1497,6 +1634,12 @@ The Overall Score $S_O$ for the STEM Studio is `r stst_overall_score` while the
 Overall Score $S_O$ for the Professional Development is `r pdtg_overall_score`.
 
 ## Overall Representation
+
+> "Red Beans and Ricely Yours"
+>
+> -- Louis Armstrong
+
+!["Here are my beans, come count them!" As imagined by Adobe Firefly.](assets/introbeans.jpg)
 
 ```{r represent, fig.showtext=TRUE, warning=FALSE, message=FALSE, echo=FALSE}
 
@@ -1689,7 +1832,7 @@ arch_line <<- ggplot(
 ripple_title <- data.frame(
   x = 1,
   y = 1,
-  label = glue("Ripple Effect Score <b>{total_ripple_score}</b>")
+  label = glue("Ripple Effect Score <b>{pdtg_composite_ripple_score}</b>")
 )
 ripple_line <<- ggplot(
   ripple_title,
@@ -1765,7 +1908,7 @@ bottom_badge <- ggarrange(
   ripple_line,
   g1,
   NULL,
-  pdtg_spiral,
+  pdtg_vogel_ripple,
   ncol = 3,
   nrow = 2,
   widths = c(14.5, 2, 14.5),
