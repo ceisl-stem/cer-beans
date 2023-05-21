@@ -655,9 +655,12 @@ Each of these categories and their components are described in some detail below
 idea, the math, the concepts, are all licensed under a [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license[The code itself is licensed similarly under an [MIT License](https://github.com/jeremyfprice/cer-beans/blob/main/LICENSE).]{.aside}, so you are welcome to take these ideas and adapt them to your particular needs and preferences
 (as long as you give credit where credit is due and share your adapted work alike).
 
-## Participants
+## Participants Component Score
 
-People Involved
+The Participants Component Score represents the people involved in the project.
+Included in this score are the number of people involved, representation of marginalized
+community members and identities, and representation of intersectional identities and
+community membership.
 
 ```{r participants-frame, echo = FALSE}
 participants_frame <- data.frame(
@@ -702,41 +705,90 @@ gt(participants_frame)
 
 ### Number of Participants
 
-How many participants involved? This is $p_n$. For this example, there are **6 participants**.
+How many participants involved? This is $p_n$.
 
-```{r, echo = FALSE}
-number_of_participants <- 7
+For the Professional Development project at one of the elementary schools, there
+were 70 directly teachers involved. For Family as Faculty as an Infrastructure,
+the participants consisted of the following:
+
+* 1 School Principal
+* 2 Institutional Leaders
+* 3 University Faculty and Staff (not part of the project team)
+* 4 Neighborhood Participants
+* 5 Family Leaders
+* 5 Cooperating Teachers
+* 30 Undergraduate Students
+
+This is a total of 50 direct participants.
+
+```{r, echo = TRUE}
 tg_number_of_participants <- 70
+fafi_number_of_participants <- 50
+number_of_participants <- 7
 ```
 
 ### Marginalized Proportions Score
 
-How many of the participants represent and come from marginalized identities and
+What proportion of the participants represent and come from marginalized identities and
 communities? This is $p_m$.
 
-Also, are you working directly with these marginalized  participants, or are you
-working with others (such as teachers or health care workers) who are working with
-these identities and communities?
+You can consider the direct population you are working with, *or* you can consider
+your *target population* who may be one degree removed when deciding on the $p_m$
+rating. If you consider your target, rather than direct, population, there is a 
+"penalty" or damping for doing so in the form of a marginalized proportions coefficient,
+$\beta_m$. If you are you working directly with the population, $\beta_m$ is 1,
+or no damping If you are working with, for example, teachers or health care workers
+who will work with your target population, then $\beta_m$ is 0.85 to dampen the
+score.
 
-```{r, echo = FALSE}
+For the Professional Development project, the students in the school--the actual
+target population--predominantly represent marginalized identities and communities,
+so $p_m$ is 0.9. The students are one degree away from the teachers, however,
+so $\beta_m$ is 0.85 to dampen the component score. For Family as Faculty as an
+Infrastructure, just over half of the participants represent marginalized identities
+and communities, so $p_m$ is 0.75. We are considering this population directly
+(we can consider ripple effects later on) so $\beta_m$ is set to 1 so there is
+no damping of the score.
+
+```{r, echo = TRUE}
 marginalized_proportions_value <- 1
 marginalized_proportions_coefficient <- 1
 tg_marginalized_proportions_value <- 0.95
 tg_marginalized_proportions_coefficient <- 0.85
+fafi_marginalized_proportions_value <- 0.75
+fafi_marginalized_proportions_coefficient <- 1
 ```
 
-### Intersectionally Marginalized Score
+### Intersectionally Marginalized Proportions Score
+
+What proportion of the participants represent and come from multiple and intersecting
+marginalized identities and communities? This is $p_i$.
+
+Just like with the Marginalized Proportions Score, you can consider the direct
+population you are working with, or you can consider your target population. The
+`Intersectionally Marginalized Coefficient`, $\beta_i$, is the same as above.
+If you consider your target, rather than direct, population, $\beta_i$ is 0.85.
+If you are you working directly with the population, $\beta_i$ is 1.
+
+For the Professional Development project, we will again be considering the intersectionality
+of the students in the school. Nearly all students represent marginalized identities
+and communities, so $p_i$ is 0.9. The students are one degree away  so $\beta_i$
+is 0.85 to dampen the component score. For Family as Faculty as an
+Infrastructure, just over half of the participants represent marginalized identities
+and communities, so $p_m$ is 0.75 and $\beta_i$ is set to 1.
 
 ```{r}
 intersectionally_marginalized_value <- 1
 intersectionally_marginalized_coefficient <- 1
 tg_intersectionally_marginalized_value <- 0.95
 tg_intersectionally_marginalized_coefficient <- 0.85
-# 0.85 indicates one degree away, e.g., students of teachers, while 1 indicates
-# direct engagement
+fafi_intersectionally_marginalized_value <- 0.75
+fafi_intersectionally_marginalized_coefficient <- 1
 ```
 
-### Calculate Participation Score
+### Calculate Participant Component Score
+
+The Participant Component Score is calculated through the following equation:
 
 $$
 p_s = p_n \left( 1 + \frac{(\beta_m \cdot p_m + \beta_i \cdot p_i)}{2} \right)
@@ -782,6 +834,25 @@ category_scores <- category_scores |>
     tg_intersectionally_marginalized_score
   )
 
+fafi_marginalized_proportions_score <- adjust_component_score(
+  fafi_marginalized_proportions_value,
+  fafi_marginalized_proportions_coefficient
+)
+
+fafi_intersectionally_marginalized_score <- adjust_component_score(
+  fafi_intersectionally_marginalized_value,
+  fafi_intersectionally_marginalized_coefficient
+)
+
+category_scores <- category_scores |>
+  add_category(
+    "FAFI",
+    "Participation",
+    fafi_number_of_participants,
+    fafi_marginalized_proportions_score,
+    fafi_intersectionally_marginalized_score
+  )
+
 participation_component_list <- c("Number of Participants",
                                   "Marginalized Participation Score",
                                   "Intersectionally Marginalized Participation Score",
@@ -818,6 +889,13 @@ if(intersectionally_marginalized_value < 1) {
 
 #participation_table
 ```
+
+We find that the Professional Development Project has a Participant Index ($p_i$)
+of `r (tg_marginalized_proportions_score + tg_intersectionally_marginalized_score) / 2`
+(adjusted) and a full Participant Score ($p_s$) of `r round((1 + ((tg_marginalized_proportions_score + tg_intersectionally_marginalized_score) / 2)) * tg_number_of_participants, digits = 0)`.
+Family as Faculty as an Infrastructure has a Participant Index ($p_i$) of
+`r (fafi_marginalized_proportions_score + fafi_intersectionally_marginalized_score) / 2`
+and a Participant Score ($p_s$) of `r round((1 + ((fafi_marginalized_proportions_score + fafi_intersectionally_marginalized_score) / 2)) * fafi_number_of_participants, digits = 0)`.
 
 ## Engagement
 
