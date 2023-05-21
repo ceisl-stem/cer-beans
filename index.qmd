@@ -1217,20 +1217,16 @@ sustainability_component_list <- c("Number of Partners",
 ## Ripple Effects
 
 ```{r echo = TRUE}
-mu_ripple <- 0.55
+lambda_ripple <- 0.55
 ```
 
 $$
-\lambda_r = 10 \cdot \frac{\log(\mu_r + 1)}{d_r \cdot \log(p_n + 1)}
-$$
-
-$$
-\eta_r = {\lambda_r \cdot p_\delta \mid \delta \in {1, 2, \ldots, n}}
+\eta_r =  \lambda_r \cdot \frac{n_r}{\log(d_r + 1)}
 $$
 
 ```{r}
 pdtg_ripple <- data.frame(
-  group = c(1, 2, 3),
+  group = c(0, 1, 2),
   group_name = c("Teachers", "Students", "Family Members"),
   values = c(70, 522, 2088)
 )
@@ -1243,27 +1239,24 @@ spiral_palette <- c(
 )
 
 
-pdtg_ripple$adj_values <- ((pdtg_ripple$values / sum(pdtg_ripple$values)) * 100)
-pdtg_ripple$adj_values <- round(pdtg_ripple$adj_values, digits = 0)
-#pdtg_ripple <- pdtg_ripple |>
-#  mutate(adj_values = if_else(adj_values == 0, 1, adj_values))
-pdtg_ripple$lambda_ripple <- (log(mu_ripple + 1)) /
-  (pdtg_ripple$group * log(pdtg_ripple$values + 1)) * 10
-pdtg_ripple$ripple_score <- pdtg_ripple$lambda_ripple * pdtg_ripple$values
+pdtg_ripple$ripple_score <- lambda_ripple *(pdtg_ripple$values / (log(pdtg_ripple$group + 1)))
+pdtg_ripple <- pdtg_ripple |>
+  mutate(ripple_score = if_else(is.infinite(ripple_score), values, ripple_score))
 pdtg_ripple$ripple_score <- round(pdtg_ripple$ripple_score, digits = 0)
-#pdtg_ripple$adj_score <- ((pdtg_ripple$ripple_score / sum(pdtg_ripple$ripple_score)) * 100)
-#pdtg_ripple$adj_score <- round(pdtg_ripple$adj_score, digits = 0)
+total_ripple_score <- sum(pdtg_ripple$ripple_score)
+pdtg_ripple$adj_score <- ((pdtg_ripple$ripple_score / sum(pdtg_ripple$ripple_score)) * 100)
+pdtg_ripple$adj_score <- round(pdtg_ripple$adj_score, digits = 0)
 
 pdtg_ripple <- pdtg_ripple |>
-  mutate(group_name = glue("{values} {group_name}\n(η = {ripple_score})"))
-
-total_ripple_score <- sum(pdtg_ripple$ripple_score)
+  mutate(group_name = glue("{values} {group_name}\n(η = {ripple_score})")) |>
+  mutate(group = group + 1)
 
 rep_frame <- data.frame(
-  group = rep(pdtg_ripple$group, times = pdtg_ripple$adj_values),
-  group_name = rep(pdtg_ripple$group_name, times = pdtg_ripple$adj_values)
+  group = rep(pdtg_ripple$group, times = pdtg_ripple$adj_score),
+  group_name = rep(pdtg_ripple$group_name, pdtg_ripple$adj_score)
   )
-spiral_frame <- vogel_spiral(sum(pdtg_ripple$adj_values))
+
+spiral_frame <- vogel_spiral(sum(pdtg_ripple$adj_score))
 spiral_frame$group_name = rep_frame$group_name
 spiral_frame$group = rep_frame$group
 spiral_frame$group <- factor(
@@ -1439,8 +1432,8 @@ category_names <- c(
 
 pdtg_frame <- category_scores |>
   filter(project_name == "PD @ TG") |>
-  mutate(category_score = category_score + 1) |>
-  mutate(category_name = glue("{category_name}\n(i = {category_index})"))
+  mutate(category_name = glue("{category_name}\n(i = {category_index}, s = {category_score})")) |>
+  mutate(category_score = category_score + 1)
 pdtg_frame$category <- c(1, 2, 3, 4, 5)
 
   pdtg_frame <- pdtg_frame |>
@@ -1585,7 +1578,7 @@ g1 <- ggplot(arch_frame) +
 arch_title <- data.frame(
   x = 1,
   y = 1,
-  label = glue("Overall Score <b>{pdtg_overall_score}</b>")
+  label = glue("Composite Impact Score <b>{pdtg_overall_score}</b>")
 )
 arch_line <<- ggplot(
   arch_title,
@@ -1598,7 +1591,7 @@ arch_line <<- ggplot(
   geom_richtext(
     fill = NA,
     label.color = NA,
-    color = "#ffffff",
+    color = "#EDEBEB",
     size = 9
   ) +
   theme_light() +
@@ -1618,7 +1611,7 @@ arch_line <<- ggplot(
 ripple_title <- data.frame(
   x = 1,
   y = 1,
-  label = glue("Ripple Effects <b>{total_ripple_score}</b>")
+  label = glue("Ripple Effect Score <b>{total_ripple_score}</b>")
 )
 ripple_line <<- ggplot(
   ripple_title,
@@ -1631,7 +1624,7 @@ ripple_line <<- ggplot(
   geom_richtext(
     fill = NA,
     label.color = NA,
-    color = "#ffffff",
+    color = "#EDEBEB",
     size = 9
   ) +
   theme_light() +
@@ -1648,11 +1641,15 @@ ripple_line <<- ggplot(
   )
 #ripple_line
 
+total_indicator_score <- category_scores |>
+  filter(project_name == "PD @ TG") |>
+  tally(category_impact_number) |>
+    pull(n)
 
 indicator_title <- data.frame(
   x = 1,
   y = 1,
-  label = "<b>Indicators</b>")
+  label = glue("Direct Indicator Score <b>{total_indicator_score}</b>"))
 
 indicator_line <<- ggplot(
   indicator_title,
@@ -1665,7 +1662,7 @@ indicator_line <<- ggplot(
   geom_richtext(
     fill = NA,
     label.color = NA,
-    color = "#ffffff",
+    color = "#EDEBEB",
     size = 9
   ) +
   theme_light() +
@@ -1684,7 +1681,7 @@ indicator_line <<- ggplot(
 #cer_score <- ggarrange(arch_line,  g1, ncol = 2, widths = c(2.5, 12))
 #re_score <- ggarrange(ripple_line, pdtg_spiral, ncol = 2, widths = c(2.5, 12))
 
-top_badge <- ggarrange(
+bottom_badge <- ggarrange(
   arch_line,
   NULL,
   ripple_line,
@@ -1700,7 +1697,7 @@ indicator_frame <- category_scores |>
   filter(project_name == "PD @ TG") |>
   select(category_name, category_impact_number)
 indicator_frame$x <- c(1, 2, 3, 4, 5)
-indicator_frame$y <- 0
+indicator_frame$y <- 1
 indicator_frame$category_name <- factor(
   indicator_frame$category_name,
   levels = category_levels
@@ -1730,22 +1727,122 @@ indicator_frame$category_labels <- c(
   )
 
 
-indicator_bubbles <- ggplot(
-  indicator_frame,
-  aes(
+indicator_bubbles <- ggplot(indicator_frame) +
+        geom_segment(
+      aes(
+        x = 0,
+        y = 1,
+        xend = 6,
+        yend = 1
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.5
+    ) +
+      geom_segment(
+      aes(
+        x = 1,
+        y = -0.75,
+        xend = 1,
+        yend = 2.75
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.5
+    ) +
+        geom_segment(
+      aes(
+        x = 3,
+        y = -0.75,
+        xend = 3,
+        yend = 2.75
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.5
+    ) +
+          geom_segment(
+      aes(
+        x = 2,
+        y = -0.75,
+        xend = 2,
+        yend = 2.75
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.5
+    ) +
+        geom_segment(
+      aes(
+        x = 4,
+        y = -0.75,
+        xend = 4,
+        yend = 2.75
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.5
+    ) +
+        geom_segment(
+      aes(
+        x = 5,
+        y = -0.75,
+        xend = 5,
+        yend = 2.75
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.5
+    ) +
+      geom_point(
+      aes(
+        x = 1,
+        y = 1
+      ),
+      shape = 21, color = "#eeeeee", fill = "transparent", size = 60, stroke = 0.5
+    ) +
+      geom_point(
+      aes(
+        x = 2,
+        y = 1
+      ),
+      shape = 21, color = "#eeeeee", fill = "transparent", size = 60, stroke = 0.5
+    ) +
+      geom_point(
+      aes(
+        x = 3,
+        y = 1
+      ),
+      shape = 21, color = "#eeeeee", fill = "transparent", size = 60, stroke = 0.5
+    ) +
+      geom_point(
+      aes(
+        x = 4,
+        y = 1
+      ),
+      shape = 21, color = "#eeeeee", fill = "transparent", size = 60, stroke = 0.5
+    ) +
+      geom_point(
+      aes(
+        x = 5,
+        y = 1
+      ),
+      shape = 21, color = "#eeeeee", fill = "transparent", size = 60, stroke = 0.5
+    ) +
+  geom_point(aes(
     x = x,
     y = y,
     size = category_impact_number,
     color = category_name
   )
 ) +
-  geom_point() +
   xlim(0, 6) +
+  ylim(-0.75, 2.75) +
   scale_color_manual(
     values = iu_palette,
     labels = indicator_frame$category_labels
   ) +
-  scale_size(range = c(0.1, 50)) +
+  scale_size(range = c(0.1, 60)) +
   guides(
     fill = FALSE,
     size = FALSE
@@ -1805,16 +1902,16 @@ indicator_bubbles <- ggplot(
 #pdtg_labels <- prep_labels(category_scores, "PD @ TG")
 
 full_badge <- ggarrange(
-  top_badge,
   indicator_line,
   indicator_bubbles,
+  bottom_badge,
   credit_line,
   ncol = 1,
   nrow = 4,
   heights = c(
-    16,
     1.5,
     8,
+    16,
     1
     )
   )

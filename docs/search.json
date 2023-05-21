@@ -88,6 +88,6 @@
     "href": "index.html#ripple-effects",
     "title": "CER-BEANS: Community Engaged Research Balanced Expressions and Assessments with Nuanced Scores",
     "section": "Ripple Effects",
-    "text": "Ripple Effects\n\nmu_ripple <- 0.55\n\n\\[\n\\lambda_r = 10 \\cdot \\frac{\\log(\\mu_r + 1)}{d_r \\cdot \\log(p_n + 1)}\n\\]\n\\[\n\\eta_r = {\\lambda_r \\cdot p_\\delta \\mid \\delta \\in {1, 2, \\ldots, n}}\n\\]"
+    "text": "Ripple Effects\n\nlambda_ripple <- 0.55\n\n\\[\n\\eta_r =  \\lambda_r \\cdot \\frac{n_r}{\\log(d_r + 1)}\n\\]"
   }
 ]
