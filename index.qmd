@@ -153,20 +153,33 @@ add_category <- function(the_frame,
                          the_project,
                          category_name,
                          impact_number,
+                         component_weight,
                          component_score_1,
                          component_score_2) {
-  the_frame <- the_frame |>
+  temp_frame <- data.frame(
+    project_name = character(),
+    category_name = character(),
+    category_impact_number = integer(),
+    category_index = double(),
+    category_score = integer()
+  )
+  temp_frame <- temp_frame |>
     add_row(
       project_name = the_project,
       category_name = category_name,
       category_impact_number = impact_number,
-      category_index = round((component_score_1 + component_score_2) / 2,
+      category_index = round(
+        ((component_score_1 + component_score_2) / 2),
         digits = 2
+      ),
+      category_score = round(
+        (component_weight * (category_impact_number * (1 + category_index))),
+        digits = 0
       )
-    ) |>
-    mutate(
-      category_score = round((category_impact_number * (1 + category_index)), digits = 0)
     )
+  the_frame <- rbind(the_frame, temp_frame)
+  temp_frame <- NULL
+  return(the_frame)
 }
 
 create_display_table <- function(the_frame,
@@ -1089,7 +1102,7 @@ plot_indicators <- function(indicator_frame) {
       values = iu_palette,
       labels = indicator_frame$category_labels
     ) +
-    scale_size(range = c(0.1, 60)) +
+    scale_size(range = c(11, 60)) +
     guides(
       fill = FALSE,
       size = FALSE
@@ -1233,7 +1246,7 @@ individual ratings represented by $r_{C1} \ldots r_C$). This is the general form
 for a `category score`:
 
 $$
-S_C = I_C \left(1 + \frac{\sum r_{C_1} \ldots r_{C_n}}{|R_C|}\right)
+S_C = \beta_CI_C \left(1 + \frac{\sum r_{C_1} \ldots r_{C_n}}{|R_C|}\right)
 $$
 
 The process for computing each of the `category scores` is essentially calculating the
@@ -1247,7 +1260,7 @@ summation of all the category scores, where $s$ represents the `category scores`
 $x$ represents the set of categories, and $n$ is the number of categories:
 
 $$
-S_O = \sum_{x=1}^n s_x
+S_O = \sum_{C=1}^n s_C
 $$
 
 This `overall score` is  similar to the [Altmetric Attention Score](https://www.altmetric.com/about-us/our-data/donut-and-altmetric-attention-score/#:~:text=The%20Altmetric%20Attention%20Score%20is%20an%20automatically%20calculated,3%20main%20factors:) in that
@@ -1263,6 +1276,10 @@ The Participants Component Score represents the people involved in the project.
 Included in this score are the number of people involved, representation of marginalized
 community members and identities, and representation of intersectional identities and
 community membership.
+
+```{r participants-weight, echo=TRUE}
+participants_weight <- 1
+```
 
 ```{r participants-frame, echo = FALSE}
 participants_frame <- data.frame(
@@ -1353,8 +1370,8 @@ and communities, so $p_m$ is 0.75. We are considering this population directly
 no damping of the score.
 
 ```{r, echo = TRUE, echo = TRUE}
-marginalized_proportions_value <- 1
-marginalized_proportions_coefficient <- 1
+stst_marginalized_proportions_value <- 1
+stst_marginalized_proportions_coefficient <- 1
 tg_marginalized_proportions_value <- 0.95
 tg_marginalized_proportions_coefficient <- 0.85
 fafi_marginalized_proportions_value <- 0.75
@@ -1380,8 +1397,8 @@ Infrastructure, just over half of the participants represent marginalized identi
 and communities, so $p_m$ is 0.75 and $\beta_i$ is set to 1.
 
 ```{r, echo = TRUE}
-intersectionally_marginalized_value <- 1
-intersectionally_marginalized_coefficient <- 1
+stst_intersectionally_marginalized_value <- 1
+stst_intersectionally_marginalized_coefficient <- 1
 tg_intersectionally_marginalized_value <- 0.95
 tg_intersectionally_marginalized_coefficient <- 0.85
 fafi_intersectionally_marginalized_value <- 0.75
@@ -1397,15 +1414,14 @@ p_s = p_n \left( 1 + \frac{(\beta_m \cdot p_m + \beta_i \cdot p_i)}{2} \right)
 $$
 
 ```{r calculate-participant-score, echo = FALSE}
-
-marginalized_proportions_score <- adjust_component_score(
-  marginalized_proportions_value,
-  marginalized_proportions_coefficient
+stst_marginalized_proportions_score <- adjust_component_score(
+  stst_marginalized_proportions_value,
+  stst_marginalized_proportions_coefficient
 )
 
-intersectionally_marginalized_score <- adjust_component_score(
-  intersectionally_marginalized_value,
-  intersectionally_marginalized_coefficient
+stst_intersectionally_marginalized_score <- adjust_component_score(
+  stst_intersectionally_marginalized_value,
+  stst_intersectionally_marginalized_coefficient
 )
 
 category_scores <- category_scores |>
@@ -1413,8 +1429,9 @@ category_scores <- category_scores |>
     "STEM Studio",
     "Participation",
     number_of_participants,
-    marginalized_proportions_score,
-    intersectionally_marginalized_score
+    participants_weight,
+    stst_marginalized_proportions_score,
+    stst_intersectionally_marginalized_score
   )
 
 tg_marginalized_proportions_score <- adjust_component_score(
@@ -1432,6 +1449,7 @@ category_scores <- category_scores |>
     "PD @ TG",
     "Participation",
     tg_number_of_participants,
+    1,
     tg_marginalized_proportions_score,
     tg_intersectionally_marginalized_score
   )
@@ -1451,26 +1469,27 @@ category_scores <- category_scores |>
     "FAFI",
     "Participation",
     fafi_number_of_participants,
+    1,
     fafi_marginalized_proportions_score,
     fafi_intersectionally_marginalized_score
   )
 
-participation_component_list <- c("Number of Participants",
-                                  "Marginalized Participation Score",
-                                  "Intersectionally Marginalized Participation Score",
-                                  "Participation Category Index",
-                                  "Participation Category Score")
-rank_adjusted <- FALSE
-
-if(marginalized_proportions_coefficient < 1) {
-  participation_component_list[2] <- "Marginalized Participation Score*"
-  rank_adjusted <- TRUE
-}
-
-if(intersectionally_marginalized_value < 1) {
-  participation_component_list[3] <- "Intersectionally Marginalized Participation Score*"
-  rank_adjusted <- TRUE
-}
+# participation_component_list <- c("Number of Participants",
+#                                   "Marginalized Participation Score",
+#                                   "Intersectionally Marginalized Participation Score",
+#                                   "Participation Category Index",
+#                                   "Participation Category Score")
+# rank_adjusted <- FALSE
+# 
+# if(stst_marginalized_proportions_coefficient < 1) {
+#   participation_component_list[2] <- "Marginalized Participation Score*"
+#   rank_adjusted <- TRUE
+# }
+# 
+# if(stst_intersectionally_marginalized_value < 1) {
+#   participation_component_list[3] <- "Intersectionally Marginalized Participation Score*"
+#   rank_adjusted <- TRUE
+# }
 
 #participation_table <- category_scores |>
 #  #select(-project_name) |>
@@ -1502,6 +1521,10 @@ and a Participant Score ($p_s$) of `r round((1 + ((fafi_marginalized_proportions
 ## Engagement
 
 Number of contact hours $e_h$.
+
+```{r engagement-weight, echo=TRUE}
+engagement_weight <- 1
+```
 
 ```{r engagement-frame, echo=FALSE}
 engagement_frame <- data.frame(
@@ -1549,7 +1572,7 @@ engagement_frame |>
 ### Engagement Hours
 
 ```{r, echo = TRUE}
-engagement_hours <- 16
+stst_engagement_hours <- 16
 tg_engagement_hours <- 18
 fafi_engagement_hours <- 20
 ```
@@ -1557,7 +1580,7 @@ fafi_engagement_hours <- 20
 ### Frequency
 
 ```{r frequency-score, echo = TRUE}
-frequency_score <- 0.85
+stst_frequency_score <- 0.85
 tg_frequency_score <- 0.50
 fafi_frequency_score <- 0.75
 ```
@@ -1565,7 +1588,7 @@ fafi_frequency_score <- 0.75
 ### Duration
 
 ```{r duration-score, echo = TRUE}
-duration_score <- 0.75
+stst_duration_score <- 0.75
 tg_duration_score <- 0.85
 fafi_duration_score <- 0.75
 ```
@@ -1581,9 +1604,10 @@ category_scores <- category_scores |>
   add_category(
     "STEM Studio",
     "Engagement",
-    engagement_hours,
-    frequency_score,
-    duration_score
+    stst_engagement_hours,
+    engagement_weight,
+    stst_frequency_score,
+    stst_duration_score
   )
 
 category_scores <- category_scores |>
@@ -1591,6 +1615,7 @@ category_scores <- category_scores |>
     "PD @ TG",
     "Engagement",
     tg_engagement_hours,
+    engagement_weight,
     tg_frequency_score,
     tg_duration_score
   )
@@ -1600,16 +1625,17 @@ category_scores <- category_scores |>
     "FAFI",
     "Engagement",
     fafi_engagement_hours,
+    engagement_weight,
     fafi_frequency_score,
     fafi_duration_score
   )
 
-engagement_component_list <- c("Number of Contact Hours",
-                                  "Frequency Component Score",
-                                  "Duration Component Score",
-                                  "Engagement Category Index",
-                                  "Engagement Category Score")
-
+# engagement_component_list <- c("Number of Contact Hours",
+#                                   "Frequency Component Score",
+#                                   "Duration Component Score",
+#                                   "Engagement Category Index",
+#                                   "Engagement Category Score")
+# 
 #engagement_table <- category_scores |>
 #  select(-project_name) |>
 #  create_display_table(
@@ -1624,6 +1650,10 @@ engagement_component_list <- c("Number of Contact Hours",
 ```
 
 ## Infrastructure Score
+
+```{r infrastructure-weight, echo=TRUE}
+infrastructure_weight <- 1.5
+```
 
 ```{r infrastructure-frame, echo=FALSE}
 infrastructure_frame <- data.frame(
@@ -1656,21 +1686,21 @@ infrastructure_frame |>
 ### Number of Intrastructure/Intermediate Products
 
 ```{r infrastructure-products, echo = TRUE}
-number_of_infrastructure_products <- 8
+stst_number_of_infrastructure_products <- 8
 tg_number_of_infrastructure_products <- 10
 fafi_number_of_infrastructure_products <- 12
 ```
 
 ### Infrastructure Purpose
 ```{r, echo = TRUE}
-infrastructure_purpose <- 0.90
+stst_infrastructure_purpose <- 0.90
 tg_infrastructure_purpose <- 0.90
 fafi_infrastructure_purpose <- 0.95
 ```
 
 ### Infrastructure Co-Construction
 ```{r, echo = TRUE}
-infrastructure_co_construction <- 0.10
+stst_infrastructure_co_construction <- 0.10
 tg_infrastructure_co_construction <- 0.10
 fafi_infrastructure_co_construction <- 0.50
 ```
@@ -1686,9 +1716,10 @@ category_scores <- category_scores |>
   add_category(
     "STEM Studio",
     "Infrastructure",
-    number_of_infrastructure_products,
-    infrastructure_purpose,
-    infrastructure_co_construction
+    stst_number_of_infrastructure_products,
+    infrastructure_weight,
+    stst_infrastructure_purpose,
+    stst_infrastructure_co_construction
   )
 
 category_scores <- category_scores |>
@@ -1696,6 +1727,7 @@ category_scores <- category_scores |>
     "PD @ TG",
     "Infrastructure",
     tg_number_of_infrastructure_products,
+    infrastructure_weight,
     tg_infrastructure_purpose,
     tg_infrastructure_co_construction
   )
@@ -1705,16 +1737,17 @@ category_scores <- category_scores |>
     "FAFI",
     "Infrastructure",
     fafi_number_of_infrastructure_products,
+    infrastructure_weight,
     fafi_infrastructure_purpose,
     fafi_infrastructure_co_construction
   )
 
-infrastructure_component_list <- c("Number of Infrasctructure Products",
-                                  "Infrastructure Purpose Score",
-                                  "Infrastructure Co-Construction Score",
-                                  "Infrastructure Category Index",
-                                  "Infrastructure Category Score")
-
+# infrastructure_component_list <- c("Number of Infrasctructure Products",
+#                                   "Infrastructure Purpose Score",
+#                                   "Infrastructure Co-Construction Score",
+#                                   "Infrastructure Category Index",
+#                                   "Infrastructure Category Score")
+# 
 #infrastructure_table <- category_scores |>
 #  select(-project_name) |>
 #  create_display_table(
@@ -1729,6 +1762,10 @@ infrastructure_component_list <- c("Number of Infrasctructure Products",
 ```
 
 ## Outputs Score
+
+```{r outputs-weight, echo=TRUE}
+outputs_weight <- 1.5
+```
 
 ```{r outputs-frame, echo=FALSE}
 outputs_frame <- data.frame(
@@ -1761,7 +1798,7 @@ outputs_frame |>
 ### Number of Outputs Products
 
 ```{r number-outputs, echo = TRUE}
-number_of_outputs <- 1
+stst_number_of_outputs <- 1
 tg_number_of_outputs <- 0
 fafi_number_of_outputs <- 6
 ```
@@ -1769,7 +1806,7 @@ fafi_number_of_outputs <- 6
 ### Distribution of Venues
 
 ```{r venue-distribution, echo = TRUE}
-distribution_of_venues <- 0.10
+stst_distribution_of_venues <- 0.10
 tg_distribution_of_venues <- 0.10
 fafi_distribution_of_venues <- 0.90
 ```
@@ -1777,7 +1814,7 @@ fafi_distribution_of_venues <- 0.90
 ### Inclusion of Participants and Partners
 
 ```{r participant-inclusion, echo = TRUE}
-inclusion_of_participants <- 0.90
+stst_inclusion_of_participants <- 0.90
 tg_inclusion_of_participants <- 0.10
 fafi_inclusion_of_participants <- 0.50
 ```
@@ -1793,9 +1830,10 @@ category_scores <- category_scores |>
   add_category(
     "STEM Studio",
     "Outputs",
-    number_of_outputs,
-    distribution_of_venues,
-    inclusion_of_participants
+    stst_number_of_outputs,
+    outputs_weight,
+    stst_distribution_of_venues,
+    stst_inclusion_of_participants
   )
 
 category_scores <- category_scores |>
@@ -1803,6 +1841,7 @@ category_scores <- category_scores |>
     "PD @ TG",
     "Outputs",
     tg_number_of_outputs,
+    outputs_weight,
     tg_distribution_of_venues,
     tg_inclusion_of_participants
   )
@@ -1812,16 +1851,17 @@ category_scores <- category_scores |>
     "FAFI",
     "Outputs",
     fafi_number_of_outputs,
+    outputs_weight,
     fafi_distribution_of_venues,
     fafi_inclusion_of_participants
   )
-
-outputs_component_list <- c("Number of Output Products",
-                                  "Distribution of Venues Score",
-                                  "Inclusion of Participants Score",
-                                  "Outputs Category Index",
-                                  "Outputs Category Score")
-
+# 
+# outputs_component_list <- c("Number of Output Products",
+#                                   "Distribution of Venues Score",
+#                                   "Inclusion of Participants Score",
+#                                   "Outputs Category Index",
+#                                   "Outputs Category Score")
+# 
 #outputs_table <- category_scores |>
 #  select(-project_name) |>
 #  create_display_table(
@@ -1836,6 +1876,10 @@ outputs_component_list <- c("Number of Output Products",
 ```
 
 ## Sustainability
+
+```{r sustainability-weight, echo=TRUE}
+sustainability_weight <- 2
+```
 
 ```{r sustainability-frame, echo=FALSE}
 sustainability_frame <- data.frame(
@@ -1868,7 +1912,7 @@ sustainability_frame |>
 ### Number of Institutional Partners
 
 ```{r partner-number, echo = TRUE}
-number_of_partners <- 2
+stst_number_of_partners <- 2
 tg_number_of_partners <- 1
 fafi_number_of_partners <- 4
 ```
@@ -1876,7 +1920,7 @@ fafi_number_of_partners <- 4
 ### Distribution of Responsibility
 
 ```{r responsibility-distribution, echo = TRUE}
-distribution_of_responsibility <- 0.5
+stst_distribution_of_responsibility <- 0.5
 tg_distribution_of_responsibility <- 0.5
 fafi_distribution_of_responsibility <- 0.9
 ```
@@ -1884,7 +1928,7 @@ fafi_distribution_of_responsibility <- 0.9
 ### Distribution of Material Support
 
 ```{r material-support, echo = TRUE}
-distribution_of_material_support <- 0.5
+stst_distribution_of_material_support <- 0.5
 tg_distribution_of_material_support <- 0.5
 fafi_distribution_of_material_support <- 0.5
 ```
@@ -1900,9 +1944,10 @@ category_scores <- category_scores |>
   add_category(
     "STEM Studio",
     "Sustainability",
-    number_of_partners,
-    distribution_of_responsibility,
-    distribution_of_material_support
+    stst_number_of_partners,
+    sustainability_weight,
+    stst_distribution_of_responsibility,
+    stst_distribution_of_material_support
   )
 
 category_scores <- category_scores |>
@@ -1910,6 +1955,7 @@ category_scores <- category_scores |>
     "PD @ TG",
     "Sustainability",
     tg_number_of_partners,
+    sustainability_weight,
     tg_distribution_of_responsibility,
     tg_distribution_of_material_support
   )
@@ -1919,16 +1965,17 @@ category_scores <- category_scores |>
     "FAFI",
     "Sustainability",
     fafi_number_of_partners,
+    sustainability_weight,
     fafi_distribution_of_responsibility,
     fafi_distribution_of_material_support
   )
-
-sustainability_component_list <- c("Number of Partners",
-                                  "Distribution of Responsibiilty Score",
-                                  "Distribution of Material Support Score",
-                                  "Sustainability Category Index",
-                                  "Sustainability Category Score")
-
+# 
+# sustainability_component_list <- c("Number of Partners",
+#                                   "Distribution of Responsibiilty Score",
+#                                   "Distribution of Material Support Score",
+#                                   "Sustainability Category Index",
+#                                   "Sustainability Category Score")
+# 
 #sustainability_table <- category_scores |>
 #  select(-project_name) |>
 #  create_display_table(
