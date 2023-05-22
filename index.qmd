@@ -1,5 +1,5 @@
 ---
-title: "CER-BEANS: Community Engaged Research Balanced Expressions and Assessments with Nuanced Scores"
+title: "CER &middot; BEANS: Community Engaged Research Balanced Expressions and Assessments with Nuanced Scores"
 subtitle: "A Framework for Constructing Quantitative Metrics for Community Engaged Research Projects"
 author:
   - name: Jeremy F Price 
@@ -62,7 +62,7 @@ category_scores <- data.frame(
   category_impact_number = integer(),
   category_index = double(),
   category_score = integer()
-  )
+)
 
 iu_palette <<- c(
   "#990000",
@@ -70,7 +70,7 @@ iu_palette <<- c(
   "#006298",
   "#7D4C73",
   "#056E41"
-  )
+)
 
 spiral_palette <<- c(
   "1" = "#990000",
@@ -129,23 +129,22 @@ credit_line <<- ggplot(
 
 lambda_ripple <<- 0.55
 
-  # Source and inspiration: https://datasketch.dev/post/2020-08-09-how-to-make-spirals-with-r/
-  # vogel_t <- 1:100
-  # vogel_r <- sqrt(vogel_t)
-  # golden_angle <- pi * (3 - sqrt(5))
-  # theta <- vogel_t * golden_angle
-  # vogel_x <- vogel_r * cos(theta)
-  # vogel_y <- vogel_r * sin(theta)
-  # vogel_coords <<- tibble::tibble(vogel_x, vogel_y)
+# Source and inspiration: https://datasketch.dev/post/2020-08-09-how-to-make-spirals-with-r/
+# vogel_t <- 1:100
+# vogel_r <- sqrt(vogel_t)
+# golden_angle <- pi * (3 - sqrt(5))
+# theta <- vogel_t * golden_angle
+# vogel_x <- vogel_r * cos(theta)
+# vogel_y <- vogel_r * sin(theta)
+# vogel_coords <<- tibble::tibble(vogel_x, vogel_y)
 # Archimedan
-  # n_arch <- 100
-  # # b separation of turns
-  # t_arch <- seq(0, 3  * 2 * pi, length.out = n_arch)
-  # x_arch <- (0 + 1 * t_arch) * cos(t_arch)
-  # y_arch <- (0 + 1 * t_arch) * sin(t_arch)
-  # arch_coords <- tibble::tibble(x_arch, y_arch)
-  # arch_coords$n <- 1:n
-
+# n_arch <- 100
+# # b separation of turns
+# t_arch <- seq(0, 3  * 2 * pi, length.out = n_arch)
+# x_arch <- (0 + 1 * t_arch) * cos(t_arch)
+# y_arch <- (0 + 1 * t_arch) * sin(t_arch)
+# arch_coords <- tibble::tibble(x_arch, y_arch)
+# arch_coords$n <- 1:n
 ```
 
 ```{r define-functions, echo=FALSE}
@@ -366,26 +365,25 @@ compile_badge <- function(the_donut, the_raw, the_labels, project_abbrev) {
     heights = c(8, 1, 1, 1)
   )
   ggsave(
-  detailed_badge,
-  filename = the_file,
-  dpi = 320,
-  width = 8,
-  height = 8,
-  units = "in"
+    detailed_badge,
+    filename = the_file,
+    dpi = 320,
+    width = 8,
+    height = 8,
+    units = "in"
   )
 }
 
 map_ripples <- function(the_project, the_frame) {
   the_project <- "PD @ TG"
   the_frame <- pdtg_ripple
-  
+
   the_frame <- the_frame |>
     filter(project_name == the_project) |>
     select(-project_name)
   library(DiagrammeR)
   the_graph <- the_frame |>
     graph_from_data_frame(directed = TRUE)
-  
 }
 
 map_spiral <- function(the_frame, the_colors, the_levels, the_grid) {
@@ -529,7 +527,7 @@ map_spiral <- function(the_frame, the_colors, the_levels, the_grid) {
     )
 }
 
-vogel_spiral <- function(n){
+vogel_spiral <- function(n) {
   t <- 1:n
   r <- sqrt(t)
   golden_angle <- pi * (3 - sqrt(5))
@@ -541,11 +539,11 @@ vogel_spiral <- function(n){
   d
 }
 
-archimedean_spiral <- function(n, a = 0, b = 1, turns = 3){
+archimedean_spiral <- function(n, a = 0, b = 1, turns = 3) {
   # b separation of turns
-  t <- seq(0, turns  * 2 *pi, length.out=n)
-  x <- (a + b*t) * cos(t)
-  y <- (a + b*t) * sin(t)
+  t <- seq(0, turns * 2 * pi, length.out = n)
+  x <- (a + b * t) * cos(t)
+  y <- (a + b * t) * sin(t)
   d <- tibble::tibble(x, y)
   d$n <- 1:n
   d
@@ -606,135 +604,135 @@ plot_vogel <- function(the_frame, the_labels) {
     levels = c(1:max(the_frame$group))
   )
   vogel_plot <- ggplot(the_frame) +
-  geom_segment(
-    aes(
-      x = -10,
-      y = 0,
-      xend = 10,
-      yend = 0
-    ),
-    color = "#eeeeee",
-    linetype = "solid",
-    linewidth = 0.01
-  ) +
-  geom_segment(
-    aes(
-      x = 0,
-      y = -10,
-      xend = 0,
-      yend = 10
-    ),
-    color = "#eeeeee",
-    linetype = "solid",
-    linewidth = 0.01
-  ) +
-  geom_segment(
-    aes(
-      x = 0,
-      y = 0,
-      xend = 8,
-      yend = -8
-    ),
-    color = "#eeeeee",
-    linetype = "solid",
-    linewidth = 0.01
-  ) +
-  geom_segment(
-    aes(
-      x = 0,
-      y = 0,
-      xend = 8,
-      yend = 8
-    ),
-    color = "#eeeeee",
-    linetype = "solid",
-    linewidth = 0.01
-  ) +
-  geom_segment(
-    aes(
-      x = 0,
-      y = 0,
-      xend = -8,
-      yend = -8
-    ),
-    color = "#eeeeee",
-    linetype = "solid",
-    linewidth = 0.01
-  ) +
-  geom_segment(
-    aes(
-      x = 0,
-      y = 0,
-      xend = -8,
-      yend = 8
-    ),
-    color = "#eeeeee",
-    linetype = "solid",
-    linewidth = 0.01
-  ) +
-  geom_circle(
-    aes(
-      x0 = 0,
-      y0 = 0,
-      r = 1
-    ),
-    color = "#eeeeee",
-    fill = "#ffffff"
-  ) +
-  geom_circle(
-    aes(
-      x0 = 0,
-      y0 = 0,
-      r = 5
-    ),
-    color = "#eeeeee"
-  ) +
-  geom_circle(
-    aes(
-      x0 = 0,
-      y0 = 0,
-      r = 10
-    ),
-    color = "#eeeeee"
-  ) +
-  geom_point(
-    aes(
-      x = 0,
-      y = 0
-    ),
-    color = "#eeeeee",
-    size = 2
-  ) +
-  geom_point(
-    aes(
-      x,
-      y,
-      color = group
-    ),
-    size = 6
-  ) +
-  coord_equal() +
-  scale_color_manual(
-    labels = the_labels,
-    values = spiral_palette
-  ) +
-  theme_minimal() +
-  theme(
-    axis.ticks = element_blank(),
-    axis.text = element_blank(),
-    axis.title = element_blank(),
-    panel.grid = element_blank(),
-    legend.title = element_blank(),
-    legend.position = "bottom",
-    panel.background = element_rect(
-      fill = "transparent",
-      color = NA
-    ),
-    plot.background = element_rect(
-      fill = "transparent",
-      color = NA
+    geom_segment(
+      aes(
+        x = -10,
+        y = 0,
+        xend = 10,
+        yend = 0
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.01
+    ) +
+    geom_segment(
+      aes(
+        x = 0,
+        y = -10,
+        xend = 0,
+        yend = 10
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.01
+    ) +
+    geom_segment(
+      aes(
+        x = 0,
+        y = 0,
+        xend = 8,
+        yend = -8
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.01
+    ) +
+    geom_segment(
+      aes(
+        x = 0,
+        y = 0,
+        xend = 8,
+        yend = 8
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.01
+    ) +
+    geom_segment(
+      aes(
+        x = 0,
+        y = 0,
+        xend = -8,
+        yend = -8
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.01
+    ) +
+    geom_segment(
+      aes(
+        x = 0,
+        y = 0,
+        xend = -8,
+        yend = 8
+      ),
+      color = "#eeeeee",
+      linetype = "solid",
+      linewidth = 0.01
+    ) +
+    geom_circle(
+      aes(
+        x0 = 0,
+        y0 = 0,
+        r = 1
+      ),
+      color = "#eeeeee",
+      fill = "#ffffff"
+    ) +
+    geom_circle(
+      aes(
+        x0 = 0,
+        y0 = 0,
+        r = 5
+      ),
+      color = "#eeeeee"
+    ) +
+    geom_circle(
+      aes(
+        x0 = 0,
+        y0 = 0,
+        r = 10
+      ),
+      color = "#eeeeee"
+    ) +
+    geom_point(
+      aes(
+        x = 0,
+        y = 0
+      ),
+      color = "#eeeeee",
+      size = 2
+    ) +
+    geom_point(
+      aes(
+        x,
+        y,
+        color = group
+      ),
+      size = 6
+    ) +
+    coord_equal() +
+    scale_color_manual(
+      labels = the_labels,
+      values = spiral_palette
+    ) +
+    theme_minimal() +
+    theme(
+      axis.ticks = element_blank(),
+      axis.text = element_blank(),
+      axis.title = element_blank(),
+      panel.grid = element_blank(),
+      legend.title = element_blank(),
+      legend.position = "bottom",
+      panel.background = element_rect(
+        fill = "transparent",
+        color = NA
+      ),
+      plot.background = element_rect(
+        fill = "transparent",
+        color = NA
+      )
     )
-  )
 }
 
 prep_composite <- function(the_frame, the_project) {
@@ -929,11 +927,18 @@ create_title_line <- function(title_description, title_score) {
   return(title_line)
 }
 
-calculate_indicator_score <- function(the_frame, the_project) {
+calculate_indicator_score <- function(the_frame, the_project, indicator_weights) {
   composite_indicator_score <- the_frame |>
-  filter(project_name == the_project) |>
-  tally(category_impact_number) |>
+    filter(project_name == the_project)
+  composite_indicator_score <- cbind(composite_indicator_score, indicator_weights)
+  composite_indicator_score <- composite_indicator_score |>
+    mutate(adj_indicator = category_impact_number * weights) |>
+    tally(adj_indicator) |>
     pull(n)
+  composite_indicator_score <- round(
+    composite_indicator_score,
+    digits = 0
+  )
 }
 
 construct_bottom_badge <- function(arch_title, ripple_title, composite_arch, vogel_ripple) {
@@ -988,6 +993,12 @@ prep_indicators <- function(the_frame, the_project) {
 }
 
 plot_indicators <- function(indicator_frame) {
+  if (0 %in% indicator_frame$category_impact_number) {
+    min_scale <- 0.01
+  } else {
+    min_scale <- ((min(indicator_frame$category_impact_number) /
+      sum(indicator_frame$category_impact_number)) * 60) + 5
+  }
   indicator_bubbles <- ggplot(indicator_frame) +
     geom_segment(
       aes(
@@ -1102,7 +1113,7 @@ plot_indicators <- function(indicator_frame) {
       values = iu_palette,
       labels = indicator_frame$category_labels
     ) +
-    scale_size(range = c(11, 60)) +
+    scale_size(range = c(min_scale, 60)) +
     guides(
       fill = FALSE,
       size = FALSE
@@ -1164,7 +1175,7 @@ count.
 Therefore:
 
 **Community Engaged Research Balanced Expressions and Assessments with Nuanced Scores
-(CER-BEANS)**[CER-BEANS is pronounced "Sir&nbsp;Beans."]{.aside}
+(CER &middot; BEANS)**[CER &middot; BEANS is pronounced "Sir&nbsp;Beans."]{.aside}
 
 I was inspired by the [Altmetric badge](https://www.altmetric.com/), so I want to
 make sure to create a system of beans that is:
@@ -1177,7 +1188,7 @@ should be focusing on.
 
 How 'bout *these* beans?
 
-![](outputs/pdtg_badge.png)
+![](outputs/fafi_badge.png)
 
 Pretty [*radicle,*](https://en.wikipedia.org/wiki/Radicle) eh?
 
@@ -1215,14 +1226,14 @@ These numbers are a guidepost for your readers--or more likely--your evaluators.
 
 Now that I've provided the warning, remember that academics are first and foremost
 makers of bean stalks[I make bean stalks, I'm<br />A builder, like yourself.<br />-- Edna St. Vincent Millay, [The Bean-Stalk](https://americanliterature.com/author/edna-st-vincent-millay/poem/the-bean-stalk)]{.aside}: we are trained to make cases and construct narratives.
-Here are some tips for you to consider about what CER-BEANS *does* provide for
+Here are some tips for you to consider about what CER &middot; BEANS *does* provide for
 you as you construct a narrative around your work:
 
 ::: {.callout-tip}
 
 ## Ways to Build Bean Stalks
 
-* 🪞 **Reflection:** It provides an overall reflection on your work and where you have focused your energies. CER-BEANS gives you an indication of the impact your work has had, allowing you to discuss your successes.
+* 🪞 **Reflection:** It provides an overall reflection on your work and where you have focused your energies. CER &middot; BEANS gives you an indication of the impact your work has had, allowing you to discuss your successes.
 
 * 📸 **Snapshot:** It provides a snapshot of where you are in a longer process, what has worked well so far, and where you will be focusing your efforts in the near future.
 
@@ -1230,7 +1241,7 @@ you as you construct a narrative around your work:
 
 :::
 
-CER-BEANS focuses on *five categories* and they each
+CER &middot; BEANS focuses on *five categories* and they each
 result in an `category score`. Each of the category scores contribute to the
 `overall score`. These are the five categories:
 
@@ -1246,7 +1257,7 @@ individual ratings represented by $r_{C1} \ldots r_C$). This is the general form
 for a `category score`:
 
 $$
-S_C = \beta_CI_C \left(1 + \frac{\sum r_{C_1} \ldots r_{C_n}}{|R_C|}\right)
+S_C = W_C \cdot I_C \cdot \left(1 + \frac{\sum r_{C_1} \ldots r_{C_n}}{|R_C|}\right)
 $$
 
 The process for computing each of the `category scores` is essentially calculating the
@@ -1318,7 +1329,8 @@ participants_frame <- data.frame(
     0.9,
     0.95,
     1
-  ))
+  )
+)
 gt(participants_frame)
 ```
 
@@ -1343,7 +1355,7 @@ This is a total of 50 direct participants.
 ```{r, echo = TRUE, echo = TRUE}
 tg_number_of_participants <- 70
 fafi_number_of_participants <- 50
-number_of_participants <- 7
+stst_number_of_participants <- 7
 ```
 
 ### Marginalized Proportions Score
@@ -1410,7 +1422,7 @@ fafi_intersectionally_marginalized_coefficient <- 1
 The Participant Component Score is calculated through the following equation:
 
 $$
-p_s = p_n \left( 1 + \frac{(\beta_m \cdot p_m + \beta_i \cdot p_i)}{2} \right)
+p_s = p_w \cdot p_n \cdot \left( 1 + \frac{(\beta_m \cdot p_m + \beta_i \cdot p_i)}{2} \right)
 $$
 
 ```{r calculate-participant-score, echo = FALSE}
@@ -1428,7 +1440,7 @@ category_scores <- category_scores |>
   add_category(
     "STEM Studio",
     "Participation",
-    number_of_participants,
+    stst_number_of_participants,
     participants_weight,
     stst_marginalized_proportions_score,
     stst_intersectionally_marginalized_score
@@ -1480,18 +1492,18 @@ category_scores <- category_scores |>
 #                                   "Participation Category Index",
 #                                   "Participation Category Score")
 # rank_adjusted <- FALSE
-# 
+#
 # if(stst_marginalized_proportions_coefficient < 1) {
 #   participation_component_list[2] <- "Marginalized Participation Score*"
 #   rank_adjusted <- TRUE
 # }
-# 
+#
 # if(stst_intersectionally_marginalized_value < 1) {
 #   participation_component_list[3] <- "Intersectionally Marginalized Participation Score*"
 #   rank_adjusted <- TRUE
 # }
 
-#participation_table <- category_scores |>
+# participation_table <- category_scores |>
 #  #select(-project_name) |>
 #  create_display_table(
 #    "Participation",
@@ -1500,15 +1512,15 @@ category_scores <- category_scores |>
 #    participation_component_list
 #  )
 
-#participation_table <- participation_table |>
+# participation_table <- participation_table |>
 #  gt()
 
-#if(rank_adjusted == TRUE) {
+# if(rank_adjusted == TRUE) {
 #  participation_table <- participation_table |>
 #      tab_footnote(footnote = "*Adjusted scores.")
-#}
+# }
 
-#participation_table
+# participation_table
 ```
 
 We find that the Professional Development Project has a Participant Index ($p_i$)
@@ -1540,7 +1552,7 @@ engagement_frame <- data.frame(
     "5 Times Per Week",
     "Daily"
   ),
-    duration = c(
+  duration = c(
     "One Day",
     "Less Than A Week",
     "One Week",
@@ -1563,7 +1575,8 @@ engagement_frame <- data.frame(
     0.9,
     0.95,
     1
-  ))
+  )
+)
 
 engagement_frame |>
   gt()
@@ -1596,7 +1609,7 @@ fafi_duration_score <- 0.75
 ### Calculate Engagement Score
 
 $$
-e_s = e_h \left(1 + \frac{(e_d + e_f)}{2}\right)
+e_s = e_w \cdot e_h \cdot \left(1 + \frac{(e_d + e_f)}{2}\right)
 $$
 
 ```{r calculate-engagement-score}
@@ -1635,8 +1648,8 @@ category_scores <- category_scores |>
 #                                   "Duration Component Score",
 #                                   "Engagement Category Index",
 #                                   "Engagement Category Score")
-# 
-#engagement_table <- category_scores |>
+#
+# engagement_table <- category_scores |>
 #  select(-project_name) |>
 #  create_display_table(
 #    "Engagement",
@@ -1645,7 +1658,7 @@ category_scores <- category_scores |>
 #    engagement_component_list
 #  )
 
-#engagement_table |>
+# engagement_table |>
 #  gt()
 ```
 
@@ -1664,7 +1677,7 @@ infrastructure_frame <- data.frame(
     "Promoting Mostly Efficiency And Recognizing Plurality, Multivocality, and Honor",
     "Promoting Efficiency, Plurality, Multivocality, and Honor Equitably"
   ),
-    co_construction = c(
+  co_construction = c(
     "Initiation and Construction From One Party",
     "Initiation and Construction From One Party With Feedback By Another",
     "Initiation From One Party and Construction By Another",
@@ -1677,7 +1690,8 @@ infrastructure_frame <- data.frame(
     0.9,
     0.95,
     1
-  ))
+  )
+)
 
 infrastructure_frame |>
   gt()
@@ -1747,8 +1761,8 @@ category_scores <- category_scores |>
 #                                   "Infrastructure Co-Construction Score",
 #                                   "Infrastructure Category Index",
 #                                   "Infrastructure Category Score")
-# 
-#infrastructure_table <- category_scores |>
+#
+# infrastructure_table <- category_scores |>
 #  select(-project_name) |>
 #  create_display_table(
 #    "Infrastructure",
@@ -1757,7 +1771,7 @@ category_scores <- category_scores |>
 #    infrastructure_component_list
 #  )
 
-#infrastructure_table |>
+# infrastructure_table |>
 #  gt()
 ```
 
@@ -1776,7 +1790,7 @@ outputs_frame <- data.frame(
     "Almost Even Mix of Venues",
     "Even Mix of Venues"
   ),
-    inclusion = c(
+  inclusion = c(
     "No Inclusion",
     "Member Check Opportunities",
     "Inclusion in Writing",
@@ -1789,7 +1803,8 @@ outputs_frame <- data.frame(
     0.90,
     0.95,
     1
-  ))
+  )
+)
 
 outputs_frame |>
   gt()
@@ -1855,14 +1870,14 @@ category_scores <- category_scores |>
     fafi_distribution_of_venues,
     fafi_inclusion_of_participants
   )
-# 
+#
 # outputs_component_list <- c("Number of Output Products",
 #                                   "Distribution of Venues Score",
 #                                   "Inclusion of Participants Score",
 #                                   "Outputs Category Index",
 #                                   "Outputs Category Score")
-# 
-#outputs_table <- category_scores |>
+#
+# outputs_table <- category_scores |>
 #  select(-project_name) |>
 #  create_display_table(
 #    "Outputs",
@@ -1871,7 +1886,7 @@ category_scores <- category_scores |>
 #    outputs_component_list
 #  )
 
-#outputs_table |>
+# outputs_table |>
 #  gt()
 ```
 
@@ -1890,7 +1905,7 @@ sustainability_frame <- data.frame(
     "Almost Equitable Distribution of Responsibility Across Partners",
     "Equitable Distribution of Responsibility Across Partners"
   ),
-    material = c(
+  material = c(
     "No Material Support",
     "Material Support Predominantly Through One Partner",
     "Material Support Mostly Through One or More Partners",
@@ -1903,7 +1918,8 @@ sustainability_frame <- data.frame(
     0.9,
     0.95,
     1
-  ))
+  )
+)
 
 sustainability_frame |>
   gt()
@@ -1969,14 +1985,14 @@ category_scores <- category_scores |>
     fafi_distribution_of_responsibility,
     fafi_distribution_of_material_support
   )
-# 
+#
 # sustainability_component_list <- c("Number of Partners",
 #                                   "Distribution of Responsibiilty Score",
 #                                   "Distribution of Material Support Score",
 #                                   "Sustainability Category Index",
 #                                   "Sustainability Category Score")
-# 
-#sustainability_table <- category_scores |>
+#
+# sustainability_table <- category_scores |>
 #  select(-project_name) |>
 #  create_display_table(
 #    "Sustainability",
@@ -1985,7 +2001,7 @@ category_scores <- category_scores |>
 #    sustainability_component_list
 #  )
 
-#sustainability_table |>
+# sustainability_table |>
 #  gt()
 ```
 
@@ -2019,6 +2035,8 @@ separation ($d_r$)[The $\log$ of $d_r + 1$ is calculated to avoid 0 in the denom
 and then multiplied by the decay constant ($\lambda_r$), providing a ripple effect score
 ($\eta_r$) at each degree of separation.
 
+### Teacher Professional Development
+
 For the Professional Development project, impact at each degree is determined this way:
 
 * *Direct Impact:* **70 teachers** participated in the Professional Development
@@ -2042,6 +2060,8 @@ pdtg_ripple <- data.frame(
   values = c(70, 522, 2088)
 )
 ```
+
+### Family as Faculty as an Infrastructure
 
 The Family as Faculty as an Infrastructure is a much more complex project, even
 though it may directly involve fewer people. As delineated in the
@@ -2083,33 +2103,61 @@ fafi_ripple <- data.frame(
 )
 ```
 
+### STEM Studio
+
+```{r set-stst-ripple, echo = TRUE}
+stst_ripple <- data.frame(
+  group = c(0, 1, 2),
+  group_name = c(
+    "Participants",
+    "Family Members",
+    "Friends"
+  ),
+  values = c(7, 28, 35)
+)
+```
+
+### Calculate and Visualize Ripple Effects
+
 ```{r calculate-plot-ripple}
 pdtg_ripple <- pdtg_ripple |> calculate_ripple()
 fafi_ripple <- fafi_ripple |> calculate_ripple()
+stst_ripple <- stst_ripple |> calculate_ripple()
 
 pdtg_vogel_frame <- pdtg_ripple |> prepare_vogel()
 fafi_vogel_frame <- fafi_ripple |> prepare_vogel()
+stst_vogel_frame <- stst_ripple |> prepare_vogel()
 
 pdtg_vogel_ripple <- pdtg_vogel_frame |> plot_vogel(pdtg_ripple$group_name)
 fafi_vogel_ripple <- fafi_vogel_frame |> plot_vogel(fafi_ripple$group_name)
+stst_vogel_ripple <- stst_vogel_frame |> plot_vogel(stst_ripple$group_name)
 
 pdtg_composite_ripple_score <- sum(pdtg_ripple$ripple_score)
 fafi_composite_ripple_score <- sum(fafi_ripple$ripple_score)
+stst_composite_ripple_score <- sum(stst_ripple$ripple_score)
 ```
 
 The Professional Development project has a Ripple Effect Score of **`r pdtg_composite_ripple_score`**.
 The ripple effect plot, based on a Vogel Spiral, looks like this:
 
 ```{r}
-  print(pdtg_vogel_ripple)
+print(pdtg_vogel_ripple)
 ```
 
 The Family as Faculty as an Infrastructure project has a Ripple Effect Score of
 **`r fafi_composite_ripple_score`**. The ripple effect plot looks like this:
 
 ```{r}
-  print(fafi_vogel_ripple)
+print(fafi_vogel_ripple)
 ```
+
+The STEM Studio project has a Ripple Effect Score of
+**`r stst_composite_ripple_score`**. The ripple effect plot looks like this:
+
+```{r}
+print(stst_vogel_ripple)
+```
+
 
 ::: {.callout-important}
 ## Remember that The Map is Not the Territory
@@ -2133,9 +2181,9 @@ pdtg_overall_score <- calculate_overall(category_scores, "PD @ TG")
 fafi_overall_score <- calculate_overall(category_scores, "FAFI")
 ```
 
-The Overall Score $S_O$ for the STEM Studio is `r stst_overall_score`, the
-Overall Score $S_O$ for the Professional Development is `r pdtg_overall_score`, and
-the Overall Score $S_O$ for Family as Faculty as an Infrastructure is `r fafi_overall_score`.
+The Overall Score $S_O$ for the STEM Studio is **`r stst_overall_score`**, the
+Overall Score $S_O$ for the Professional Development is **`r pdtg_overall_score`**, and
+the Overall Score $S_O$ for Family as Faculty as an Infrastructure is **`r fafi_overall_score`**.
 
 ## Overall Representation
 
@@ -2146,7 +2194,6 @@ the Overall Score $S_O$ for Family as Faculty as an Infrastructure is `r fafi_ov
 !["Here are my beans, come count them!" As imagined by Adobe Firefly.](assets/introbeans.jpg)
 
 ```{r represent, fig.showtext=TRUE, warning=FALSE, message=FALSE, echo=FALSE}
-
 category_names <- c(
   "Sustainability",
   "Outputs",
@@ -2159,28 +2206,60 @@ pdtg_composite_frame <- category_scores |>
   prep_composite("PD @ TG")
 fafi_composite_frame <- category_scores |>
   prep_composite("FAFI")
+stst_composite_frame <- category_scores |>
+  prep_composite("STEM Studio")
 
 pdtg_arch_frame <- pdtg_composite_frame |>
   prep_arch()
 fafi_arch_frame <- fafi_composite_frame |>
+  prep_arch()
+stst_arch_frame <- stst_composite_frame |>
   prep_arch()
 
 pdtg_composite_arch <- pdtg_arch_frame |>
   plot_arch(pdtg_composite_frame)
 fafi_composite_arch <- fafi_arch_frame |>
   plot_arch(fafi_composite_frame)
+stst_composite_arch <- stst_arch_frame |>
+  plot_arch(stst_composite_frame)
 
 pdtg_arch_title <- create_title_line("Composite Impact Score", pdtg_overall_score)
 fafi_arch_title <- create_title_line("Composite Impact Score", fafi_overall_score)
+stst_arch_title <- create_title_line("Composite Impact Score", stst_overall_score)
 
 pdtg_ripple_title <- create_title_line("Ripple Effect Score", pdtg_composite_ripple_score)
 fafi_ripple_title <- create_title_line("Ripple Effect Score", fafi_composite_ripple_score)
+stst_ripple_title <- create_title_line("Ripple Effect Score", stst_composite_ripple_score)
 
-pdtg_composite_indicator_score <- calculate_indicator_score(category_scores, "PD @ TG")
-fafi_composite_indicator_score <- calculate_indicator_score(category_scores, "FAFI")
+indicator_weights <- data.frame(
+  weights = c(
+    participants_weight,
+    engagement_weight,
+    infrastructure_weight,
+    outputs_weight,
+    sustainability_weight
+  )
+)
+
+pdtg_composite_indicator_score <- calculate_indicator_score(
+  category_scores,
+  "PD @ TG",
+  indicator_weights
+)
+fafi_composite_indicator_score <- calculate_indicator_score(
+  category_scores,
+  "FAFI",
+  indicator_weights
+)
+stst_composite_indicator_score <- calculate_indicator_score(
+  category_scores,
+  "STEM Studio",
+  indicator_weights
+)
 
 pdtg_indicator_title <- create_title_line("Direct Indicator Score", pdtg_composite_indicator_score)
 fafi_indicator_title <- create_title_line("Direct Indicator Score", fafi_composite_indicator_score)
+stst_indicator_title <- create_title_line("Direct Indicator Score", stst_composite_indicator_score)
 
 pdtg_bottom_badge <- construct_bottom_badge(
   pdtg_arch_title,
@@ -2194,12 +2273,20 @@ fafi_bottom_badge <- construct_bottom_badge(
   fafi_composite_arch,
   fafi_vogel_ripple
 )
+stst_bottom_badge <- construct_bottom_badge(
+  stst_arch_title,
+  stst_ripple_title,
+  stst_composite_arch,
+  stst_vogel_ripple
+)
 
 pdtg_indicator_frame <- prep_indicators(category_scores, "PD @ TG")
 fafi_indicator_frame <- prep_indicators(category_scores, "FAFI")
+stst_indicator_frame <- prep_indicators(category_scores, "STEM Studio")
 
 pdtg_indicator_plot <- plot_indicators(pdtg_indicator_frame)
 fafi_indicator_plot <- plot_indicators(fafi_indicator_frame)
+stst_indicator_plot <- plot_indicators(stst_indicator_frame)
 
 pdtg_badge <- construct_badge(
   pdtg_indicator_title,
@@ -2213,10 +2300,18 @@ fafi_badge <- construct_badge(
   fafi_bottom_badge
 )
 
+stst_badge <- construct_badge(
+  stst_indicator_title,
+  stst_indicator_plot,
+  stst_bottom_badge
+)
+
 ggsave("outputs/pdtg_badge.png", pdtg_badge, width = 16, height = 10, units = "in", dpi = 320)
 ggsave("outputs/pdtg_badge.pdf", pdtg_badge, width = 16, height = 10, units = "in", dpi = 320)
 ggsave("outputs/fafi_badge.png", fafi_badge, width = 16, height = 10, units = "in", dpi = 320)
 ggsave("outputs/fafi_badge.pdf", fafi_badge, width = 16, height = 10, units = "in", dpi = 320)
+ggsave("outputs/stst_badge.png", stst_badge, width = 16, height = 10, units = "in", dpi = 320)
+ggsave("outputs/stst_badge.pdf", stst_badge, width = 16, height = 10, units = "in", dpi = 320)
 ```
 
 ### Professional Development Example
@@ -2226,8 +2321,15 @@ An example of a detailed badge for a professional development program at a schoo
 :::{.column-page-inset}
 ![](outputs/pdtg_badge.png)
 :::
+
 ### Family as Faculty as Infrastructure Example
 
 :::{.column-page-inset}
 ![](outputs/fafi_badge.png)
+:::
+
+### STEM Studio Example
+
+:::{.column-page-inset}
+![](outputs/stst_badge.png)
 :::
