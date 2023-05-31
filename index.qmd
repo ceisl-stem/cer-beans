@@ -1,5 +1,5 @@
 ---
-title: "CER &middot; BEANS: Community Engaged Research Balanced Expressions and Assessments with Nuanced Scores"
+title: "CER ⋅ BEANS: Community Engaged Research Balanced Expressions and Assessments with Nuanced Scores"
 subtitle: "A Framework for Constructing Quantitative Metrics for Community Engaged Research Projects"
 author:
   - name: Jeremy F Price 
@@ -1188,7 +1188,7 @@ should be focusing on.
 
 How 'bout *these* beans?
 
-![](outputs/fafi_badge.png)
+![](outputs/fafi_dashboard.png)
 
 Pretty [*radicle,*](https://en.wikipedia.org/wiki/Radicle) eh?
 
@@ -1353,9 +1353,10 @@ the participants consisted of the following:
 This is a total of 50 direct participants.
 
 ```{r, echo = TRUE, echo = TRUE}
-tg_number_of_participants <- 70
+tg_number_of_participants <- 65
 fafi_number_of_participants <- 50
 stst_number_of_participants <- 7
+bspd_number_of_participants <- 45
 ```
 
 ### Marginalized Proportions Score
@@ -1388,6 +1389,8 @@ tg_marginalized_proportions_value <- 0.95
 tg_marginalized_proportions_coefficient <- 0.85
 fafi_marginalized_proportions_value <- 0.75
 fafi_marginalized_proportions_coefficient <- 1
+bspd_marginalized_proportions_value <- 0.95
+bspd_marginalized_proportions_coefficient <- 0.85
 ```
 
 ### Intersectionally Marginalized Proportions Score
@@ -1415,6 +1418,8 @@ tg_intersectionally_marginalized_value <- 0.95
 tg_intersectionally_marginalized_coefficient <- 0.85
 fafi_intersectionally_marginalized_value <- 0.75
 fafi_intersectionally_marginalized_coefficient <- 1
+bspd_intersectionally_marginalized_value <- 0.95
+bspd_intersectionally_marginalized_coefficient <- 0.85
 ```
 
 ### Calculate Participant Component Score
@@ -1455,6 +1460,26 @@ tg_intersectionally_marginalized_score <- adjust_component_score(
   tg_intersectionally_marginalized_value,
   tg_intersectionally_marginalized_coefficient
 )
+
+bspd_marginalized_proportions_score <- adjust_component_score(
+  bspd_marginalized_proportions_value,
+  bspd_marginalized_proportions_coefficient
+)
+
+bspd_intersectionally_marginalized_score <- adjust_component_score(
+  bspd_intersectionally_marginalized_value,
+  bspd_intersectionally_marginalized_coefficient
+)
+
+category_scores <- category_scores |>
+  add_category(
+    "PD @ BS",
+    "Participation",
+    bspd_number_of_participants,
+    participants_weight,
+    bspd_marginalized_proportions_score,
+    bspd_intersectionally_marginalized_score
+  )
 
 category_scores <- category_scores |>
   add_category(
@@ -1588,6 +1613,7 @@ engagement_frame |>
 stst_engagement_hours <- 16
 tg_engagement_hours <- 18
 fafi_engagement_hours <- 20
+bspd_engagement_hours <- 18
 ```
 
 ### Frequency
@@ -1596,6 +1622,7 @@ fafi_engagement_hours <- 20
 stst_frequency_score <- 0.85
 tg_frequency_score <- 0.50
 fafi_frequency_score <- 0.75
+bspd_frequency_score <- 0.50
 ```
   
 ### Duration
@@ -1604,6 +1631,7 @@ fafi_frequency_score <- 0.75
 stst_duration_score <- 0.75
 tg_duration_score <- 0.85
 fafi_duration_score <- 0.75
+bspd_duration_score <- 0.85
 ```
 
 ### Calculate Engagement Score
@@ -1631,6 +1659,16 @@ category_scores <- category_scores |>
     engagement_weight,
     tg_frequency_score,
     tg_duration_score
+  )
+
+category_scores <- category_scores |>
+  add_category(
+    "PD @ BS",
+    "Engagement",
+    bspd_engagement_hours,
+    engagement_weight,
+    bspd_frequency_score,
+    bspd_duration_score
   )
 
 category_scores <- category_scores |>
@@ -1701,14 +1739,16 @@ infrastructure_frame |>
 
 ```{r infrastructure-products, echo = TRUE}
 stst_number_of_infrastructure_products <- 8
-tg_number_of_infrastructure_products <- 10
+tg_number_of_infrastructure_products <- 20
+bspd_number_of_infrastructure_products <- 20
 fafi_number_of_infrastructure_products <- 12
 ```
 
 ### Infrastructure Purpose
 ```{r, echo = TRUE}
 stst_infrastructure_purpose <- 0.90
-tg_infrastructure_purpose <- 0.90
+tg_infrastructure_purpose <- 0.95
+bspd_infrastructure_purpose <- 0.95
 fafi_infrastructure_purpose <- 0.95
 ```
 
@@ -1716,6 +1756,7 @@ fafi_infrastructure_purpose <- 0.95
 ```{r, echo = TRUE}
 stst_infrastructure_co_construction <- 0.10
 tg_infrastructure_co_construction <- 0.10
+bspd_infrastructure_co_construction <- 0.10
 fafi_infrastructure_co_construction <- 0.50
 ```
 
@@ -1744,6 +1785,16 @@ category_scores <- category_scores |>
     infrastructure_weight,
     tg_infrastructure_purpose,
     tg_infrastructure_co_construction
+  )
+
+category_scores <- category_scores |>
+  add_category(
+    "PD @ BS",
+    "Infrastructure",
+    bspd_number_of_infrastructure_products,
+    infrastructure_weight,
+    bspd_infrastructure_purpose,
+    bspd_infrastructure_co_construction
   )
 
 category_scores <- category_scores |>
@@ -1815,6 +1866,7 @@ outputs_frame |>
 ```{r number-outputs, echo = TRUE}
 stst_number_of_outputs <- 1
 tg_number_of_outputs <- 0
+bspd_number_of_outputs <- 0
 fafi_number_of_outputs <- 6
 ```
 
@@ -1823,6 +1875,7 @@ fafi_number_of_outputs <- 6
 ```{r venue-distribution, echo = TRUE}
 stst_distribution_of_venues <- 0.10
 tg_distribution_of_venues <- 0.10
+bspd_distribution_of_venues <- 0.10
 fafi_distribution_of_venues <- 0.90
 ```
 
@@ -1831,6 +1884,7 @@ fafi_distribution_of_venues <- 0.90
 ```{r participant-inclusion, echo = TRUE}
 stst_inclusion_of_participants <- 0.90
 tg_inclusion_of_participants <- 0.10
+bspd_inclusion_of_participants <- 0.10
 fafi_inclusion_of_participants <- 0.50
 ```
 
@@ -1859,6 +1913,16 @@ category_scores <- category_scores |>
     outputs_weight,
     tg_distribution_of_venues,
     tg_inclusion_of_participants
+  )
+
+category_scores <- category_scores |>
+  add_category(
+    "PD @ BS",
+    "Outputs",
+    bspd_number_of_outputs,
+    outputs_weight,
+    bspd_distribution_of_venues,
+    bspd_inclusion_of_participants
   )
 
 category_scores <- category_scores |>
@@ -1930,6 +1994,7 @@ sustainability_frame |>
 ```{r partner-number, echo = TRUE}
 stst_number_of_partners <- 2
 tg_number_of_partners <- 1
+bspd_number_of_partners <- 1
 fafi_number_of_partners <- 4
 ```
 
@@ -1938,6 +2003,7 @@ fafi_number_of_partners <- 4
 ```{r responsibility-distribution, echo = TRUE}
 stst_distribution_of_responsibility <- 0.5
 tg_distribution_of_responsibility <- 0.5
+bspd_distribution_of_responsibility <- 0.5
 fafi_distribution_of_responsibility <- 0.9
 ```
 
@@ -1946,6 +2012,7 @@ fafi_distribution_of_responsibility <- 0.9
 ```{r material-support, echo = TRUE}
 stst_distribution_of_material_support <- 0.5
 tg_distribution_of_material_support <- 0.5
+bspd_distribution_of_material_support <- 0.5
 fafi_distribution_of_material_support <- 0.5
 ```
 
@@ -1974,6 +2041,16 @@ category_scores <- category_scores |>
     sustainability_weight,
     tg_distribution_of_responsibility,
     tg_distribution_of_material_support
+  )
+
+category_scores <- category_scores |>
+  add_category(
+    "PD @ BS",
+    "Sustainability",
+    bspd_number_of_partners,
+    sustainability_weight,
+    bspd_distribution_of_responsibility,
+    bspd_distribution_of_material_support
   )
 
 category_scores <- category_scores |>
@@ -2039,9 +2116,9 @@ and then multiplied by the decay constant ($\lambda_r$), providing a ripple effe
 
 For the Professional Development project, impact at each degree is determined this way:
 
-* *Direct Impact:* **70 teachers** participated in the Professional Development
+* *Direct Impact:* **65 teachers** participated in the Professional Development
 project.
-* *1 Degree of Separation:* There are **522 students** enrolled in the school,
+* *1 Degree of Separation:* There are **575 students** enrolled in the school,
 resulting in the likelihood that there will be some impact from the
 Professional Development.
 * *2 Degrees of Separation:* The [average family size in Indianapolis](https://en.wikipedia.org/wiki/Indianapolis_(balance)) is 3.04 people.
@@ -2057,7 +2134,19 @@ pdtg_ripple <- data.frame(
     "Students",
     "Family Members"
   ),
-  values = c(70, 522, 2088)
+  values = c(65, 575, 2300)
+)
+```
+
+```{r set-bspd-ripple, echo = TRUE}
+bspd_ripple <- data.frame(
+  group = c(0, 1, 2),
+  group_name = c(
+    "Teachers",
+    "Students",
+    "Family Members"
+  ),
+  values = c(45, 388, 1552)
 )
 ```
 
@@ -2121,18 +2210,22 @@ stst_ripple <- data.frame(
 
 ```{r calculate-plot-ripple}
 pdtg_ripple <- pdtg_ripple |> calculate_ripple()
+bspd_ripple <- bspd_ripple |> calculate_ripple()
 fafi_ripple <- fafi_ripple |> calculate_ripple()
 stst_ripple <- stst_ripple |> calculate_ripple()
 
 pdtg_vogel_frame <- pdtg_ripple |> prepare_vogel()
+bspd_vogel_frame <- bspd_ripple |> prepare_vogel()
 fafi_vogel_frame <- fafi_ripple |> prepare_vogel()
 stst_vogel_frame <- stst_ripple |> prepare_vogel()
 
 pdtg_vogel_ripple <- pdtg_vogel_frame |> plot_vogel(pdtg_ripple$group_name)
+bspd_vogel_ripple <- bspd_vogel_frame |> plot_vogel(bspd_ripple$group_name)
 fafi_vogel_ripple <- fafi_vogel_frame |> plot_vogel(fafi_ripple$group_name)
 stst_vogel_ripple <- stst_vogel_frame |> plot_vogel(stst_ripple$group_name)
 
 pdtg_composite_ripple_score <- sum(pdtg_ripple$ripple_score)
+bspd_composite_ripple_score <- sum(bspd_ripple$ripple_score)
 fafi_composite_ripple_score <- sum(fafi_ripple$ripple_score)
 stst_composite_ripple_score <- sum(stst_ripple$ripple_score)
 ```
@@ -2142,6 +2235,10 @@ The ripple effect plot, based on a Vogel Spiral, looks like this:
 
 ```{r}
 print(pdtg_vogel_ripple)
+```
+
+```{r}
+print(bspd_vogel_ripple)
 ```
 
 The Family as Faculty as an Infrastructure project has a Ripple Effect Score of
@@ -2178,6 +2275,7 @@ $$
 ```{r}
 stst_overall_score <- calculate_overall(category_scores, "STEM Studio")
 pdtg_overall_score <- calculate_overall(category_scores, "PD @ TG")
+bspd_overall_score <- calculate_overall(category_scores, "PD @ BS")
 fafi_overall_score <- calculate_overall(category_scores, "FAFI")
 ```
 
@@ -2204,12 +2302,16 @@ category_names <- c(
 
 pdtg_composite_frame <- category_scores |>
   prep_composite("PD @ TG")
+bspd_composite_frame <- category_scores |>
+  prep_composite("PD @ BS")
 fafi_composite_frame <- category_scores |>
   prep_composite("FAFI")
 stst_composite_frame <- category_scores |>
   prep_composite("STEM Studio")
 
 pdtg_arch_frame <- pdtg_composite_frame |>
+  prep_arch()
+bspd_arch_frame <- bspd_composite_frame |>
   prep_arch()
 fafi_arch_frame <- fafi_composite_frame |>
   prep_arch()
@@ -2218,16 +2320,20 @@ stst_arch_frame <- stst_composite_frame |>
 
 pdtg_composite_arch <- pdtg_arch_frame |>
   plot_arch(pdtg_composite_frame)
+bspd_composite_arch <- bspd_arch_frame |>
+  plot_arch(bspd_composite_frame)
 fafi_composite_arch <- fafi_arch_frame |>
   plot_arch(fafi_composite_frame)
 stst_composite_arch <- stst_arch_frame |>
   plot_arch(stst_composite_frame)
 
 pdtg_arch_title <- create_title_line("Composite Impact Score", pdtg_overall_score)
+bspd_arch_title <- create_title_line("Composite Impact Score", bspd_overall_score)
 fafi_arch_title <- create_title_line("Composite Impact Score", fafi_overall_score)
 stst_arch_title <- create_title_line("Composite Impact Score", stst_overall_score)
 
 pdtg_ripple_title <- create_title_line("Ripple Effect Score", pdtg_composite_ripple_score)
+bspd_ripple_title <- create_title_line("Ripple Effect Score", bspd_composite_ripple_score)
 fafi_ripple_title <- create_title_line("Ripple Effect Score", fafi_composite_ripple_score)
 stst_ripple_title <- create_title_line("Ripple Effect Score", stst_composite_ripple_score)
 
@@ -2246,6 +2352,11 @@ pdtg_composite_indicator_score <- calculate_indicator_score(
   "PD @ TG",
   indicator_weights
 )
+bspd_composite_indicator_score <- calculate_indicator_score(
+  category_scores,
+  "PD @ BS",
+  indicator_weights
+)
 fafi_composite_indicator_score <- calculate_indicator_score(
   category_scores,
   "FAFI",
@@ -2258,6 +2369,7 @@ stst_composite_indicator_score <- calculate_indicator_score(
 )
 
 pdtg_indicator_title <- create_title_line("Direct Indicator Score", pdtg_composite_indicator_score)
+bspd_indicator_title <- create_title_line("Direct Indicator Score", bspd_composite_indicator_score)
 fafi_indicator_title <- create_title_line("Direct Indicator Score", fafi_composite_indicator_score)
 stst_indicator_title <- create_title_line("Direct Indicator Score", stst_composite_indicator_score)
 
@@ -2266,6 +2378,12 @@ pdtg_bottom_badge <- construct_bottom_badge(
   pdtg_ripple_title,
   pdtg_composite_arch,
   pdtg_vogel_ripple
+)
+bspd_bottom_badge <- construct_bottom_badge(
+  bspd_arch_title,
+  bspd_ripple_title,
+  bspd_composite_arch,
+  bspd_vogel_ripple
 )
 fafi_bottom_badge <- construct_bottom_badge(
   fafi_arch_title,
@@ -2281,10 +2399,12 @@ stst_bottom_badge <- construct_bottom_badge(
 )
 
 pdtg_indicator_frame <- prep_indicators(category_scores, "PD @ TG")
+bspd_indicator_frame <- prep_indicators(category_scores, "PD @ BS")
 fafi_indicator_frame <- prep_indicators(category_scores, "FAFI")
 stst_indicator_frame <- prep_indicators(category_scores, "STEM Studio")
 
 pdtg_indicator_plot <- plot_indicators(pdtg_indicator_frame)
+bspd_indicator_plot <- plot_indicators(pdtg_indicator_frame)
 fafi_indicator_plot <- plot_indicators(fafi_indicator_frame)
 stst_indicator_plot <- plot_indicators(stst_indicator_frame)
 
@@ -2292,6 +2412,12 @@ pdtg_badge <- construct_badge(
   pdtg_indicator_title,
   pdtg_indicator_plot,
   pdtg_bottom_badge
+)
+
+bspd_badge <- construct_badge(
+  bspd_indicator_title,
+  bspd_indicator_plot,
+  bspd_bottom_badge
 )
 
 fafi_badge <- construct_badge(
@@ -2306,12 +2432,14 @@ stst_badge <- construct_badge(
   stst_bottom_badge
 )
 
-ggsave("outputs/pdtg_badge.png", pdtg_badge, width = 16, height = 10, units = "in", dpi = 320)
-ggsave("outputs/pdtg_badge.pdf", pdtg_badge, width = 16, height = 10, units = "in", dpi = 320)
-ggsave("outputs/fafi_badge.png", fafi_badge, width = 16, height = 10, units = "in", dpi = 320)
-ggsave("outputs/fafi_badge.pdf", fafi_badge, width = 16, height = 10, units = "in", dpi = 320)
-ggsave("outputs/stst_badge.png", stst_badge, width = 16, height = 10, units = "in", dpi = 320)
-ggsave("outputs/stst_badge.pdf", stst_badge, width = 16, height = 10, units = "in", dpi = 320)
+ggsave("outputs/pdtg_dashboard.png", pdtg_badge, width = 16, height = 10, units = "in", dpi = 320)
+ggsave("outputs/pdtg_dashboard.pdf", pdtg_badge, width = 16, height = 10, units = "in", dpi = 320)
+ggsave("outputs/bspd_dashboard.png", bspd_badge, width = 16, height = 10, units = "in", dpi = 320)
+ggsave("outputs/bspd_dashboard.pdf", bspd_badge, width = 16, height = 10, units = "in", dpi = 320)
+ggsave("outputs/fafi_dashboard.png", fafi_badge, width = 16, height = 10, units = "in", dpi = 320)
+ggsave("outputs/fafi_dashboard.pdf", fafi_badge, width = 16, height = 10, units = "in", dpi = 320)
+ggsave("outputs/stst_dashboard.png", stst_badge, width = 16, height = 10, units = "in", dpi = 320)
+ggsave("outputs/stst_dashboard.pdf", stst_badge, width = 16, height = 10, units = "in", dpi = 320)
 ```
 
 ### Professional Development Example
@@ -2319,17 +2447,21 @@ ggsave("outputs/stst_badge.pdf", stst_badge, width = 16, height = 10, units = "i
 An example of a detailed badge for a professional development program at a school. This badge contains multiple levels of information including the overall score, the ripple effect score, and direct indicators.
 
 :::{.column-page-inset}
-![](outputs/pdtg_badge.png)
+![](outputs/pdtg_dashboard.png)
+:::
+
+:::{.column-page-inset}
+![](outputs/bspd_dashboard.png)
 :::
 
 ### Family as Faculty as Infrastructure Example
 
 :::{.column-page-inset}
-![](outputs/fafi_badge.png)
+![](outputs/fafi_dashboard.png)
 :::
 
 ### STEM Studio Example
 
 :::{.column-page-inset}
-![](outputs/stst_badge.png)
+![](outputs/stst_dashboard.png)
 :::
